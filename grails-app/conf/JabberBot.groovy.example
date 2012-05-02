@@ -1,0 +1,30 @@
+environments {
+    development {
+        // conversations expire in 2 minutes
+        conversationExpiracy = 1000 * 60 * 2
+        chat.cronExpression = '0 0 0-23 ? * *'
+        event.cronExpression = '0 0 0-23 ? * *'
+        reconnect.cronExpression = '0 0 * ? * *'
+        reminder.cronExpression = '0 0 * ? * *'
+        timeConverter.cronExpression = '0 3 23 ? * *'
+        projectFollowUp.cronExpression = '0 0 9 ? * *'
+        jabber.host = 'gmail.com'
+        jabber.username = 'your_jabber_user'
+        jabber.password = 'your_jabber_password'
+        jabber.firstname = 'Project'
+        jabber.lastname = 'Guide'
+        jabber.status = 'Tracking Hours'
+        jabber.organization = 'Your Organization'
+        jabber.avatar = 'biohazard.jpg'
+        twitter.username = 'some_twitter_user'
+        twitter.password = 'your_jabber_password'
+
+        // Avatars: gravatar.com
+        avatarPlugin {
+          defaultGravatarUrl="""http://127.0.0.1:8080/projectguide/images/no_avatar.gif"""
+          gravatarRating="G"
+        }
+        grails.dbconsole.enabled = true
+    }
+}
+

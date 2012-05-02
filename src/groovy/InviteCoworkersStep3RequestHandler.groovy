@@ -1,0 +1,119 @@
+import groovy.text.SimpleTemplateEngine
+import org.grails.plugins.springsecurity.service.AuthenticateService
+import org.codehaus.groovy.grails.commons.ApplicationHolder
+import org.springframework.context.MessageSource
+import org.springframework.mail.MailSender
+import javax.mail.internet.MimeMessage
+import org.springframework.mail.javamail.MimeMessageHelper
+import org.springframework.mail.MailException
+import javax.mail.MessagingException
+
+/**
+ * @author Leandro Larroulet
+ * Date: Sep 13, 2010
+ * Time: 13:05
+ */
+
+class InviteCoworkersStep3RequestHandler extends RequestHandler {
+
+    def accepts(Conversation _conversation) {
+      boolean accepted = _conversation.context.inviteCoworkers3
+      return accepted
+    }
+
+    def doHandle(Conversation _conversation, ChatService _chatService) {
+      _conversation.context.clear()
+
+      User user =_conversation.actualRequest.user
+
+      String actualMessage = _conversation.actualRequest.message
+
+      // Actual Message tiene la lista de emails.
+      def emails = actualMessage.split('[,]')
+      def huboErrores = false
+
+      JabberService jb = new JabberService()
+      AuthenticateService aserv = new AuthenticateService()
+      EmailerService es = new EmailerService()
+
+      emails.each {String email ->
+        // Validamos email.
+        String emailAccount = email.trim()
+
+        if (jb.isValidAccount(emailAccount)){
+          EmailerService eS = new EmailerService()
+
+          inviteUser(user, emailAccount, aserv, es, _conversation)
+        } else {
+          huboErrores = true
+        }
+      }
+
+      if (!huboErrores){
+        _conversation.responses << Response.build('sweet.InviteCoworkersStep3RequestHandlerOk')
+        _conversation.context.clear()
+      } else {
+        _conversation.responses << Response.build('sweet.InviteCoworkersStep3RequestHandlerError')
+        _conversation.context.clear()
+        _conversation.context.inviteCoworkers3=true
+      }
+      return
+    }
+
+
+    private inviteUser(User user, String invitee, AuthenticateService aserv, EmailerService eserv, Conversation _conversation){
+      if (!User.findByAccount(invitee)) {
+
+        Invitation invitation = new Invitation()
+        invitation.inviter = user
+        invitation.invitee = invitee
+        invitation.invited = new Date()
+        invitation.code = String.valueOf(System.currentTimeMillis())+String.valueOf(System.currentTimeMillis()-1900)
+        invitation.validate()
+
+        if (!invitation.hasErrors()) {
+          invitation.save()
+
+          MessageSource messageSource = ApplicationHolder.application.mainContext.getBean('messageSource')
+
+          Configuration serverAddress = Configuration.findByOptionName("app.url")
+          Configuration ctxPath = Configuration.findByOptionName("app.contextPath")
+
+          def email = [
+                  to: [invitation.invitee],
+                  subject: messageSource.getMessage('invitation.mail.subject', null, user.locale),
+                  from: messageSource.getMessage('application.email', null, user.locale),
+                  text: messageSource.getMessage('invitation.mail.body', ["http://${serverAddress.optionStringValue}${ctxPath.optionStringValue}/register/acceptInvitation?code=${invitation.code}"] as Object[], user.locale),
+          ]
+          sendEmail([email])
+        } 
+      }
+    }
+
+
+    /**
+     * Send a list of emails
+     *
+     * @param mails a list of maps
+     */
+    def sendEmail(mails) {
+        MailSender mailSender = ApplicationHolder.application.mainContext.getBean('mailSender')
+        def messages = mails.collect { mail ->
+            MimeMessage mimeMessage = mailSender.createMimeMessage()
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "ISO-8859-1")
+            helper.to = mail.to
+            helper.subject = mail.subject
+            helper.setText(mail.text, true)
+            helper.from = mail.from
+            mimeMessage
+        }
+        try {
+            mailSender.send messages as MimeMessage[]
+        } catch (MailException ex) {
+
+        } catch (MessagingException ex) {
+            
+        }
+    }
+
+}

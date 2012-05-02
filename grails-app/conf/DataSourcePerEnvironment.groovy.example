@@ -1,0 +1,16 @@
+environments {
+    development {
+        dataSource {
+            dbCreate = 'update' // one of 'create', 'create-drop','update'
+            driverClassName = 'com.mysql.jdbc.Driver'
+            url = 'jdbc:mysql://localhost/project_guide'
+            username = 'project_guide'
+            password = 'pguide'
+            logSql = true
+        }
+        hibernate {
+            show_sql = true
+        }
+    }
+}
+

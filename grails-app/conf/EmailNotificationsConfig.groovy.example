@@ -1,0 +1,14 @@
+environments {
+    development {
+        mailSender {
+            useMail = true
+            mailHost = 'smtp.gmail.com'
+            mailPort = 587
+            mailUsername = 'youremail@gmail.com'
+            mailPassword = 'yourpassword'
+            mailProtocol = 'smtp'
+            mailFrom = 'youremail@gmail.com'
+            javaMailProperties = ['mail.smtp.auth': 'true', 'mail.smtp.starttls.enable': 'true', 'mail.smtp.starttls.required': 'true']
+        }
+    }
+}
