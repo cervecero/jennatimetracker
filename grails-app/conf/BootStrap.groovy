@@ -128,18 +128,6 @@ class BootStrap {
             taskCategory.save()
         }
 		
-		//FIXME: REMOVE!
-		def appUrl = Configuration.findByOptionName("app.url")
-		if (!appUrl) {
-			appUrl = new Configuration(optionName:"app.url", optionStringValue: "localhost:8080")
-			appUrl.save()
-		}
-		def contextPath = Configuration.findByOptionName("app.contextPath")
-		if (!contextPath) {
-			contextPath = new Configuration(optionName:"app.contextPath", optionStringValue: "projectguide")
-			contextPath.save()
-		}
-
 		// FIXME: Is there any better way to force Singleton beans to be loaded eagerly?
 		grailsApplication.getMainContext().getBean("jabberService")
 		

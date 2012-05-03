@@ -210,8 +210,7 @@ class RegisterController extends BaseController {
               String templatePath = File.separator + "templates" + File.separator + getMessage(request, 'registration.mail.template')
               File tplFile = grailsAttributes.getApplicationContext().getResource(templatePath).getFile();
 
-              Configuration serverAddress = Configuration.findByOptionName("app.url")
-              String linkHash = "${request.scheme}://${serverAddress.optionStringValue}${request.contextPath}/register/activate?hash=${person.activationHash}"
+			  String linkHash = createLink(controller:"register",action:"activate",params:[hash:person.activationHash],absolute:true)
               def binding = ["name": person.name, "account": person.account, "accountToAdd": getMessage(request, 'application.email.account'), "linkHash": linkHash]
 
               String invitee = person.account
@@ -457,12 +456,11 @@ class RegisterController extends BaseController {
         if (!invitation.hasErrors()) {
             invitation.save()
 
-            Configuration serverAddress = Configuration.findByOptionName("app.url")
             def email = [
                     to: [invitation.invitee],
                     subject: getMessage(request, 'invitation.mail.subject'),
                     from: getMessage(request, 'application.email'),
-                    text: getMessage(request, 'invitation.mail.body', ["${request.scheme}://${serverAddress.optionStringValue}${request.contextPath}/register/acceptInvitation?code=${invitation.code}"] as Object[])
+                    text: getMessage(request, 'invitation.mail.body', [createLink(absoulte:true, controller:"register",action:"acceptInvitation",params:[code:invitation.code])] as Object[])
             ]
             emailerService.sendEmails([email])
             jsonResponse = buildJsonOkResponse(request, buildMessageSourceResolvable('confirm'), buildMessageSourceResolvable('invitation.sent'))

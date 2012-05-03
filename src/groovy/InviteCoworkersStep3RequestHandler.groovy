@@ -1,6 +1,6 @@
 import groovy.text.SimpleTemplateEngine
-import org.grails.plugins.springsecurity.service.AuthenticateService
 import org.codehaus.groovy.grails.commons.ApplicationHolder
+import org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib
 import org.springframework.context.MessageSource
 import org.springframework.mail.MailSender
 import javax.mail.internet.MimeMessage
@@ -16,11 +16,17 @@ import javax.mail.MessagingException
 
 class InviteCoworkersStep3RequestHandler extends RequestHandler {
 
+	def grailsApplication
+	
     def accepts(Conversation _conversation) {
       boolean accepted = _conversation.context.inviteCoworkers3
       return accepted
     }
 
+	def isValidEmail(email) {
+		//FIXME: Implement
+		return true;
+	}
     def doHandle(Conversation _conversation, ChatService _chatService) {
       _conversation.context.clear()
 
@@ -32,18 +38,10 @@ class InviteCoworkersStep3RequestHandler extends RequestHandler {
       def emails = actualMessage.split('[,]')
       def huboErrores = false
 
-      JabberService jb = new JabberService()
-      AuthenticateService aserv = new AuthenticateService()
-      EmailerService es = new EmailerService()
-
       emails.each {String email ->
-        // Validamos email.
         String emailAccount = email.trim()
-
-        if (jb.isValidAccount(emailAccount)){
-          EmailerService eS = new EmailerService()
-
-          inviteUser(user, emailAccount, aserv, es, _conversation)
+        if (isValidEmail(emailAccount)){
+          inviteUser(user, emailAccount, _conversation)
         } else {
           huboErrores = true
         }
@@ -61,7 +59,7 @@ class InviteCoworkersStep3RequestHandler extends RequestHandler {
     }
 
 
-    private inviteUser(User user, String invitee, AuthenticateService aserv, EmailerService eserv, Conversation _conversation){
+    private inviteUser(User user, String invitee, Conversation _conversation){
       if (!User.findByAccount(invitee)) {
 
         Invitation invitation = new Invitation()
@@ -76,14 +74,11 @@ class InviteCoworkersStep3RequestHandler extends RequestHandler {
 
           MessageSource messageSource = ApplicationHolder.application.mainContext.getBean('messageSource')
 
-          Configuration serverAddress = Configuration.findByOptionName("app.url")
-          Configuration ctxPath = Configuration.findByOptionName("app.contextPath")
-
           def email = [
                   to: [invitation.invitee],
                   subject: messageSource.getMessage('invitation.mail.subject', null, user.locale),
                   from: messageSource.getMessage('application.email', null, user.locale),
-                  text: messageSource.getMessage('invitation.mail.body', ["http://${serverAddress.optionStringValue}${ctxPath.optionStringValue}/register/acceptInvitation?code=${invitation.code}"] as Object[], user.locale),
+                  text: messageSource.getMessage('invitation.mail.body', ["FIXME invitation link"] as Object[], user.locale),
           ]
           sendEmail([email])
         } 
@@ -110,9 +105,9 @@ class InviteCoworkersStep3RequestHandler extends RequestHandler {
         try {
             mailSender.send messages as MimeMessage[]
         } catch (MailException ex) {
-
+			//FIXME
         } catch (MessagingException ex) {
-            
+            //FIXME
         }
     }
 

@@ -74,22 +74,14 @@ class PendingUsersController  extends BaseController {
 
       if (!invitation.hasErrors()) {
         invitation.save()
-        Configuration serverAddress = Configuration.findByOptionName("app.url")
-
         def email = [
                 to: [invitation.invitee],
                 subject: getMessage(request, 'invitation.mail.subject'),
                 from: getMessage(request, 'application.email'),
-                text: getMessage(request, 'invitation.mail.body', ["${request.scheme}://${serverAddress.optionStringValue}${request.contextPath}/register/acceptInvitation?code=${invitation.code}"] as Object[])
+                text: getMessage(request, 'invitation.mail.body', [createLink(absolute:true, controller:"register", action:"acceptInvitation", params:[code:invitation.code])] as Object[])
         ]
         emailerService.sendEmails([email])
       }
 
-
     }
-
-
-
-
-
 }

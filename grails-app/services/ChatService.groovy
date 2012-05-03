@@ -13,7 +13,7 @@ class ChatService implements InitializingBean {
     def scope = 'singleton'
 
     def conversations = [:]
-    def handlers
+    def chatHandlers
     def defaultLocale
     def defaultHumour
     TwitterService twitterService
@@ -24,7 +24,7 @@ class ChatService implements InitializingBean {
         conversationExpiracy = grailsApplication.config['conversationExpiracy']
         defaultLocale = new Locale(grailsApplication.config['jenna']['defaultLanguage'])
         defaultHumour = grailsApplication.config['jenna']['defaultHumour']
-        handlers = [
+		chatHandlers = [
                 new CancelRequestHandler(),
                 // new AskMeRequestHandler(),
                 //new CreateProjectRequestHandler(),
@@ -52,7 +52,7 @@ class ChatService implements InitializingBean {
                 new YesterdayRequestHandler(),
                 new InviteCoworkersStep1RequestHandler(),
                 new InviteCoworkersStep2RequestHandler(),
-                new InviteCoworkersStep3RequestHandler(),
+                new InviteCoworkersStep3RequestHandler(grailsApplication: grailsApplication),
                 // new EffortRequestHandler(),
                 // new TwitRequestHandler(),
                 // new AcceptSuggestionRequestHandler(),
@@ -69,7 +69,7 @@ class ChatService implements InitializingBean {
 
         // Searchs within previous registered handlers until it finds the first that accept this conversation.
         // It will evaluate the accept method, expecting a boolean value.
-        RequestHandler handler = handlers.find { RequestHandler handler ->
+        RequestHandler handler = chatHandlers.find { RequestHandler handler ->
             handler.accepts(conversation)
         }
         if (handler) {
@@ -171,7 +171,7 @@ class ChatService implements InitializingBean {
         if (!conversation) {
             conversation = new Conversation()
             conversation.humour = _user.humour ?: defaultHumour
-            conversation.handlers = handlers
+            conversation.handlers = chatHandlers
             conversation.messageSource = messageSource
             ElizaMain eliza = new ElizaMain()
             InputStream script = this.class.classLoader.getResourceAsStream('eliza/script.txt')
