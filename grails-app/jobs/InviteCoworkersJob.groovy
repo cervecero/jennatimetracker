@@ -28,44 +28,43 @@ class InviteCoworkersJob {
         int hours = now.hours
         int minutes = now.minutes
 
-
-
-      /**
-        * la idea es que pregunte 10 minutos m�s tarde de la hora configurada.
-       * Si minutos es menor a 10, que pregunte a la hora anterior (hora -1) minutos = 60 - minutos.
-       * Si justo eran las 0 hs, que pregunte a las 23.
-       */
-        if (minutes < 10){
-          if (hours == 0){
-            hours = 23
-          } else {
-            hours--
-          }
-          minutes = 50 + minutes
+        /**
+        * The idea is to ask 10 minutes after the configured time for the user.
+        * If minutes is less than 10, we have to move the hour by 1 and add 50 to the difference of minutes to the hour.
+        */
+        if (minutes < 10) {
+			if (hours > 0) {
+				hours--
+			} else {
+				hours = 23 // special case if it's 0hs
+			}
+			minutes = 50 + minutes
         } else {
-          minutes = minutes - 10
+        	minutes = minutes - 10
         }
         String currentTimeExpression = "${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}"
         User.withTransaction {
-
-            // Busco a todos los que sean un s�lo usuario en la empresa.
-            // Y que no tengan un registro que diga, no me jod�s m�s Jenna.
             def users = User.findAllByLocalChatTime(currentTimeExpression)
 
             Permission permission = Permission.findByName(Permission.ROLE_COMPANY_ADMIN)
             List owners = new ArrayList()
-
+			/* 
+			 * Find users that:
+			 *  - Are Company Admins
+			 *  - Are the only members of their organizations
+			 *  - Didn't ask not to be bothered about this
+			 */
             users.each { User user ->
-              if (user.permissions.contains(permission) && (user.remindToInviteCoworkers== null || user.remindToInviteCoworkers)){
+              if (user.permissions.contains(permission) && (user.remindToInviteCoworkers == null || user.remindToInviteCoworkers)){
                 def usersInCompany = User.countByCompany(user.company)
                 if (usersInCompany == 1)
                   owners.add(user)
               }
             }
 
-            if (owners?.size()>0)
-              jabberService.queryUsersToInviteCoworkers(owners)
-
+            if (owners?.size() > 0) {
+				jabberService.queryUsersToInviteCoworkers(owners)
+            }
         }
     }
 
