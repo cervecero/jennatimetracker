@@ -15,8 +15,6 @@ class ProjectFollowUpJob {
 
     def projectFollowUpService
 
-    //def cronExpression = ConfigurationHolder.config['projectFollowUp']['cronExpression']
-
     static triggers = {
         cron startDelay: 10000, cronExpression: ConfigurationHolder.config['projectFollowUp']['cronExpression']
     }

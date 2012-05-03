@@ -13,12 +13,9 @@ class ReminderJob {
     def sessionRequired = false
     def concurrent = false
 
-    def cronExpression = ConfigurationHolder.config['chat']['cronExpression']
-/*
     static triggers = {
-        cron startDelay: 10000, cronExpression: '0 0/5 0-23 ? * *'
+        cron startDelay: 10000, cronExpression: ConfigurationHolder.config['chat']['cronExpression']
     }
-*/
 
     JabberService jabberService
 

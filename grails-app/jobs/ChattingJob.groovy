@@ -13,12 +13,9 @@ class ChattingJob {
     def sessionRequired = false
     def concurrent = false
 
-    def cronExpression = ConfigurationHolder.config['chat']['cronExpression']
-/*
     static triggers = {
-        cron startDelay: 10000, cronExpression: '0 0/15 0-23 ? * MON-FRI'
+        cron startDelay: 10000, cronExpression: ConfigurationHolder.config['chat']['cronExpression']
     }
-*/
 
     JabberService jabberService
 

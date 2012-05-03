@@ -13,12 +13,9 @@ class TimeConverterJob {
     def sessionRequired = true
     def concurrent = false
 
-    def cronExpression = ConfigurationHolder.config['timeConverter']['cronExpression']
-/*
     static triggers = {
-        cron startDelay: 10000, cronExpression: '0 5 23 ? * SUN-SAT'
+        cron startDelay: 10000, cronExpression: ConfigurationHolder.config['timeConverter']['cronExpression']
     }
-*/
 
     def execute() {
         User.list().each { User user ->
