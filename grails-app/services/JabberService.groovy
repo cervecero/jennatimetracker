@@ -27,9 +27,6 @@ class JabberService implements InitializingBean {
         startListeningConversations()
     }
 
-    /**
-     * Levanta el chat-bot para atender comandos desde Jabber
-     */
     def startListeningConversations() {
         try {
             connection = loginToJabber()
@@ -40,9 +37,6 @@ class JabberService implements InitializingBean {
         }
     }
 
-    /**
-     * Registra el listener para la conexión de manera que se procesen los mensajes entrantes
-     */
     private def registerMessageListener() {
         connection.chatManager.addChatListener({Chat createdChat, boolean createdLocally ->
             //Solo nos interesan las conversaciones que inician otros
@@ -54,9 +48,6 @@ class JabberService implements InitializingBean {
 
     }
 
-    /**
-     * Crea el listener que permite tratar los mensajes recibidos
-     */
     private def createMessageListener() {
         return {Chat messageChat, Message message ->
             if (message.type != Type.error) {
@@ -65,9 +56,6 @@ class JabberService implements InitializingBean {
         } as MessageListener
     }
 
-    /**
-     * Llamado al recibir un mensaje de cualquier usuario
-     */
     private def handleIncomingMessage(Chat messageChat, Message message) {
         log.info "new message from $message.from: $message.body"
         User.withTransaction {
@@ -104,16 +92,15 @@ class JabberService implements InitializingBean {
     }
 
     /**
-     * A partir de la identificacion de jabber extrae la identificacion de la cuenta
+     * Get account id from jabber identification
      */
-
     private static def extractAccountFrom(String from) {
         def limitIndex = from.indexOf('/')
         return limitIndex == -1 ? null : from.substring(0, limitIndex)
     }
 
     /**
-     * Actualiza la informacion en el servidor de la configuracion de la cuenta
+     * Update account config to jabber server
      */
     private def updateCharacterInfo() {
         try {
@@ -135,10 +122,6 @@ class JabberService implements InitializingBean {
         }
     }
 
-    /**
-     * Abre una conexion al servidor de jaber y se loquea como
-     * usuario conectado
-     */
     private def loginToJabber() {
         def config = getJabberConfiguration()
         String jabberServer = config['host']
@@ -157,7 +140,7 @@ class JabberService implements InitializingBean {
         presence.status = config['status']
         connection.sendPacket(presence)
 
-        //Indica que se acepten todas las invitaciones entrantes
+        // Accept all incoming invitations
         connection.roster.subscriptionMode = Roster.SubscriptionMode.accept_all
 
         //add myself to my contacts list to ping me for detecting disconnections
@@ -300,7 +283,8 @@ class JabberService implements InitializingBean {
     def sendMessageToUser(user) {
         def presence = connection.roster.getPresence(user.account)
         if (presence?.available) {
-            String joke = "joke" //chatService.requestTracking(user)
+            String joke = "joke"
+			//chatService.requestTracking(user)
             Chat chat = createOutgoingChatWith(user)
             chat.sendMessage joke
         }
