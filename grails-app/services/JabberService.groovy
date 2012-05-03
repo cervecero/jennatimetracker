@@ -39,8 +39,8 @@ class JabberService implements InitializingBean {
 
     private def registerMessageListener() {
         connection.chatManager.addChatListener({Chat createdChat, boolean createdLocally ->
-            //Solo nos interesan las conversaciones que inician otros
-            //Se agrega un listener para cada chat creado
+            // Just consider conversations created by other users
+            // Add one listener for each created chat
             if (!createdLocally) {
                 createdChat.addMessageListener(createMessageListener())
             }
