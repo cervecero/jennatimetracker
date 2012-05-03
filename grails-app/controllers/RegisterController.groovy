@@ -132,24 +132,22 @@ class RegisterController extends BaseController {
 			return
 		}
 
-//        cmd.validate()
         if (cmd.hasErrors()) {
             render view: 'index', model: [person: cmd, availablesChatTime: TimeZoneUtil.getAvailablePromptTimes(), timeZones: TimeZoneUtil.getAvailableTimeZones(), locales: LocaleUtil.getAvailableLocales()]
             return
         }
 
+        if (params.captcha.toUpperCase() != session.captcha) {
+        	cmd.password = ''
+        			cmd.repassword = ''
+        			flash.message = 'Access code did not match.'
+        			render view: 'index', model: [person: cmd, availablesChatTime: TimeZoneUtil.getAvailablePromptTimes(), timeZones: TimeZoneUtil.getAvailableTimeZones(), locales: LocaleUtil.getAvailableLocales()]
+        					return
+        }
+
 		def config = authenticateService.securityConfig
 		def defaultRole = config.security.defaultRole
-
 		def role = Permission.findByName(defaultRole)
-		if (params.captcha.toUpperCase() != session.captcha) {
-          //person no existe
-			cmd.password = ''
-			cmd.repassword = ''
-			flash.message = 'Access code did not match.'
-			render view: 'index', model: [person: cmd, availablesChatTime: TimeZoneUtil.getAvailablePromptTimes(), timeZones: TimeZoneUtil.getAvailableTimeZones(), locales: LocaleUtil.getAvailableLocales()]
-			return
-		}
 
         Company company = Company.findByName(cmd.companyName)
         if (company) {
@@ -198,7 +196,6 @@ class RegisterController extends BaseController {
             permissions.each { permission ->
     			permission.addToUsers(person)
             }
-
 
             // Now that we've created the company, we can create Score Categories.
             createScoreCategories(company)
@@ -254,7 +251,6 @@ class RegisterController extends BaseController {
         person.locale = invitation.inviter.locale
         person.timeZone = invitation.inviter.timeZone
         return [person: person, availablesChatTime: TimeZoneUtil.getAvailablePromptTimes(), timeZones: TimeZoneUtil.getAvailableTimeZones(), locales: LocaleUtil.getAvailableLocales(), code: invitation.code]
-
     }
 
     private void createScoreCategories(Company company){
@@ -498,8 +494,6 @@ class RegisterController extends BaseController {
             ]
             emailerService.sendEmails([email])
         }
-
-
     }
 }
 
