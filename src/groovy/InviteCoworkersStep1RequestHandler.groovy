@@ -17,15 +17,15 @@ class InviteCoworkersStep1RequestHandler extends RequestHandler {
         _conversation.context.clear()
         _conversation.context.inviteCoworkers2=true
 
-        // Sos el único usuario en tu compañía, te gustaría invitar compañeros de trabajo?
+        // Sos el ï¿½nico usuario en tu compaï¿½ï¿½a, te gustarï¿½a invitar compaï¿½eros de trabajo?
         // Si
         // En otro momento
         // No, y no me vuelvas a preguntar!
-        _conversation.responses << Response.build('sweet.InviteCoworkersStep1RequestHandlerAsk1')
-        _conversation.responses << Response.build('sweet.InviteCoworkersStep1RequestHandlerAsk2')
-        _conversation.responses << Response.build('sweet.InviteCoworkersStep1RequestHandlerYes')
-        _conversation.responses << Response.build('sweet.InviteCoworkersStep1RequestHandlerMaybe')
-        _conversation.responses << Response.build('sweet.InviteCoworkersStep1RequestHandlerNo')
+        _conversation.responses << Response.build('sweet.InviteCoworkersStep1RequestHandlerAsk1') //FIXME: Hardcoded humour!
+        _conversation.responses << Response.build('sweet.InviteCoworkersStep1RequestHandlerAsk2') //FIXME: Hardcoded humour!
+        _conversation.responses << Response.build('sweet.InviteCoworkersStep1RequestHandlerYes') //FIXME: Hardcoded humour!
+        _conversation.responses << Response.build('sweet.InviteCoworkersStep1RequestHandlerMaybe') //FIXME: Hardcoded humour!
+        _conversation.responses << Response.build('sweet.InviteCoworkersStep1RequestHandlerNo') //FIXME: Hardcoded humour!
 
     }
 }

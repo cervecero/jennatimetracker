@@ -48,10 +48,10 @@ class InviteCoworkersStep3RequestHandler extends RequestHandler {
       }
 
       if (!huboErrores){
-        _conversation.responses << Response.build('sweet.InviteCoworkersStep3RequestHandlerOk')
+        _conversation.responses << Response.build('sweet.InviteCoworkersStep3RequestHandlerOk') //FIXME: Hardcoded humour!
         _conversation.context.clear()
       } else {
-        _conversation.responses << Response.build('sweet.InviteCoworkersStep3RequestHandlerError')
+        _conversation.responses << Response.build('sweet.InviteCoworkersStep3RequestHandlerError') //FIXME: Hardcoded humour!
         _conversation.context.clear()
         _conversation.context.inviteCoworkers3=true
       }
