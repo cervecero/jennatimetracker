@@ -13,8 +13,6 @@ class InviteCoworkersJob {
     def sessionRequired = false
     def concurrent = false
 
-    def grailsApplication
-
     static triggers = {
         cron startDelay: 10000, cronExpression: ConfigurationHolder.config['chat']['cronExpression']
     }
