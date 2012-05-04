@@ -1,12 +1,11 @@
 import groovy.text.SimpleTemplateEngine
-import org.codehaus.groovy.grails.commons.ApplicationHolder
-import org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib
-import org.springframework.context.MessageSource
+
 import org.springframework.mail.MailSender
 import javax.mail.internet.MimeMessage
 import org.springframework.mail.javamail.MimeMessageHelper
 import org.springframework.mail.MailException
 import javax.mail.MessagingException
+import org.springframework.context.MessageSource
 
 /**
  * @author Leandro Larroulet
@@ -27,27 +26,28 @@ class InviteCoworkersStep3RequestHandler extends RequestHandler {
 		//FIXME: Implement
 		return true;
 	}
+
     def doHandle(Conversation _conversation, ChatService _chatService) {
       _conversation.context.clear()
 
       User user =_conversation.actualRequest.user
 
-      String actualMessage = _conversation.actualRequest.message
+      // We expect a list of emails from the user
+      String userMessage = _conversation.actualRequest.message
+      def emails = userMessage.split('[,]')
 
-      // Actual Message tiene la lista de emails.
-      def emails = actualMessage.split('[,]')
-      def huboErrores = false
+      def errors = false
 
       emails.each {String email ->
         String emailAccount = email.trim()
         if (isValidEmail(emailAccount)){
           inviteUser(user, emailAccount, _conversation)
         } else {
-          huboErrores = true
+          errors = true
         }
       }
 
-      if (!huboErrores){
+      if (!errors){
         _conversation.responses << Response.build('sweet.InviteCoworkersStep3RequestHandlerOk') //FIXME: Hardcoded humour!
         _conversation.context.clear()
       } else {
@@ -57,7 +57,6 @@ class InviteCoworkersStep3RequestHandler extends RequestHandler {
       }
       return
     }
-
 
     private inviteUser(User user, String invitee, Conversation _conversation){
       if (!User.findByAccount(invitee)) {
@@ -71,14 +70,12 @@ class InviteCoworkersStep3RequestHandler extends RequestHandler {
 
         if (!invitation.hasErrors()) {
           invitation.save()
-
-          MessageSource messageSource = ApplicationHolder.application.mainContext.getBean('messageSource')
-
+		  MessageSource messageSource = grailsApplication.mainContext.getBean('messageSource')
           def email = [
                   to: [invitation.invitee],
                   subject: messageSource.getMessage('invitation.mail.subject', null, user.locale),
                   from: messageSource.getMessage('application.email', null, user.locale),
-                  text: messageSource.getMessage('invitation.mail.body', ["FIXME invitation link"] as Object[], user.locale),
+                  text: messageSource.getMessage('invitation.mail.body', ["FIXME invitation link"] as Object[], user.locale), // FIXME: Create invitation link
           ]
           sendEmail([email])
         } 
@@ -91,8 +88,9 @@ class InviteCoworkersStep3RequestHandler extends RequestHandler {
      *
      * @param mails a list of maps
      */
+	// FIXME: Try to inject EmailerService or InvitationService
     def sendEmail(mails) {
-        MailSender mailSender = ApplicationHolder.application.mainContext.getBean('mailSender')
+		MailSender mailSender = grailsApplication.mainContext.getBean('mailSender')
         def messages = mails.collect { mail ->
             MimeMessage mimeMessage = mailSender.createMimeMessage()
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "ISO-8859-1")
@@ -105,10 +103,9 @@ class InviteCoworkersStep3RequestHandler extends RequestHandler {
         try {
             mailSender.send messages as MimeMessage[]
         } catch (MailException ex) {
-			//FIXME
+            log.error('Failed to send emails', ex)
         } catch (MessagingException ex) {
-            //FIXME
+            log.error('Failed to send emails', ex)
         }
     }
-
 }

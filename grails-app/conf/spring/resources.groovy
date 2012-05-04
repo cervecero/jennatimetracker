@@ -1,7 +1,6 @@
 // Place your Spring DSL code here
 beans = {
     localeResolver(UserLocaleResolver)
-
 	/**
 	 * RequestHandlers for the chat bot
 	 */
@@ -28,7 +27,7 @@ beans = {
 	yesterdayRequestHandler(YesterdayRequestHandler)
 	inviteCoworkersStep1RequestHandler(InviteCoworkersStep1RequestHandler)
 	inviteCoworkersStep2RequestHandler(InviteCoworkersStep2RequestHandler)
-	inviteCoworkersStep3RequestHandler(InviteCoworkersStep3RequestHandler)
+	inviteCoworkersStep3RequestHandler(InviteCoworkersStep3RequestHandler, grailsApplication: grailsApplication)
 	chatService(ChatService) {
 		chatHandlers = [
 			humourRequestHandler,
