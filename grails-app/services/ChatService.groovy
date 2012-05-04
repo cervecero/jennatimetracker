@@ -2,62 +2,31 @@ import org.springframework.context.NoSuchMessageException
 import org.springframework.context.MessageSource
 import eliza.ElizaMain
 import org.springframework.beans.factory.InitializingBean
+import org.codehaus.groovy.grails.commons.GrailsApplication;
+import org.codehaus.groovy.grails.plugins.support.aware.GrailsApplicationAware
+import org.springframework.context.MessageSourceAware
 
-class ChatService implements InitializingBean {
+class ChatService  implements InitializingBean, GrailsApplicationAware, MessageSourceAware {
 
-    def grailsApplication
+	boolean transactional = true
+	def scope = 'singleton'
 
-    def conversationExpiracy
+	def grailsApplication
+	TwitterService twitterService
+	MessageSource messageSource
+	def chatHandlers
 
-    boolean transactional = true
-    def scope = 'singleton'
+	def conversationExpiracy
+	def defaultLocale
+	def defaultHumour
 
     def conversations = [:]
-    def chatHandlers
-    def defaultLocale
-    def defaultHumour
-    TwitterService twitterService
-    MessageSource messageSource
 
     @Override
     void afterPropertiesSet() {
         conversationExpiracy = grailsApplication.config['conversationExpiracy']
         defaultLocale = new Locale(grailsApplication.config['jenna']['defaultLanguage'])
         defaultHumour = grailsApplication.config['jenna']['defaultHumour']
-		chatHandlers = [
-                new CancelRequestHandler(),
-                // new AskMeRequestHandler(),
-                //new CreateProjectRequestHandler(),
-                // new CreateAssignmentRequestHandler(),
-                new EnterYesterdayHoursRequestHandler(),
-                new EnterHoursRequestHandler(),
-                new ActiveAssignmentsRequestHandler(),
-                // new SalutationRequestHandler(),
-                new HelpRequestHandler(),
-                //  new HumourRequestHandler(availableHumours: ConfigurationHolder.config['jenna']['availableHumours']),
-                new LanguageRequestHandler(availableLanguages: grailsApplication.config['jenna']['availableLanguages']),
-                // new ReminderRequestHandler(),
-                new SalutationStep2RequestHandler(),
-                new SalutationStep3RequestHandler(),
-                new SalutationStep4RequestHandler(),
-                new SalutationRequestHandler(),
-                new ProblemRequestHandler(),
-                new ProblemStep2RequestHandler(),
-                new ProblemStep3RequestHandler(),
-                new ProblemStep4RequestHandler(),
-                new KnowledgeStep1RequestHandler(),
-                new KnowledgeStep2RequestHandler(),
-                new KnowledgeStep3RequestHandler(),
-                new TodayRequestHandler(),
-                new YesterdayRequestHandler(),
-                new InviteCoworkersStep1RequestHandler(),
-                new InviteCoworkersStep2RequestHandler(),
-                new InviteCoworkersStep3RequestHandler(grailsApplication: grailsApplication),
-                // new EffortRequestHandler(),
-                // new TwitRequestHandler(),
-                // new AcceptSuggestionRequestHandler(),
-                // new RejectSuggestionRequestHandler()
-        ]
     }
 
     def handleRequest(Request _request) {
@@ -218,4 +187,14 @@ class ChatService implements InitializingBean {
             return messageSource.getMessage(Response.build(humourName + '.unknownCommand').message, locale)
         }
     }
+
+	@Override
+	public void setGrailsApplication(GrailsApplication grailsApplication) {
+		this.grailsApplication = grailsApplication
+	}
+	
+	@Override
+	public void setMessageSource(MessageSource messageSource) {
+		this.messageSource = messageSource
+	}
 }

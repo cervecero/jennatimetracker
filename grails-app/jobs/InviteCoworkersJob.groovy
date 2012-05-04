@@ -43,7 +43,6 @@ class InviteCoworkersJob {
         String currentTimeExpression = "${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}"
         User.withTransaction {
             def users = User.findAllByLocalChatTime(currentTimeExpression)
-
             Permission permission = Permission.findByName(Permission.ROLE_COMPANY_ADMIN)
             List owners = new ArrayList()
 			/* 
