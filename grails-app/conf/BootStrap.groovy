@@ -26,10 +26,8 @@ class BootStrap {
         System.setProperty('user.country', 'US')
         Locale.setDefault(Locale.ENGLISH)
         if (GrailsUtil.isDevelopmentEnv()) {
-            JavascriptTagLib.LIBRARY_MAPPINGS.jquery = ["jquery/jquery-1.3.2"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.jquery_ui = ["jquery-ui/jquery-ui-1.7.3.custom.min"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.jquery_new = ["jquery/jquery-1.7"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.jquery_ui_new = ["jquery-ui/jquery-ui-1.8.16.custom"]
+            JavascriptTagLib.LIBRARY_MAPPINGS.jquery = ["jquery/jquery-1.7"]
+            JavascriptTagLib.LIBRARY_MAPPINGS.jquery_ui = ["jquery-ui/jquery-ui-1.8.16.custom"]
             JavascriptTagLib.LIBRARY_MAPPINGS.flot = ["flot/jquery.flot"]
             JavascriptTagLib.LIBRARY_MAPPINGS.excanvas = ["flot/excanvas"]
             JavascriptTagLib.LIBRARY_MAPPINGS.calendar = ["calendar/fullcalendar"]
@@ -38,10 +36,8 @@ class BootStrap {
             JavascriptTagLib.LIBRARY_MAPPINGS.fgmenu = ["fg.menu"]
             JavascriptTagLib.LIBRARY_MAPPINGS.query = ["jquery.query-2.1.7"]
         } else {
-            JavascriptTagLib.LIBRARY_MAPPINGS.jquery = ["jquery/jquery-1.3.2.min"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.jquery_ui = ["jquery-ui/jquery-ui-1.7.3.custom.min"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.jquery_new = ["jquery/jquery-1.7.min"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.jquery_ui_new = ["jquery-ui/jquery-ui-1.8.16.custom.min"]
+            JavascriptTagLib.LIBRARY_MAPPINGS.jquery = ["jquery/jquery-1.7.min"]
+            JavascriptTagLib.LIBRARY_MAPPINGS.jquery_ui = ["jquery-ui/jquery-ui-1.8.16.custom.min"]
             JavascriptTagLib.LIBRARY_MAPPINGS.flot = ["flot/jquery.flot.min"]
             JavascriptTagLib.LIBRARY_MAPPINGS.excanvas = ["flot/excanvas.min"]
             JavascriptTagLib.LIBRARY_MAPPINGS.calendar = ["calendar/fullcalendar"]

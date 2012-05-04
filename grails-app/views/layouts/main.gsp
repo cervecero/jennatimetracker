@@ -16,11 +16,6 @@
   <g:javascript library="fgmenu" />
   <g:javascript library="query"/>
 
-
-  %{--
-  <g:javascript library="prototype" />
---}%
-
   <style type="text/css">
 	body { font-size:62.5%; margin:0; padding:0; }
 	#menuLog { font-size:1.4em; margin:20px; }

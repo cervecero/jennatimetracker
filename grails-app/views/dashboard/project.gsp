@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="layout" content="alternative" />
+        <meta name="layout" content="main" />
         <style>
         .ui-autocomplete-loading {
             background: white url('<g:resource dir="/images" file="ui-anim_basic_16x16.gif"/>') right center no-repeat;

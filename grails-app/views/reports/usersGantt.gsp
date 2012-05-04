@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="layout" content="alternative"/>
+    <meta name="layout" content="main"/>
     <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'jquery.ganttView.css')}" media="screen">
     <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.ganttView.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'date.js')}"></script>
