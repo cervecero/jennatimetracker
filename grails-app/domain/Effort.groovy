@@ -30,7 +30,6 @@ class Effort {
 
       def query="insert into project_tag (project_tags_id, tag_id) values ( ?, ? ) "
       sql.execute(query, [projectId, tagId])
-      System.out.println("oh")
       /*
       this.tags?.each{
         it.removeFromEfforts(this)
