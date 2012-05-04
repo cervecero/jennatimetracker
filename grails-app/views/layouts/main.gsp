@@ -249,54 +249,8 @@
         </div>
 
       </div>
-    <%--
-    <g:ifAnyGranted role="${Permission.ROLE_COMPANY_ADMIN},${Permission.ROLE_SYSTEM_ADMIN} ">
-    </g:ifAnyGranted>
-    --%>
-
     </g:isLoggedIn>
-
-    <%--
-    <div id="topnavi">
-        <!-- Menu -->
-        <div id="menue">
-          <%--
-            <ul id="menu">
-                <li class="page_item current_page_item"><a href="${resource(dir:'/',file:'')}" title="Home">Home</a></li>
-              <g:isLoggedIn>
-                <li class="page_item"><a href="${createLink(controller: 'effort', action: 'myList')}" title="My Efforts">My Efforts</a></li>
-                <li class="page_item"><a href="${createLink(controller: 'profile', action: 'show')}" title="My Profile">My Profile</a></li>
-                <g:ifAnyGranted role="${Permission.ROLE_PROJECT_LEADER}">
-                  <li class="page_item"><a href="${createLink(controller: 'effort', action: 'list')}" title="Efforts">Efforts</a></li>
-                  <li class="page_item"><a href="${createLink(controller: 'project')}" title="Projects">Projects</a></li>
-                  <%-- <li class="page_item"><a href="${createLink(controller: 'milestone')}" title="Milestones">Milestones</a></li> --%>
-                  <%-- <li class="page_item"><a href="${createLink(controller: 'assignment')}" title="Assignments">Assignments</a></li>
-                  <li class="page_item"><a href="${createLink(controller: 'role')}" title="Roles">Roles</a></li>
-                  <li class="page_item"><a href="${createLink(controller: 'tag')}" title="Tags">Tags</a></li>
-                  <li class="page_item"><a href="${createLink(controller: 'pendingUsers')}" title="Pending Users">Pending Users</a></li>
-                </g:ifAnyGranted>
-                <g:ifAnyGranted role="${Permission.ROLE_COMPANY_ADMIN}">
-                  <li class="page_item"><a href="${createLink(controller: 'user')}" title="Users">Users</a></li>
-                </g:ifAnyGranted>
-                <g:ifAnyGranted role="${Permission.ROLE_SYSTEM_ADMIN}">
-                  <li class="page_item"><a href="${createLink(controller: 'company')}" title="Companies">Companies</a></li>
-                </g:ifAnyGranted>
-
-                <li class="page_item"><a href="${createLink(controller: 'logout')}" title="Logout">Logout</a></li>
-                </g:isLoggedIn>
-            </ul>
-            --%>
-
-      <%--
-          <g:isLoggedIn>
-            <span style="color: white;">&nbsp;Welcome <g:loggedInUserInfo field="name"/>!</span>
-          </g:isLoggedIn>
-        </div>
-        <div id="rightnavi"></div>
-    </div>
-    --%>
     <div class="wrapper">
-
         <g:isLoggedIn>
           <div id="content">
             <g:layoutBody />
@@ -311,7 +265,6 @@
     </div>
 </div>
 <div id="footer">
-    <div id="footerimg"></div>
     <p class="style1">Project Guide v<g:message code="${grailsApplication.metadata['app.version']}"/> is proudly powered by <a href="http://fdvsolutions.com/">FDV Solutions</a></p>
 </div>
 <div id="loading" title="<g:message code="app.loading"/>"/>

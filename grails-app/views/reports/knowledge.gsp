@@ -97,7 +97,7 @@
               </td>
               <td >
                  <span class="menuButton">
-                    <img class="alignleft" title="Vote" src="${resource(dir:'images',file:'ilikeit2.png')}" alt="" onclick="javascript:vote(${row.id});" width="32" height="32">
+                    <img class="alignleft" title="Vote" src="${resource(dir:'images',file:'ilikeit.png')}" alt="" onclick="javascript:vote(${row.id});" width="32" height="32">
                   </span>&nbsp;&nbsp;
                   <span id="vote_${row.id}">
                     ${row?.points}
