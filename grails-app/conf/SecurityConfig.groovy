@@ -53,7 +53,7 @@ security {
 	alwaysRemember = false
 	tokenValiditySeconds = 1209600 //14 days
 	parameter = '_spring_security_remember_me'
-	rememberMeKey = 'jennaRocks'
+	rememberMeKey = 'jennaRocks' // FIXME: Make a config
 
 	/** LoggerListener
 	 * ( add 'log4j.logger.org.springframework.security=info,stdout'
