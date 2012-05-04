@@ -3,12 +3,8 @@
 </head>
 <body>
 <div class='body'>
-                                                                                                                                                 <br><br><br>
-  <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="550" height="350" title="Jenna" style="float: left;">
-    <param name="movie" value="${resource(dir:'flash',file:'login.swf')}" />
-    <param name="quality" value="high" />
-    <embed src="${resource(dir:'flash',file:'login.swf')}" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="550" height="350"></embed>
-  </object>
+  <br><br><br>
+  <img src="${resource(dir:'images',file:'login.png')}" alt="">
 
 <div
         style="overflow: hidden; display: block; z-index: 1002; outline-color: -moz-use-text-color; outline-style: none; outline-width: 0px; height: auto; width: 230px; float: right;"
