@@ -217,7 +217,7 @@
 
 		<div class="div-new-dashboard">
 
-			<div class="div-new-dashboard-title">FDV Dashboard</div>
+			<div class="div-new-dashboard-title">Dashboard</div>
 
 			<div class="div-new-dashboard-row">
 				<div class="div-new-dashboard-column">
