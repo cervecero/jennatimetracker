@@ -6,6 +6,7 @@ import grails.test.GrailsUnitTestCase
  * Time: 1:24:41 AM
  */
 class RequestHandlerTests extends GrailsUnitTestCase {
+	def messageSource
 
     void testAccepts() {
         RequestHandler handler = new ActiveAssignmentsRequestHandler()
@@ -17,10 +18,6 @@ class RequestHandlerTests extends GrailsUnitTestCase {
         assertHandles(handler, Locale.ENGLISH, 'CaNCel')
         assertHandles(handler, Locale.ENGLISH, 'cancel please', 'cancel', 'please')
         assertDoesntHandle(handler, Locale.ENGLISH, 'cancelit')
-        handler = new CreateProjectRequestHandler()
-        assertHandles(handler, Locale.ENGLISH, 'create project')
-        assertHandles(handler, Locale.ENGLISH, 'CREATE project NOW!!', 'CREATE project', 'NOW!!')
-        assertDoesntHandle(handler, Locale.ENGLISH, 'qwerty')
         handler = new HelpRequestHandler()
         assertHandles(handler, Locale.ENGLISH, 'help')
         assertHandles(handler, Locale.ENGLISH, 'Help Me!! please!!', 'Help', 'Me!! please!!')
@@ -55,7 +52,7 @@ class RequestHandlerTests extends GrailsUnitTestCase {
     void assertHandles(RequestHandler _handler, Locale _locale, String _message, String _command, String _arguments) {
         User user = new User(locale: _locale)
         Request request = new Request(user: user, message: _message)
-        Conversation conversation = new Conversation(actualRequest: request)
+        Conversation conversation = new Conversation(actualRequest: request, messageSource : messageSource)
         assertTrue(_handler.accepts(conversation))
         assertEquals(_command, conversation.context.command)
         assertEquals(_arguments, conversation.context.arguments)
@@ -64,7 +61,7 @@ class RequestHandlerTests extends GrailsUnitTestCase {
     void assertDoesntHandle(RequestHandler _handler, Locale _locale, String _message) {
         User user = new User(locale: _locale)
         Request request = new Request(user: user, message: _message)
-        Conversation conversation = new Conversation(actualRequest: request)
+        Conversation conversation = new Conversation(actualRequest: request, messageSource : messageSource)
         assertFalse(_handler.accepts(conversation))
     }
 }
