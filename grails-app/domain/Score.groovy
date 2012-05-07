@@ -22,7 +22,6 @@ class Score {
   static constraints = {
     user(nullable:false)
     company(nullable:false)
-    points(nullable:false)
     description(nullable:true)
     date(nullable:true)
   }

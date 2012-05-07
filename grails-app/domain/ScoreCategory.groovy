@@ -16,7 +16,6 @@ class ScoreCategory {
 
   static constraints = {
     company(nullable:false)
-    points(nullable:false)
     category(nullable:false)
     subCategory(nullable:false)
   }

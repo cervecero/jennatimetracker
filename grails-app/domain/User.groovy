@@ -74,7 +74,6 @@ class User {
         activationHash(nullable: true, size: 32..32)
         dailyWorkingHours(nullable:true, max:24)
         birthday(max:new Date(), nullable: true)
-        points(nullable: true)
         joined(nullable: true)
         remindToInviteCoworkers(nullable: true)
 
