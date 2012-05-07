@@ -9,6 +9,7 @@ environments {
             logSql = true
         }
         hibernate {
+            dialect = 'org.hibernate.dialect.MySQL5InnoDBDialect'
             show_sql = true
         }
     }
