@@ -30,43 +30,12 @@ class ProjectController extends BaseController {
 
     def ajaxGetClients = {
         def account = Account.findById(params.id)
-        //render account?.clients as JSON
         render(template: 'clients', model: [clients: account?.clients])
-        //render(collection: clients, builder: "List")
-        /*render(builder:'json') {
-
-        clientsData {
-          clients.each {
-            clientsData(
-                    id: it.id,
-                    name: it.name
-            )
-          }
-        }
-      }*/
-
-        //return clients
+        
     }
 
     def list = { ProjectFilterCommand cmd ->
         def user = findLoggedUser()
-
-        // def projectTags = Tag.findAllWhere(company:user.company, category: TagCategory.findByName("project"));
-        // def clientTags = Tag.findAllWhere(company:user.company, category: TagCategory.findByName("client"));
-
-        //def projectTags = Tag.withCriteria() {
-        //eq('company', user.company)
-        //  eq('category', TagCategory.findByName("project"))
-        //  order('name', 'asc')
-        // ne("deleted", true)
-        //}
-
-        //def clientTags = Tag.withCriteria() {
-        // eq('company', user.company)
-        //eq('category', TagCategory.findByName("client"))
-        // order('name', 'asc')
-        //}
-
         setUpDefaultPagingParams(params)
         def projectInstanceList = listByCriteria(params, cmd, user)
         def projectInstanceTotal = countByCriteria(cmd, user)
@@ -195,28 +164,9 @@ class ProjectController extends BaseController {
         JSONObject jsonResponse
         Project projectInstance = new Project(params)
 
-        // First we should validate and create both 'project' and 'company' tags.
-        //def projectTagParams = [name: params.projectTagName, company: findLoggedUser().company, category: TagCategory.findByName("project")];
-        //def clientTagParams = [name: params.clientTagName, company: findLoggedUser().company, category: TagCategory.findByName("client")];
-
-        //def projectTagInstance = Tag.findByName(params.projectTagName)
-        //def clientTagInstance = Tag.findByName(params.clientTagName)
-
         projectInstance.company = findLoggedUser().company
-        // Si los tags no tienen errores, los podemos guardar en la base.
+
         if (!projectInstance.hasErrors() && projectInstance.save()) {
-
-            // Here we add relationship between 'project' and 'tags' in table 'project_tags' as we used to do this manually.
-            // databaseService.saveRelationShip(projectInstance.id,projectTagInstance.id);
-            // databaseService.saveRelationShip(projectInstance.id,clientTagInstance.id);
-            //projectInstance.addToTags(projectTagInstance)
-            //projectInstance.addToTags(clientTagInstance)
-
-            // 23-9-2010 / Lea
-            // With new many-to-many mapping, adding a 'Tag Instance' to 'Projects', populate 'tag_projects' join table.
-            //projectTagInstance.addToProjects(projectInstance)
-            //clientTagInstance.addToProjects(projectInstance)
-
             jsonResponse = buildJsonOkResponse(request, buildMessageSourceResolvable('confirm'), buildMessageSourceResolvable('project.created', [projectInstance.name] as Object[]))
         } else {
             jsonResponse = buildJsonErrorResponse(request, projectInstance.errors)
@@ -227,9 +177,6 @@ class ProjectController extends BaseController {
     private JSONObject update(request, params) {
         JSONObject jsonResponse
         def projectInstance = Project.get(params.idEdit)
-        // Here is were we set previous values for client and project tags.
-        // def projectTagInstance = Tag.findByName(projectInstance.projectTagName)
-        // def clientTagInstance = Tag.findByName(projectInstance.clientTagName)
 
         if (projectInstance && projectInstance.company.id == findLoggedUser().company.id) {
             def version = params.versionEdit.toLong()
@@ -237,15 +184,6 @@ class ProjectController extends BaseController {
                 projectInstance.errors.rejectValue("version", "project.optimistic.locking.failure", "Another user has updated this Project while you were editing")
                 jsonResponse = buildJsonErrorResponse(request, projectInstance.errors)
             } else {
-                /*
-                def Project project = new Project()
-                params.startDate = params.startDateEdit
-                params.endDate = params.endDateEdit
-
-
-                project.properties = params
-                */
-
                 String startDateString = "${params.startDateEdit_year}/${params.startDateEdit_month}/${params.startDateEdit_day}"
                 String endDateString = "${params.endDateEdit_year}/${params.endDateEdit_month}/${params.endDateEdit_day}"
                 Date startDate = new SimpleDateFormat("yyyy/MM/dd").parse(startDateString)
@@ -259,19 +197,6 @@ class ProjectController extends BaseController {
                 projectInstance.startDate = startDate
                 projectInstance.endDate = endDate
 
-                //  projectInstance.startDate = params.startDateEdit
-                // projectInstance.endDate = params.endDateEdit
-                // projectInstance.properties = params // never update project tags
-                /*
-              projectInstance.name = params.name
-                projectInstance.description = params.description
-
-                def dateParams = [startDate: params.startDate, endDate: params.endDate]
-              def f = new SimpleDateFormat('MM/dd/yyyy')
-                projectInstance.startDate = f.format(params.startDate)
-                projectInstance.endDate = f.format(params.endDate)
-                projectInstance.active = params.active
-                */
                 if (!projectInstance.hasErrors() && projectInstance.save()) {
                     jsonResponse = buildJsonOkResponse(request, buildMessageSourceResolvable('confirm'), buildMessageSourceResolvable('project.updated', [projectInstance.name] as Object[]))
                 } else {
