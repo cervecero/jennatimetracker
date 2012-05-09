@@ -1,9 +1,7 @@
 target
 
 # Specific files that should not be considered
-grails-app/conf/DataSourcePerEnvironment.groovy
-grails-app/conf/JabberBot.groovy
-grails-app/conf/EmailNotificationsConfig.groovy
+grails-app/conf/Custom*.groovy
 
 # IDE-specific
 target-eclipse

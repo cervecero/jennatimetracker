@@ -11,9 +11,10 @@
 // }
 
 grails.config.locations = [
-                            DataSourcePerEnvironment, // Environment-specific DB config
-                            JabberBot, // How the bot connects
-							EmailNotificationsConfig // connection credentials and config for email sending
+                            CustomDataSource, // Environment-specific DB config
+                            CustomJabberBot, // How the bot connects
+							CustomEmailNotificationsConfig, // connection credentials and config for email sending
+							CustomSearchable
                           ]
 
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format

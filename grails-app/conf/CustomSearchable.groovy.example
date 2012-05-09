@@ -1,0 +1,8 @@
+// per-environment settings
+environments {
+	production {
+		searchable {
+			compassConnection = new File('/some/path/project-guide-index').absolutePath
+		}
+	}
+}

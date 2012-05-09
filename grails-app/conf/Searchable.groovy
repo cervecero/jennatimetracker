@@ -144,32 +144,14 @@ searchable {
     releaseLocksOnStartup = true
 }
 
-// per-environment settings
 environments {
-    development {
-        searchable {
-            // development is default; inherits from above
-        }
-    }
-
-    test {
-        searchable {
-            // disable bulk index on startup
-            bulkIndexOnStartup = false
-
-            // use faster in-memory index
-            compassConnection = "ram://test-index"
-        }
-    }
-
-    uat {
-        searchable {
-            compassConnection = new File('/home/fdv/project-guide-index').absolutePath
-        }
-    }
-    amazon {
-        searchable {
-            compassConnection = new File('/home/fdv/project-guide-index').absolutePath
-        }
-    }
+	test {
+		searchable {
+			// disable bulk index on startup
+			bulkIndexOnStartup = false
+	
+			// use faster in-memory index
+			compassConnection = "ram://test-index"
+		}
+	}
 }
