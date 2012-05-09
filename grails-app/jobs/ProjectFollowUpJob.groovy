@@ -20,6 +20,8 @@ class ProjectFollowUpJob {
     }
 
     def execute() {
-        projectFollowUpService.sendEmailsToTeamLeaders()
+		Company.all.each { Company company ->
+			projectFollowUpService.sendEmailsToTeamLeaders(company)
+		}
     }
 }

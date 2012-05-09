@@ -114,9 +114,8 @@ and m.date >= :minDate and m.date < :maxDate and m.deleted = false
         exportService.export(format, outputStream, efforts, fields, labels, formatters, parameters)
     }
 
-    def sendEmailsToTeamLeaders() {
+    def sendEmailsToTeamLeaders(company) {
         Project.withTransaction {
-            def fdv = Company.findByName('FDV Solutions')
             def maxDate = new Date().onlyDate
             def minDate = maxDate - 7
             def projects = Project.executeQuery(
@@ -124,7 +123,7 @@ and m.date >= :minDate and m.date < :maxDate and m.deleted = false
 from Project p
 where p.company = :company and p.active = true and p.deleted = false
 and p.startDate <= :maxDate and p.endDate >= :minDate''',
-                    [company: fdv, minDate: minDate, maxDate: maxDate])
+                    [company: company, minDate: minDate, maxDate: maxDate])
             projects.each { Project p ->
                 def efforts = listEfforts(p, minDate, maxDate)
                 if (efforts) {
