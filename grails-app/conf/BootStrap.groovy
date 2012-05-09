@@ -126,7 +126,19 @@ class BootStrap {
 		
 		// FIXME: Is there any better way to force Singleton beans to be loaded eagerly?
 		grailsApplication.getMainContext().getBean("jabberService")
-		
+
+		/**
+		 * Fire up the jobs
+		 * As there's no (easy/proper) way to access the config from the static triggers definition,
+		 * we have to schedule the Jobs here (and pray not to forget any)
+		 */
+		ChattingJob.schedule(grailsApplication.config.chat.cronExpression)
+		EventJob.schedule(grailsApplication.config.event.cronExpression)
+		InviteCoworkersJob.schedule(grailsApplication.config.chat.cronExpression)
+		ProjectFollowUpJob.schedule(grailsApplication.config.projectFollowUp.cronExpression)
+		ReconnectJob.schedule(grailsApplication.config.reconnect.cronExpression)
+		ReminderJob.schedule(grailsApplication.config.chat.cronExpression)
+		TimeConverterJob.schedule(grailsApplication.config.timeConverter.cronExpression)
     }
 
     def destroy = {

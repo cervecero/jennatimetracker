@@ -1,4 +1,3 @@
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 /**
  * @author Alejandro Gomez (alejandro.gomez@fdvsolutions.com)
@@ -12,10 +11,6 @@ class TimeConverterJob {
 
     def sessionRequired = true
     def concurrent = false
-
-    static triggers = {
-        cron startDelay: 10000, cronExpression: ConfigurationHolder.config['timeConverter']['cronExpression']
-    }
 
     def execute() {
         User.list().each { User user ->

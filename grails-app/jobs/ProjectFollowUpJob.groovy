@@ -1,4 +1,3 @@
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 /**
  * @author Alejandro Gomez (alejandro.gomez@fdvsolutions.com)
@@ -14,10 +13,6 @@ class ProjectFollowUpJob {
     def concurrent = false
 
     def projectFollowUpService
-
-    static triggers = {
-        cron startDelay: 10000, cronExpression: ConfigurationHolder.config['projectFollowUp']['cronExpression']
-    }
 
     def execute() {
 		Company.all.each { Company company ->

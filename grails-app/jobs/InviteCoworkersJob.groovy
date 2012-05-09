@@ -1,5 +1,3 @@
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
-
 /**
  * @author Leandro Larroulet
  * Date: Aug 13, 2010
@@ -12,10 +10,6 @@ class InviteCoworkersJob {
 
     def sessionRequired = false
     def concurrent = false
-
-    static triggers = {
-        cron startDelay: 10000, cronExpression: ConfigurationHolder.config['chat']['cronExpression']
-    }
 
     JabberService jabberService
 
