@@ -372,12 +372,6 @@
             <label for="endDate"><g:message code="project.endDate" default="End Date"/>:</label>
             <jquery:datePicker name="endDate" value="${projectInstance?.endDate}"/>
 
-            <!--<label for="projectTagName"><g:message code="projectTagName" default="Project Tag Name"/>:</label>
-            <g:select name="projectTagName" from="${projectTags}" optionKey="name" value="${projectTagInstance?.id}"/>
-
-            <label for="clientTagName"><g:message code="clientTagName" default="Client Tag Name"/>:</label>
-            <g:select name="clientTagName" from="${clientTags}" optionKey="name" value="${clientTagInstance?.id}"/>-->
-
             <label for="account"><g:message code="project.account" default="Account"/>:</label>
             <g:select onchange="changeClients(this.value)" name="account.id" from="${accountList}" optionKey="id" value="${projectInstance?.account?.id}"/>
 
