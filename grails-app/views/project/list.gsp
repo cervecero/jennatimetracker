@@ -54,12 +54,10 @@
             data: {id: accountId},
             cache: false,
             success: function(response, statusText) {
-                // alert(response);
                 setClients(response);
 
             },
             error: function(response, statusText) {
-                //alert("There was an error getting account's clients.");
                 alert(statusText);
             }
         });
