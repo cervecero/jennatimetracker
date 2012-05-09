@@ -238,6 +238,7 @@ class ReportsController extends BaseController {
         params.messageEmpty = true
         flash.message=  g.message(code:"reports.knowledge.new.learning.empty")
         redirect(action:"newKnowledge")
+		return
       }
 
       Learning newLearning
