@@ -232,9 +232,9 @@ class ReportsController extends BaseController {
 
       def user = findLoggedUser()
 
-      String actualMessage = params.learning
+      String learningContent = params.learning?.trim()
 
-      if ("".equals(actualMessage)){
+      if (!learningContent) {
         params.messageEmpty = true
         flash.message=  g.message(code:"reports.knowledge.new.learning.empty")
         redirect(action:"newKnowledge")
@@ -251,7 +251,7 @@ class ReportsController extends BaseController {
       newLearning.user = user
       newLearning.company = user.company
       newLearning.points = 0
-      newLearning.description = actualMessage
+      newLearning.description = learningContent
       newLearning.save(flush: true)
 
       ScoreManager.addPoints(user, "KNOWLEDGE","LEARNING")
