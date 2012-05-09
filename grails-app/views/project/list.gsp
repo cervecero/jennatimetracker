@@ -31,18 +31,11 @@
     });
 
     function reloadAfterDelete() {
-        // alert("Realoading Listado");
         $("#ajaxProjectDeleted").submit();
 
     }
 
     function setClients(response) {
-        //$(".clients").css("display", "inherit");
-        //$.each(response, function(val, text) {
-          //  $('#clientsSelect').append(
-            //        $('<option></option>').val(val).html(text)
-            //);
-        //});
         $('#position_select_client').html(response);
     }
 
