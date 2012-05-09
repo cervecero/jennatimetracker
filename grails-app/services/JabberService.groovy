@@ -279,15 +279,4 @@ class JabberService implements InitializingBean {
         String jabberServer = config['host']
         return _mail.endsWith('@' + jabberServer)
     }
-
-    def sendMessageToUser(user) {
-        def presence = connection.roster.getPresence(user.account)
-        if (presence?.available) {
-            String joke = "joke"
-			//chatService.requestTracking(user)
-            Chat chat = createOutgoingChatWith(user)
-            chat.sendMessage joke
-        }
-    }
-
 }
