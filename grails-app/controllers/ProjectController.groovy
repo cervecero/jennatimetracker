@@ -357,7 +357,6 @@ class ProjectController extends BaseController {
 }
 
 class ProjectFilterCommand {
-
     String project
     Date startDate
     Date endDate
