@@ -3,28 +3,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
-        <style>
-        .ui-autocomplete-loading {
-            background: white url('<g:resource dir="/images" file="ui-anim_basic_16x16.gif"/>') right center no-repeat;
-        }
-        </style>
-
-        <script>
-            autocompleting = true;
-            $(function () {
-                $("#projectName").autocomplete({
-                    source:"<g:createLink controller="dashboard" action="ajaxProjectName"/>",
-                    minLength:1,
-                    select:function (event, ui) {
-                        if (ui.item) {
-                            $("#projectId").val(ui.item.id);
-                        } else {
-                            $("#projectId").val('');
-                        }
-                    }
-                });
-            });
-        </script>
     </head>
     <body>
 
@@ -39,7 +17,6 @@
       </g:else>
 
     <script type="text/javascript">
-
       function search(){
         $("#dateStart").val($("#startDate_datePicker").val());
         $("#dateEnd").val($("#endDate_datePicker").val());
@@ -54,11 +31,9 @@
       }
     </script>
 
-
     <g:form controller="dashboard" action="projectFollowUp" method="POST" name="dashboardForm">
       <g:hiddenField name="dateStart" id="dateStart" />
       <g:hiddenField name="dateEnd" id="dateEnd" />
-      <input type="hidden" id="projectId" name="projectId"/>
 
       <h2>
 
@@ -93,7 +68,7 @@
             <g:message code="reports.project" default="Project"  />
           </td>
           <td valign="top">
-              <input id="projectName"/>
+              <g:select name="project" optionKey="id" from="${projects}"/>
           </td>
         </tr>
       </table>
