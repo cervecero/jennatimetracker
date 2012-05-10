@@ -14,7 +14,7 @@
             $(function () {
                 $("#projectName").autocomplete({
                     source:"<g:createLink controller="dashboard" action="ajaxProjectName"/>",
-                    minLength:2,
+                    minLength:1,
                     select:function (event, ui) {
                         if (ui.item) {
                             $("#projectId").val(ui.item.id);
