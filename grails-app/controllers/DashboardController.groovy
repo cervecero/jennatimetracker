@@ -62,6 +62,12 @@ class DashboardController extends BaseController {
         def endDate = new Date(params.dateEnd)
         def company = findLoggedCompany()
         def project = Project.get(params.projectId)
+		if (!project) {
+			flash.message = "default.select.mandatory"
+			flash.args = ['project']
+			redirect(action: "project")
+			return
+		}
         if (project.company.id != company.id) {
             return [:]
         }
