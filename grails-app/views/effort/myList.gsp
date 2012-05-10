@@ -17,11 +17,8 @@
   var calEnd;
 
   function reload() {
-    // alert("CalStart: "+calStart+" - CalEnd: "+calEnd);
     moveCalendar(calStart, calEnd);
   }
-
-  // $(document).ready($.jGrowl("Hello world!"));
 
   function moveCalendar(start, end) {
     $('#calendar').fullCalendar('refresh');
@@ -42,13 +39,6 @@
       function updateTips(t) {
         tips.text(t).effect("highlight", {}, 1500);
       }
-
-      /*
-      $(document).ready( function(){
-        alert("ready");
-        $("#calendar_event_interceptor").css("height", $("#full_calendar_month").css("height"))
-      })
-      */
 
       function beforeSubmit() {
         $("#validateTips").text("");
