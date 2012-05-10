@@ -142,7 +142,6 @@ class SkillController extends BaseController {
         user.addToSkills(theSkill)
         flash.message = "default.added"
 		flash.args = ["skill"]
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
-        render view: 'list', model: [skillInstanceList: Skill.list(params), skillInstanceTotal: Skill.count()]
+		redirect(action: "list", params:[max: Math.min(params.max ? params.max.toInteger() : 10, 100), offset: params.offset])
     }
 }

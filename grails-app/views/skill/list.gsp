@@ -40,7 +40,7 @@
                 <td>${fieldValue(bean: skillInstance, field: "level")}</td>
                 <td>
                     <g:form>
-                        <g:link action="addToMe" params="[id: skillInstance.id]">Add to me</g:link>
+                        <g:link action="addToMe" params="[id: skillInstance.id, offset: params.offset, max : params.max]">Add to me</g:link>
                     </g:form>
                 </td>
 
