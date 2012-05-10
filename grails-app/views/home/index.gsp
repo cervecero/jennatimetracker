@@ -54,7 +54,7 @@
 
 			var colors = Highcharts.getOptions().colors,
 				categories = [<g:each in="${knowledge}" var="k">'${k.user}', </g:each>],
-				name = 'Puntos',
+				name = '<g:message code='score.points'/>',
 				data = [<g:each in="${knowledge}" var="k">${k.points}, </g:each>];
 
 			function setChart(name, categories, data, color) {
