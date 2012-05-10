@@ -128,7 +128,8 @@ class SkillController extends BaseController {
         def theSkill = Skill.findById(params.id)
 
         if (!theSkill){
-            flash.message = "Is not a correct Skill"
+            flash.message = "skill.not.found"
+			flash.args = [params.id]
             render view: 'list', model: [skillInstanceList: Skill.list(params), skillInstanceTotal: Skill.count()]
             return
         }
@@ -139,7 +140,8 @@ class SkillController extends BaseController {
             return
         }
         user.addToSkills(theSkill)
-        flash.message = "Skill added"
+        flash.message = "default.added"
+		flash.args = ["skill"]
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
         render view: 'list', model: [skillInstanceList: Skill.list(params), skillInstanceTotal: Skill.count()]
     }
