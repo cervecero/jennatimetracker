@@ -27,8 +27,7 @@ class UserController extends BaseController {
         def userInstanceTotal = User.countByCompany(user.company)
         def userInstanceList = User.withCriteria {
             eq("company", user.company)
-            if (params.sort != null)
-                order(params.sort, params.order)
+			order(params.get('sort','name'), params.get('order','asc'))
         }
         [userInstanceList: userInstanceList, userInstanceTotal: userInstanceList.size()]
     }
