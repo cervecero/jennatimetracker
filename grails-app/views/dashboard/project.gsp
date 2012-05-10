@@ -35,10 +35,6 @@
       <g:hiddenField name="dateStart" id="dateStart" />
       <g:hiddenField name="dateEnd" id="dateEnd" />
 
-      <h2>
-
-      </h2>
-
       <table>
         <th colspan="2">
             <g:message code="reports.filterBy" default="Filter by" />
@@ -72,7 +68,6 @@
           </td>
         </tr>
       </table>
-
 
       <div id="button_search" align="center">
         <input type="button" id="Search" name="Search" value="<g:message code='reports.search' default='Search' />" onclick="search();"/>
