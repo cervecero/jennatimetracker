@@ -30,33 +30,17 @@
      			},
 				tooltip: {
 					formatter: function() {
-						return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+						return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(2) +' %';
 					}
 				},
-				/*
-				plotOptions: {
-					pie: {
-						allowPointSelect: true,
-						cursor: 'pointer',
-						dataLabels: {
-							enabled: true,
-							color: '#000000',
-							connectorColor: '#000000',
-							formatter: function() {
-								return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
-							}
-						}
-					}
-				},
-				*/
 				series: [{
 					type: 'pie',
-					name: 'Browser share',
+					name: 'Time spent by project',
 					data: [
                             <g:each in="${timeSpentTop}" var="project">
                         {
                             name:'${project.projectName}',
-                            y: <g:formatNumber number="${project.timePct}" format="#0.0" locale="en"/>,
+                            y: <g:formatNumber number="${project.timePct}" format="#0.00" locale="en"/>,
                         },
                         </g:each>
 					]
