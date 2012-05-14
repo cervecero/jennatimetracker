@@ -129,7 +129,6 @@ class ReportsController extends BaseController {
                     setDefaultSearchProperty('description')
                 })
                 sort(CompassQuery.SortImplicitType.SCORE)
-                //sort('points')
             }
             learnings = result.results
             total = searchableService.countHits([escape: true]) {
