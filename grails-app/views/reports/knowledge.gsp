@@ -16,8 +16,6 @@
       }
 
       function vote(id){
-        //alert("Voto positivo para Learning Id: "+id);
-
         $.ajax({
           type: "POST",
           url: "${createLink(action: 'ajaxVote')}",
@@ -114,12 +112,10 @@
               <td>
                 <g:formatDate date="${row.date}"  format="dd-MM-yyyy" />
               </td>
-              <td >
-                 <span class="menuButton">
-                    <img class="alignleft" title="Vote" src="${resource(dir:'images',file:'ilikeit.png')}" alt="vote" onclick="javascript:vote(${row.id});" width="32" height="32">
-                  </span>&nbsp;&nbsp;
+              <td style="text-align:center">
+                  <img style="cursor:pointer" class="alignleft" title="Vote" src="${resource(dir:'images',file:'ilikeit.png')}" alt="vote" onclick="javascript:vote(${row.id});" width="32" height="32">
                   <span id="vote_${row.id}">
-                    ${row?.points}
+                      ${row?.points}
                   </span>
               </td>
             </tr>
