@@ -7,7 +7,6 @@
         <meta name="layout" content="main" />
         <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'jquery.jgrowl.css')}" media="screen">
         <g:javascript library="jgrowl" />
-        <g:javascript library="qtip"/>
     </head>
     <body>
     <script type="text/javascript">
