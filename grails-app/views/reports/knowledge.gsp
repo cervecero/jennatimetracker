@@ -67,26 +67,16 @@
 
         <thead>
             <tr>
-
-            <g:sortableColumn property="date" title="Date" titleKey="learning.date" />
-
-            <g:sortableColumn property="user" title="User" titleKey="learning.user" />
-
-            <g:sortableColumn property="points" title="Votes" titleKey="learning.points" />
-
+	            <g:sortableColumn property="user" title="User" titleKey="learning.user" />
+	            <th><g:message code="learning.learning" default="Learning" style="width:80%"/></th>
+	            <g:sortableColumn property="date" title="Date" titleKey="learning.date" />
+	            <g:sortableColumn property="points" title="Votes" titleKey="learning.points"  style="width:5%"/>
             </tr>
         </thead>
-        <TR>
-          <TH colspan="3" width=600> <g:message code="learning.learning" default="Learning" />
-          </TH>
-        </TR>
-
 
        <g:each in="${learnings}" status="i" var="row">
 
             <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-
-              <td><g:formatDate date="${row.date}"  format="dd-MM-yyyy" /></td>
               <td>
                   <a href="mailto:${row.user?.account}">
                     <img class="alignleft" title="Send an email" src="${resource(dir:'images',file:'gmail.png')}" alt="" width="16" height="16">
@@ -95,16 +85,6 @@
                     ${row.user?.name}
                   </a>
               </td>
-              <td >
-                 <span class="menuButton">
-                    <img class="alignleft" title="Vote" src="${resource(dir:'images',file:'ilikeit.png')}" alt="" onclick="javascript:vote(${row.id});" width="32" height="32">
-                  </span>&nbsp;&nbsp;
-                  <span id="vote_${row.id}">
-                    ${row?.points}
-                  </span>
-              </td>
-            </tr>
-            <tr>
               <td>
                 <div style='overflow:hidden' id="learning_${row.id}">
                     <markdown:renderHtml text="${row?.descripcionConLinks?.toString()}"/>
@@ -131,14 +111,24 @@
                     </g:if>
                 </div>
               </td>
+              <td>
+                <g:formatDate date="${row.date}"  format="dd-MM-yyyy" />
+              </td>
+              <td >
+                 <span class="menuButton">
+                    <img class="alignleft" title="Vote" src="${resource(dir:'images',file:'ilikeit.png')}" alt="" onclick="javascript:vote(${row.id});" width="32" height="32">
+                  </span>&nbsp;&nbsp;
+                  <span id="vote_${row.id}">
+                    ${row?.points}
+                  </span>
+              </td>
             </tr>
+            
         </g:each>
       </table>
 
       <div class="paginateButtons">
           <g:paginate total="${totalLearnings}" params="[search: search]"/>
       </div>
-
-
     </body>
 </html>
