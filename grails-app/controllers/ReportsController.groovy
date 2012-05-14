@@ -149,7 +149,7 @@ class ReportsController extends BaseController {
         }
 
         if (params.learningSaved)
-            flash.message = g.message(code: "reports.knowledge.new.learning.saved")
+            flash.message = "reports.knowledge.new.learning.saved"
 
         render(view: 'knowledge', model: [user: user, learnings: learnings, highlights: highlights, totalLearnings: total, search: params.search])
     }
