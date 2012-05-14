@@ -84,29 +84,14 @@
                   </a>
               </td>
               <td>
-                <div style='overflow:hidden' id="learning_${row.id}">
-                    <markdown:renderHtml text="${row?.descripcionConLinks?.toString()}"/>
+                <div id="learning_${row.id}">
                     <g:if test="${highlights[i]}">
-                    <script type="text/javascript">
-                        $('#learning_${row.id}').qtip({
-                            content:"${highlights[i]}",
-                            position:{
-                                corner:{
-                                    target:'topMiddle',
-                                    tooltip:'bottomMiddle'
-                                }
-                            },
-                            border:{
-                                radius:4,
-                                width:3
-                            },
-                            style:{
-                                name:'dark',
-                                tip:'bottomMiddle'
-                            }
-                        });
-                    </script>
+                        <markdown:renderHtml text="${highlights[i].encodeAsSafeHTML()}"/>
                     </g:if>
+                    <g:else>
+                        <markdown:renderHtml text="${row.description?.encodeAsSafeHTML()}"/>
+                    </g:else>
+                    
                 </div>
               </td>
               <td>

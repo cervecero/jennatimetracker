@@ -12,12 +12,6 @@ class Learning {
 
     static searchable = true
 
-    String getDescripcionConLinks() {
-        def encodedDescripcion = description.encodeAsHTML()
-        def descripcionConLinks = encodedDescripcion.replaceAll(/(?:http|https|ftp)\:\S+/, { "<a href=\'${it}\' target='_blank'>${it}</a>" })
-        return descripcionConLinks
-    }
-
     // static hasMany = LearningVotes
 
     static hibernateFilters = {
