@@ -12,8 +12,6 @@ class Learning {
 
     static searchable = true
 
-    // static hasMany = LearningVotes
-
     static hibernateFilters = {
       enabledFilter(condition:'deleted=0', default:true)
     }
