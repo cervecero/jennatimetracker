@@ -38,7 +38,7 @@
         </g:form>
 
         <g:if test="${flash.message}">
-          <div class="message"><g:message code="${flash.message}" args="${flash.args}" default="${flash.defaultMessage}" /></div>
+          <div class="message">${flash.message}</div>
         </g:if>
         <br>
           <g:if test="${requestedInvitations.size()> 0}">

@@ -23,7 +23,6 @@ class PendingUsersController  extends BaseController {
       User currentUser = findLoggedUser()
 
       def requestedInvitationsList = InviteMe.findAllByCompany(currentUser.company)
-
       return [requestedInvitations: requestedInvitationsList]
     }
 
@@ -37,9 +36,9 @@ class PendingUsersController  extends BaseController {
           sendInvitation(inviteMe)
           inviteMe.invited=new Date()
           inviteMe.save(flush:true)
-          flash.message="Invitation sent to: "+inviteMe.name+"."
+          flash.message = getMessage(request, "invitation.sent", [inviteMe.name] as Object[])
         } catch (Exception e) {
-          flash.message="There was a problem trying to send an invitation to "+params.name+"."
+          flash.message = getMessage(request, "invitation.not.sent", [inviteMe.name] as Object[])
         }
       }
 
@@ -53,9 +52,9 @@ class PendingUsersController  extends BaseController {
       InviteMe inviteMe = InviteMe.get(params.dismissId)
       if (inviteMe){
         inviteMe.delete(flush:true)
-        flash.message="User request dismissed: "+inviteMe.name
+        flash.message=getMessage(request, "invitation.request.dismissed", [inviteMe.name] as Object[])"User request dismissed: "+inviteMe.name
       } else {
-        flash.message="There was a problem dismissing the selected request."
+        flash.message=getMessage(request, "invitation.request.not.dismissed", [inviteMe.name] as Object[])"There was a problem dismissing the selected request."
       }
 
       def requestedInvitationsList = InviteMe.findAllByCompany(currentUser.company)
