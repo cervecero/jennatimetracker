@@ -3,12 +3,12 @@
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head profile="http://gmpg.org/xfn/11">
     <title><g:layoutTitle default="Project Guide" /></title>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta name="description" content="Forget about tracking time!">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="description" content="Forget about tracking time!"/>
     <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
-    <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'style.css')}" media="screen">
-    <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'jquery-ui-1.7.3.custom.css')}" media="screen">
-    <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'fg.menu.css')}" media="screen">
+    <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'style.css')}" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'jquery-ui-1.7.3.custom.css')}" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'fg.menu.css')}" media="screen"/>
 
   <g:javascript library="application" />
   <g:javascript library="jquery" />
