@@ -1,4 +1,3 @@
-import org.springframework.security.context.SecurityContextHolder as SCH
 import org.springframework.security.providers.UsernamePasswordAuthenticationToken
 import org.springframework.security.GrantedAuthority
 import org.springframework.security.GrantedAuthorityImpl
@@ -6,13 +5,9 @@ import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUserImpl
 import org.json.JSONObject
 import groovy.text.SimpleTemplateEngine
 
-/**
- * Registration controller.
- */
 class RegisterController extends BaseController {
 
 	def authenticateService
-	def daoAuthenticationProvider
 	def emailerService
     def jabberService
     def grailsApplication
@@ -23,9 +18,6 @@ class RegisterController extends BaseController {
 	 * User Registration Top page.
 	 */
 	def index = {
-        //          TODO timeZoneSelect from FormTagLib
-        //          TODO localeSelect from FormTagLib
-
 		// skip if already logged in
 		if (authenticateService.isLoggedIn()) {
 			redirect action: show
@@ -317,7 +309,6 @@ class RegisterController extends BaseController {
         projectTag.company= company
       }
 
-
       Project project = Project.findByCompanyAndName(company,g.message(code:'default.project.name'))
       if (!project){
         project = new Project()
@@ -343,7 +334,6 @@ class RegisterController extends BaseController {
       project.save()
       ass.save()
     }
-
 
     def saveInvitation = { RegisterCommand cmd ->
         Invitation invitation = Invitation.findByCode(params.code)
