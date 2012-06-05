@@ -33,7 +33,7 @@
           alert(dayDate);
         },
         eventRender: function(calEvent, element) {
-          var tipContent = "<strong>" + calEvent.currentDate + "</strong><br/>" + calEvent.timeSpent + "<br/>" + calEvent.assignmentList;
+          var tipContent = "<strong>" + calEvent.assignmentList + "</strong><br/>" + calEvent.currentDate + " - " + calEvent.timeSpent + "<br/>" + "<blockquote>" + calEvent.comment + "</blockquote>";
           $(element).qtip({
             content: tipContent,
             position: {
@@ -51,7 +51,6 @@
               tip: 'rightMiddle'
             }
           });
-          // $(element).append("<span class='ui-icon ui-icon-minus' onclick='alert(1)' style='float:left;'></span>");
         },
         events: function(start, end, callback) {
           calStart = start;

@@ -59,7 +59,7 @@ class EffortController extends BaseController {
         }
         JSONArray jsonResponse = new JSONArray()
         effortInstanceList.each { Effort effort ->
-            jsonResponse.put([id: effort.id, title: getTitleForEffort(effort), currentDate: getDateCalendarFormat(effort.date), start: effort.date.getISO8601Formatted(), assignmentList: getAssignmentCalendarFormat(effort.assignment), timeSpent: effort.timeSpent])
+            jsonResponse.put([id: effort.id, title: getTitleForEffort(effort), comment: effort.comment  ?: '', currentDate: getDateCalendarFormat(effort.date), start: effort.date.getISO8601Formatted(), assignmentList: getAssignmentCalendarFormat(effort.assignment), timeSpent: effort.timeSpent])
         }
         render jsonResponse.toString()
     }
@@ -93,7 +93,7 @@ class EffortController extends BaseController {
         }
         JSONArray jsonResponse = new JSONArray()
         effortInstanceList.each { Effort effort ->
-          jsonResponse.put([id: effort.id, title: getTitleForEffort(effort), currentDate: getDateCalendarFormat(effort.date), start: effort.date.getISO8601Formatted(), assignmentList: getAssignmentCalendarFormat(effort.assignment), timeSpent: effort.timeSpent])
+          jsonResponse.put([id: effort.id, title: getTitleForEffort(effort), comment: effort.comment ?: '', currentDate: getDateCalendarFormat(effort.date), start: effort.date.getISO8601Formatted(), assignmentList: getAssignmentCalendarFormat(effort.assignment), timeSpent: effort.timeSpent])
         }
         render jsonResponse.toString()
     }

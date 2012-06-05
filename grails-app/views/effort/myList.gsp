@@ -102,7 +102,7 @@
         add(dayDate.getDate(), dayDate.getMonth() + 1, dayDate.getFullYear());
       },
       eventRender: function(calEvent, element) {
-        var tipContent = "<strong>" + calEvent.currentDate + "</strong><br/>" + calEvent.timeSpent + "<br/>" + calEvent.assignmentList;
+        var tipContent = "<strong>" + calEvent.assignmentList + "</strong><br/>" + calEvent.currentDate + " - " + calEvent.timeSpent + "<br/>" + "<blockquote>" + calEvent.comment + "</blockquote>";
         $(element).qtip({
           content: tipContent,
           position: {
