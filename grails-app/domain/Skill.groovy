@@ -14,6 +14,6 @@ class Skill {
     }
 
     static hibernateFilters = {
-        enabledFilter(condition: 'deleted=0', default: true)
+        enabledSkillFilter(condition: 'deleted=0', default: true)
     }
 }

@@ -10,8 +10,7 @@
 
     <p>&nbsp;</p>
     <g:if test="${flash.message}">
-        <div class="message"><g:message code="${flash.message}" args="${flash.args}"
-                                        default="${flash.defaultMessage}"/></div>
+        <div class="message">${flash.message}</div>
     </g:if>
     <div class="list">
         <table>

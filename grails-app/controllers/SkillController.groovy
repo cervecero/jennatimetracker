@@ -32,9 +32,7 @@ class SkillController extends BaseController {
     def save = {
         def skillInstance = new Skill(params)
         if (!skillInstance.hasErrors() && skillInstance.save()) {
-            flash.message = "skill.created"
-            flash.args = [skillInstance.id]
-            flash.defaultMessage = "Skill ${skillInstance.id} created"
+            flash.message = getMessage(request, "skill.created", skillInstance.toString())
             redirect(action: "show", id: skillInstance.id)
         }
         else {
@@ -45,9 +43,7 @@ class SkillController extends BaseController {
     def show = {
         def skillInstance = Skill.get(params.id)
         if (!skillInstance) {
-            flash.message = "skill.not.found"
-            flash.args = [params.id]
-            flash.defaultMessage = "Skill not found with id ${params.id}"
+            flash.message = getMessage(request, "skill.not.found", params.id)
             redirect(action: "list")
         }
         else {
@@ -58,9 +54,7 @@ class SkillController extends BaseController {
     def edit = {
         def skillInstance = Skill.get(params.id)
         if (!skillInstance) {
-            flash.message = "skill.not.found"
-            flash.args = [params.id]
-            flash.defaultMessage = "Skill not found with id ${params.id}"
+            flash.message = getMessage(request, "skill.not.found", params.id)
             redirect(action: "list")
         }
         else {
@@ -74,7 +68,6 @@ class SkillController extends BaseController {
             if (params.version) {
                 def version = params.version.toLong()
                 if (skillInstance.version > version) {
-
                     skillInstance.errors.rejectValue("version", "skill.optimistic.locking.failure", "Another user has updated this Skill while you were editing")
                     render(view: "edit", model: [skillInstance: skillInstance])
                     return
@@ -82,9 +75,7 @@ class SkillController extends BaseController {
             }
             skillInstance.properties = params
             if (!skillInstance.hasErrors() && skillInstance.save()) {
-                flash.message = "skill.updated"
-                flash.args = [params.id]
-                flash.defaultMessage = "Skill ${params.id} updated"
+                flash.message = getMessage(request, "skill.updated", params.id)
                 redirect(action: "show", id: skillInstance.id)
             }
             else {
@@ -92,9 +83,7 @@ class SkillController extends BaseController {
             }
         }
         else {
-            flash.message = "skill.not.found"
-            flash.args = [params.id]
-            flash.defaultMessage = "Skill not found with id ${params.id}"
+            flash.message = getMessage(request, "skill.not.found", params.id)
             redirect(action: "edit", id: params.id)
         }
     }
@@ -104,22 +93,16 @@ class SkillController extends BaseController {
         if (skillInstance) {
             try {
                 skillInstance.delete()
-                flash.message = "skill.deleted"
-                flash.args = [params.id]
-                flash.defaultMessage = "Skill ${params.id} deleted"
+                flash.message = getMessage(request, "skill.deleted", skillInstance.toString())
                 redirect(action: "list")
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "skill.not.deleted"
-                flash.args = [params.id]
-                flash.defaultMessage = "Skill ${params.id} could not be deleted"
+                flash.message = getMessage(request, "skill.not.deleted", skillInstance.toString())
                 redirect(action: "show", id: params.id)
             }
         }
         else {
-            flash.message = "skill.not.found"
-            flash.args = [params.id]
-            flash.defaultMessage = "Skill not found with id ${params.id}"
+            flash.message = getMessage(request, "skill.not.found", params.id)
             redirect(action: "list")
         }
     }
@@ -128,20 +111,20 @@ class SkillController extends BaseController {
         def theSkill = Skill.findById(params.id)
 
         if (!theSkill){
-            flash.message = "skill.not.found"
-			flash.args = [params.id]
+            flash.message = getMessage(request, "skill.not.found", params.id)
             render view: 'list', model: [skillInstanceList: Skill.list(params), skillInstanceTotal: Skill.count()]
             return
         }
+        //FIXME: This should not be needed, as an Interceptor checks for logged user
         def user = findLoggedUser()
         if (!user) {
             flash.message = "Not user logged"
             render view: 'list', model: [skillInstanceList: Skill.list(params), skillInstanceTotal: Skill.count()]
             return
         }
+        // EOFIXME
         user.addToSkills(theSkill)
-        flash.message = "default.added"
-		flash.args = ["skill"]
+        flash.message = getMessage(request, "skill.added.to.you", theSkill.toString()) 
 		redirect(action: "list", params:[max: Math.min(params.max ? params.max.toInteger() : 10, 100), offset: params.offset])
     }
 }
