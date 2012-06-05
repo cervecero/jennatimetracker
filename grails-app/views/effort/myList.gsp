@@ -183,7 +183,6 @@
             $("#date_month").val(response.month);
             $("#date_year").val(response.year);
             $("#timeSpent").val(response.timeSpent);
-            // $("#tags").val(response.tags);
 
             $("#assignmentId").html(response.assignmentList);
 
