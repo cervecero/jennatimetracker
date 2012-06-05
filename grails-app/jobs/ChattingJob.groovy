@@ -18,15 +18,18 @@ class ChattingJob {
         int minutes = now.minutes
         String currentTimeExpression = "${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}"
         User.withTransaction {
-            def users = User.findAllByLocalChatTime(currentTimeExpression)
-            List usersToQuery = new ArrayList()
-
-            users.each{ User us ->
-                    if (!userAlreadyEnteredHoursToday(us))
-                      usersToQuery.add(us)
+            User.withHibernateFilters {
+                def users = User.findAllByLocalChatTime(currentTimeExpression)
+                List usersToQuery = new ArrayList()
+    
+                users.each{ User us ->
+                        if (!userAlreadyEnteredHoursToday(us))
+                          usersToQuery.add(us)
+                }
+                if (usersToQuery) {
+                  jabberService.queryUsers(usersToQuery)
+                }
             }
-            if (usersToQuery)
-              jabberService.queryUsers(usersToQuery)
         }
     }
 
