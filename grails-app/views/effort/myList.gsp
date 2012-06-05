@@ -99,7 +99,6 @@
       },
       showTime: false,
       dayClick: function(dayDate) {
-        // alert("Agregando a: "+dayDate);
         add(dayDate.getDate(), dayDate.getMonth() + 1, dayDate.getFullYear());
       },
       eventRender: function(calEvent, element) {
@@ -121,7 +120,6 @@
             tip: 'rightMiddle'
           }
         });
-        // $(element).append("<span class='ui-icon ui-icon-minus' onclick='deleteIt(" + calEvent.id + ")' style='absolute:left;'></span>");
         $(element).bind('click', function(event) {
           edit(calEvent.id);
         });
@@ -144,8 +142,6 @@
     });
 
     function add(day, month, year) {
-      // alert("Adding in: "+day+"/"+month+"/"+year);
-
       $.ajax({
         url: "${createLink(controller: 'effort', action: 'ajaxGetAssignments')}",
         global: true,
@@ -154,8 +150,6 @@
         dataType: "json",
         success: function(response, statusText) {
           if (response.ok) {
-            // alert("Contenido del select es: "+$("#assignmentId").html());
-            // alert("El contenido de response.assignmentList es: "+response.assignmentList)
             $("#assignmentId").html(response.assignmentList);
 
             $('#ui-dialog-title-dialog').text('<g:message code="effort.create"/>');
@@ -174,7 +168,6 @@
     }
 
     function edit(id) {
-      // alert("editar");
       $('#ui-dialog-title-dialog').text('<g:message code="effort.edit"/>');
       $.ajax({
         url: "${createLink(action: 'ajaxEdit')}",
@@ -207,14 +200,12 @@
 
 
     function deleteIt(id) {
-      // alert("Id : "+id);
       if (id == null || "" == id){
         alert("<g:message code='delete.effort.not.deletable'/>");
         return;
       }
       var answer = confirm("<g:message code='delete.effort.confirm'/>");
       if (answer){
-        // alert("Borrando: "+id);
         $.ajax({
             url: "${createLink(action: 'ajaxDelete')}",
             global: true,
@@ -222,7 +213,6 @@
             data: ({id: id}),
             dataType: "json",
             success: function(response, statusText) {
-              // showDialog(response, statusText);
               $("#dialog").dialog('close');
               reload();
               $.jGrowl(response.message);
