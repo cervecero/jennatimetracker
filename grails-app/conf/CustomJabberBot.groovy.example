@@ -26,7 +26,6 @@ environments {
           defaultGravatarUrl="""http://127.0.0.1:8080/projectguide/images/no_avatar.gif"""
           gravatarRating="G"
         }
-        grails.dbconsole.enabled = true
     }
 }
 
