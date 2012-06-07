@@ -1,4 +1,5 @@
-// per-environment settings
+package customconf
+
 environments {
 	production {
 		searchable {

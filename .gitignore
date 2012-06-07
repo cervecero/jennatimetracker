@@ -1,7 +1,7 @@
 target
 
 # Specific files that should not be considered
-grails-app/conf/Custom*.groovy
+grails-app/conf/customconf/Custom*.groovy
 
 # IDE-specific
 target-eclipse

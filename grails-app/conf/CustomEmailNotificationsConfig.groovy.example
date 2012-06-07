@@ -1,3 +1,5 @@
+package customconf
+
 environments {
     development {
         mailSender {

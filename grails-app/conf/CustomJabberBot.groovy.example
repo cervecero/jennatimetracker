@@ -1,3 +1,5 @@
+package customconf
+
 environments {
     development {
         // conversations expire in 2 minutes
