@@ -19,12 +19,12 @@ environments {
         jabber.organization = 'Your Organization'
         jabber.avatar = 'biohazard.jpg'
         twitter.username = 'some_twitter_user'
-        twitter.password = 'your_jabber_password'
+        twitter.password = 'your_twitter_password'
 
         // Avatars: gravatar.com
         avatarPlugin {
-          defaultGravatarUrl="""http://127.0.0.1:8080/projectguide/images/no_avatar.gif"""
-          gravatarRating="G"
+          defaultGravatarUrl = 'http://127.0.0.1:8080/projectguide/images/no_avatar.gif'
+          gravatarRating = 'G'
         }
     }
 }
