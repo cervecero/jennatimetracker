@@ -8,7 +8,7 @@ class EventJob {
     def group = 'jenna-jobs'
     def name = 'event-job'
 
-    def sessionRequired = false
+    def sessionRequired = true
     def concurrent = false
 
     JabberService jabberService

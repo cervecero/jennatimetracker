@@ -8,7 +8,7 @@ class ReminderJob {
     def group = 'jenna-jobs'
     def name = 'reminder-job'
 
-    def sessionRequired = false
+    def sessionRequired = true
     def concurrent = false
 
     JabberService jabberService

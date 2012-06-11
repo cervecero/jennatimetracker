@@ -8,7 +8,7 @@ class ChattingJob {
     def group = 'jenna-jobs'
     def name = 'chatting-job'
 
-    def sessionRequired = false
+    def sessionRequired = true
     def concurrent = false
     JabberService jabberService
 

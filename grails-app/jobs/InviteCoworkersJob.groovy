@@ -8,7 +8,7 @@ class InviteCoworkersJob {
     def group = 'jenna-jobs'
     def name = 'invite-coworkers-job'
 
-    def sessionRequired = false
+    def sessionRequired = true
     def concurrent = false
 
     JabberService jabberService
