@@ -13,6 +13,9 @@ class ReconnectJob {
 
     JabberService jabberService
 
+    static triggers = {
+    }
+
     def execute() {
         jabberService.checkAndReconnect()
     }

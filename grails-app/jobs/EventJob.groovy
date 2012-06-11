@@ -13,6 +13,9 @@ class EventJob {
 
     JabberService jabberService
 
+    static triggers = {
+    }
+
     def execute() {
         Date now = new Date()
         int year = now.year + 1900

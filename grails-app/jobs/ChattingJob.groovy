@@ -12,6 +12,9 @@ class ChattingJob {
     def concurrent = false
     JabberService jabberService
 
+    static triggers = {
+    }
+
     def execute() {
         Date now = new Date()
         int hours = now.hours
@@ -21,7 +24,7 @@ class ChattingJob {
             User.withHibernateFilters {
                 def users = User.findAllByLocalChatTime(currentTimeExpression)
                 List usersToQuery = new ArrayList()
-    
+
                 users.each{ User us ->
                         if (!userAlreadyEnteredHoursToday(us))
                           usersToQuery.add(us)

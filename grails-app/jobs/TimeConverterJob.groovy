@@ -12,6 +12,9 @@ class TimeConverterJob {
     def sessionRequired = true
     def concurrent = false
 
+    static triggers = {
+    }
+
     def execute() {
         User.list().each { User user ->
             user.localChatTime = TimeZoneUtil.toSystemTime(user.chatTime, user.timeZone)

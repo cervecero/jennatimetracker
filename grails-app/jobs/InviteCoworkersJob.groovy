@@ -13,6 +13,9 @@ class InviteCoworkersJob {
 
     JabberService jabberService
 
+    static triggers = {
+    }
+
     def execute() {
         Date now = new Date()
         int hours = now.hours
@@ -37,7 +40,7 @@ class InviteCoworkersJob {
             def users = User.findAllByLocalChatTime(currentTimeExpression)
             Permission permission = Permission.findByName(Permission.ROLE_COMPANY_ADMIN)
             List owners = new ArrayList()
-			/* 
+			/*
 			 * Find users that:
 			 *  - Are Company Admins
 			 *  - Are the only members of their organizations

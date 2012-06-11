@@ -14,6 +14,9 @@ class ProjectFollowUpJob {
 
     def projectFollowUpService
 
+    static triggers = {
+    }
+
     def execute() {
 		Company.all.each { Company company ->
 			projectFollowUpService.sendEmailsToTeamLeaders(company)

@@ -13,6 +13,9 @@ class ReminderJob {
 
     JabberService jabberService
 
+    static triggers = {
+    }
+
     def execute() {
         Date now = new Date()
         int hours = now.hours
