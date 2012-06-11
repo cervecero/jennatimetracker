@@ -1,13 +1,14 @@
 import org.json.JSONArray
 import org.json.JSONObject
 import org.springframework.dao.DataIntegrityViolationException
+import java.text.DateFormat
 import java.text.SimpleDateFormat
+import groovy.time.*
 
 class EffortController extends BaseController {
 
     // the delete, save and update actions only accept POST requests
     static allowedMethods = [save: "POST", update: "POST", delete: "POST", ajaxGetAssignments: "GET"]
-
 
     def beforeInterceptor = [action:this.&auth]
 
@@ -259,7 +260,7 @@ class EffortController extends BaseController {
             jsonResponse.put('assignmentId', effortInstance.assignment?.id)
             jsonResponse.put('comment', effortInstance.comment)
 
-            List assignmentsList =  findAssignmentsForUserAndDateBetween(effortInstance.user, effortInstance.date)
+            List assignmentsList =  findAssignmentsForUserAndDate(effortInstance.user, effortInstance.date)
             String assignments = convertAssignmentsToSelectComboContent(assignmentsList, effortInstance.assignment?.id)
             jsonResponse.put('assignmentList', assignments)
 
@@ -315,23 +316,14 @@ class EffortController extends BaseController {
     }
 
 
+    private static dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     def ajaxGetAssignments =  {
           JSONObject jsonResponse  = new JSONObject()
-
-          java.util.Date date = new Date()
-          date.setMonth(Integer.parseInt(params.month)-1)
-          date.setYear(Integer.parseInt(params.year)-1900)
-          date.setDate(Integer.parseInt(params.day))
-          date.setHours(0)
-          date.setMinutes(0)
-          date.setSeconds(0)
-
-      // <option value="193" >Leandro - aPT1 - chateador (01/07/2010 - 07/07/2011)</option>
-
+          Date date  = dateFormat.parse("$params.year-$params.month-$params.day")
 
           User user = findLoggedUser()
 
-          List assignmentsList =  findAssignmentsForUserAndDateBetween(user, date)
+          List assignmentsList =  findAssignmentsForUserAndDate(user, date)
 
           if (!assignmentsList.isEmpty()){
             String assignments = convertAssignmentsToSelectComboContent(assignmentsList, null)
@@ -365,15 +357,22 @@ class EffortController extends BaseController {
 
       }
 
-      private List findAssignmentsForUserAndDateBetween(User user, Date date){
+      /**
+       * Returns a list of assignment for the user, that is active for the given date
+       */
+      private List findAssignmentsForUserAndDate(final User user, final Date date) {
+          use(TimeCategory) {
+              final Date beginning = date.clone().clearTime() + 1.day
+              final Date end = date.clone().clearTime() - 1.millisecond
 
-        return Assignment.withCriteria{
-          eq("user", user)
-          gt("endDate", date)
-          lt("startDate", date)
-          ne("deleted", true)
-          eq("active", true)
-        }
-
+              return Assignment.withCriteria{
+                  eq("user", user)
+                  lt("startDate", beginning)
+                  gt("endDate", end)
+                  ne("deleted", true)
+                  eq("active", true)
+              }
+          }
+  
       }
 }
