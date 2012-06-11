@@ -9,7 +9,7 @@ class ProjectFollowUpJob {
     def group = 'jenna-jobs'
     def name = 'project-follow-up-job'
 
-    def sessionRequired = false
+    def sessionRequired = true
     def concurrent = false
 
     def projectFollowUpService
