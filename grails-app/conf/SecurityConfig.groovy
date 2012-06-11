@@ -77,6 +77,7 @@ security {
 
 		/login/**=IS_AUTHENTICATED_ANONYMOUSLY
 		/admin/**=${Permission.ROLE_SYSTEM_ADMIN}
+		/quartz/**=${Permission.ROLE_SYSTEM_ADMIN}
 		/effort/**=${Permission.ROLE_USER},${Permission.ROLE_PROJECT_LEADER},${Permission.ROLE_COMPANY_ADMIN},${Permission.ROLE_SYSTEM_ADMIN}
 		/project/**=${Permission.ROLE_PROJECT_LEADER}
 		/milestone/**=${Permission.ROLE_PROJECT_LEADER}

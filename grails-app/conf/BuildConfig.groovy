@@ -47,6 +47,7 @@ grails.project.dependency.resolution = {
         compile ":i18n-templates:1.1.0.1"
         compile ":ofchart:0.6"
         compile ":quartz:0.4.2"
+        compile ":quartz-monitor:0.2"
         compile ":session-temp-files:1.0"
         compile ":export:1.1"
 
