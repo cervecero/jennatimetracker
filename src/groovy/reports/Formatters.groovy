@@ -30,6 +30,9 @@ class Formatters {
     }
 
     def static floatFormatter = { domain, value ->
+        if (value == null) {
+            return null
+        }
         DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale)
         DecimalFormat format = new DecimalFormat('#0.00', symbols)
         return format.format(value)

@@ -10,7 +10,7 @@ class ProjectFollowUpRecord {
     Date date
     String userName
     String roleName
-    Float timeSpent
+    Double timeSpent
     String comment
     Float mood
     Float avgMood

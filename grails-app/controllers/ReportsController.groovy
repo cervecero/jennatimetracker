@@ -315,7 +315,7 @@ class ReportsController extends BaseController {
     AbstractColumn c2 = ColumnBuilder.getInstance().setColumnProperty("user", String.class.getName()).setTitle("User").setWidth(30).build();
     AbstractColumn c3 = ColumnBuilder.getInstance().setColumnProperty("role", String.class.getName()).setTitle("Role").setWidth(30).build();
     AbstractColumn c4 = ColumnBuilder.getInstance().setColumnProperty("date", Date.class.getName()).setTitle("Date").setWidth(30).build();
-    AbstractColumn c5 = ColumnBuilder.getInstance().setColumnProperty("timeSpent", Integer.class.getName()).setTitle("Time Spent").setWidth(40).setFixedWidth(true).build();
+    AbstractColumn c5 = ColumnBuilder.getInstance().setColumnProperty("timeSpent", Double.class.getName()).setTitle("Time Spent").setWidth(40).setFixedWidth(true).build();
     AbstractColumn c6 = ColumnBuilder.getInstance().setColumnProperty("comment", String.class.getName()).setTitle("Comment").setWidth(60).build();
 
     drb.addColumn(c1);

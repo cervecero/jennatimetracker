@@ -9,7 +9,7 @@ import java.text.DateFormat
 
 class ReportItem {
     String project
-    Integer timeSpent
+    Double timeSpent
     String user
     String role
     Date date
