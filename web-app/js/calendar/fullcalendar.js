@@ -686,7 +686,8 @@
 									position: 'absolute',
 									top: top,
 									left: left1,
-									width: left2 - left1
+									width: left2 - left1,
+									'z-index': 1
 								})
 								.appendTo(monthElement);
 							initEventElement(event, element);
