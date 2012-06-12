@@ -32,6 +32,7 @@ grails.project.dependency.resolution = {
         compile 'commons-digester:commons-digester:2.0'
         compile 'commons-logging:commons-logging:1.1.1'
         compile 'javax.mail:mail:1.4'
+        compile 'org.apache.poi:poi:3.2-FINAL'
         compile 'ar.com.fdvs:DynamicJasper:3.0.13'
 		compile 'org.markdownj:markdownj:0.3.0-1.0.2b4'
         compile 'jivesoftware:smack:3.0.4'
