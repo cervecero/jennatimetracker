@@ -222,7 +222,7 @@
           $("#projectsDiv").hide();
           $("#projectsCombo").val("");
         }
-        updateUsersAndRoles();
+        projectUpdated();
       }
 
       function rolesCBUpdated(){
