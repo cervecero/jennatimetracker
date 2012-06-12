@@ -15,7 +15,6 @@
         var user;
         var excel;
 
-        // alert("Excel Report? --> "+excelReport);
         if (excelReport){
           excel = true;
         } else {
@@ -56,14 +55,12 @@
         if ("" != parameters){
           url+=parameters
         }
-      //  alert(url);
 
        window.open(url);
 
       }
        
      function addToParameter(parameter, parameterName, parameterValue){
-       // alert("Parameter: "+parameter+"\nName: "+parameterName+"\nValue: "+parameterValue);
        if ("" == parameter)
         return "?"+parameterName+"="+parameterValue;
        else
@@ -71,7 +68,7 @@
 
      }
 
-     // TODO: Modificar desde la librería.
+     // TODO: Modify using library
       $(document).ready(function(){
           $("#startDate_datePicker").attr("readonly", "true");
           $("#endDate_datePicker").attr("readonly", "true");
@@ -85,24 +82,14 @@
       });
 
       function projectUpdated(){
-
         var projectId = $("#projectsCombo").val();
-
-        // alert("Project Id: "+projectId);
-
         updateUsersAndRoles(projectId);
-
       }
 
       function roleUpdated(){
-
         var projectId = $("#projectsCombo").val();
         var roleId = $("#rolesCombo").val();
-
-        // alert("Project Id: "+projectId+" - Role Id: "+roleId);
-
         updateUsers();
-
       }
 
       function updateUsersAndRoles(projectId){
@@ -148,7 +135,6 @@
           url+=parameters
         }
 
-       //  alert("A punto de invocar: "+url);
         $.ajax({
           type: "POST",
           url: url,
@@ -166,25 +152,22 @@
         });
       }
 
-      function reloadUsersCombo(data)     {
+      function reloadUsersCombo(data) {
         var options = '';
-
+        options += '<option value="">${message(code:'default.all')}</option>';
         $.each(data, function(i, user){
           options += '<option value="' + data[i].id+ '">' +  data[i].name+'</option>';
        });
-       //  alert(options);
 
         $("#usersCombo").html(options);
       }
 
-      function reloadRolesCombo(data)     {
+      function reloadRolesCombo(data) {
         var options = '';
-
-        $.each(data, function(i, user){
+        options += '<option value="">${message(code:'default.all')}</option>';
+        $.each(data, function(i, user) {
           options += '<option value="' + data[i].id+ '">' +  data[i].name+'</option>';
-       });
-        // alert(options);
-
+        });
         $("#rolesCombo").html(options);
       }
 
@@ -202,7 +185,6 @@
 
      function endDateCBUpdated(){
         var show = $("#endDateCheckbox").attr("checked");
-        // alert("projectsCBUpdated: "+show);
         if (show){
           $("#endDateDiv").show();
         }
@@ -214,7 +196,6 @@
 
      function projectsCBUpdated(){
         var show = $("#projectsCheckbox").attr("checked");
-        // alert("projectsCBUpdated: "+show);
         if (show){
           $("#projectsDiv").show();
         }
@@ -228,25 +209,25 @@
       function rolesCBUpdated(){
         var show = $("#rolesCheckbox").attr("checked");
 
-      //   alert("rolesCBUpdated: "+show);
-        if (show)
+        if (show) {
           $("#rolesDiv").show();
-        else
+        }
+        else {
           $("#rolesDiv").hide();
           $("#rolesCombo").val("");
-          roleUpdated();
+        }
+        roleUpdated();
       }
-
-
 
       function usersCBUpdated(){
         var show = $("#usersCheckbox").attr("checked");
-   //      alert("usersCBUpdated: "+show);
-        if (show)
+        if (show) {
           $("#usersDiv").show();
-        else
+        }
+        else {
           $("#usersDiv").hide();
           $("#usersCombo").val("");
+        }
       }
     </script>
 
@@ -254,11 +235,11 @@
     <g:form action="createReport" method="POST" name="createReportForm" id="createReportForm">
 
       <table>
-
-      <th colspan="2">
-          <g:message code="reports.filterBy" default="Filter by" />
-      </th>
-
+      <tr>
+	      <th colspan="2">
+	          <g:message code="reports.filterBy" default="Filter by" />
+	      </th>
+      </tr>
       <tr class="odd" style="width:400px;">
           <td valign="top">
               <g:checkBox name="startDateCheckbox" onclick="startDateCBUpdated()" />
@@ -290,7 +271,7 @@
           <td valign="top">
 
             <div id="projectsDiv" style="display:none;">
-              <g:select id="projectsCombo" name="projectId" from="${projects}" optionKey="id" value="${name}" onchange="projectUpdated()" />
+              <g:select id="projectsCombo" name="projectId" from="${projects}" optionKey="id" value="${name}" noSelection="${['':message(code:'default.all')]}" onchange="projectUpdated()" />
             </div>
           </td>
       </tr>

@@ -376,7 +376,7 @@ class ReportsController extends BaseController {
       List users = new ArrayList()
       List roles = new ArrayList()
 
-      if (params.projectId != null && !"undefined".equals(params.projectId)){
+      if (params.projectId) {
         // If we have a project to filter, we filter available roles and users.
         roles = Role.executeQuery("select distinct ro from Role as ro, Assignment as ass where  ass.role = ro and ass.project = ? order by ro.name asc", [Project.get(params.projectId)])
         users = User.executeQuery("select distinct us from User as us, Assignment as ass where  ass.user = us and ass.project = ? order by us.name asc", [Project.get(params.projectId)])
@@ -391,26 +391,10 @@ class ReportsController extends BaseController {
           }
       }
 
-      render(builder:'json') {
-
-        usersData {
-          users.each {
-            usersData(
-                    id: it.id,
-                    name: it.name
-            )
-          }
-        }
-        rolesData {
-          roles.each {
-            rolesData(
-                    id: it.id,
-                    name: it.name
-            )
-          }
-        }
-
-      }
+      render(contentType: 'text/json') {[
+          'usersData': users.collect { u -> [id: u.id, name: u.name] },
+          'rolesData': roles.collect { r -> [id: r.id, name: r.name] }
+      ]}
   }
 
   def ajaxUpdateUsers = {
@@ -418,13 +402,13 @@ class ReportsController extends BaseController {
       def user = findLoggedUser()
       List users = new ArrayList()
 
-      if (params.roleId != null){
+      if (params.roleId){
 
         // If we have a project to filter, we filter available roles and users.
-        if (params.projectId == null){
-          users = User.executeQuery("select distinct us from User as us, Assignment as ass where  ass.user = us and ass.role = ? order by us.name asc", [Role.get(params.roleId)])
+        if (params.projectId){
+            users = User.executeQuery("select distinct us from User as us, Assignment as ass where  ass.user = us and ass.project = ? and ass.role = ? order by us.name asc", [Project.get(params.projectId), Role.get(params.roleId)])
         } else {
-          users = User.executeQuery("select distinct us from User as us, Assignment as ass where  ass.user = us and ass.project = ? and ass.role = ? order by us.name asc", [Project.get(params.projectId), Role.get(params.roleId)])
+            users = User.executeQuery("select distinct us from User as us, Assignment as ass where  ass.user = us and ass.role = ? order by us.name asc", [Role.get(params.roleId)])
         }
 
       } else {
@@ -434,16 +418,9 @@ class ReportsController extends BaseController {
           }
       }
 
-      render(builder:'json') {
-        usersData {
-          users.each {
-            usersData(
-                    id: it.id,
-                    name: it.name
-            )
-          }
-        }
-      }
+      render(contentType: 'text/json') {[
+          'usersData': users.collect { u -> [id: u.id, name: u.name] },
+      ]}
   }
 
 	private void exportReportToPDF(JasperPrint jp, String path) throws JRException, FileNotFoundException{
