@@ -183,8 +183,7 @@ class ReportsController extends BaseController {
     String startDate, endDate
     Date dateStart, dateEnd
 
-    // Si vienen las fechas, busco.
-    // Si no vienen las fechas, muestro los datepicker nada m�s.
+    // If there are dates, perform search, if not, just show datepickers
     if (params.dateStart != null && params.dateEnd != null){
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd")
 
@@ -200,11 +199,7 @@ class ReportsController extends BaseController {
         flash.message=  g.message(code:"reports.search.empty")
 
     }
-
-
-
     return [userInstance: user, ranking: rankingList, rankingTotal: rankingTotal, startDate: startDate, endDate: endDate, startDateValue:dateStart, endDateValue:dateEnd]
-
   }
 
   def showUserInfo = {
@@ -302,12 +297,9 @@ class ReportsController extends BaseController {
         report.add(ri)
       }
 
-      // Segunda etapa, exportar a EXCEL o PDF.
-
       FastReportBuilder drb = new FastReportBuilder();
       drb.setTitle("Hourly Report")
 
-      // M�rgenes
       drb.setLeftMargin(20)
          .setRightMargin(20)
          .setTopMargin(20)
@@ -324,7 +316,6 @@ class ReportsController extends BaseController {
     AbstractColumn c4 = ColumnBuilder.getInstance().setColumnProperty("date", Date.class.getName()).setTitle("Date").setWidth(30).build();
     AbstractColumn c5 = ColumnBuilder.getInstance().setColumnProperty("timeSpent", Integer.class.getName()).setTitle("Time Spent").setWidth(40).setFixedWidth(true).build();
     AbstractColumn c6 = ColumnBuilder.getInstance().setColumnProperty("comment", String.class.getName()).setTitle("Comment").setWidth(60).build();
-    //AbstractColumn c7 = ColumnBuilder.getInstance().setColumnProperty("Estado_de_animo", String.class.getName()).setTitle("Estado de animo").setWidth(60).build();
 
     drb.addColumn(c1);
     drb.addColumn(c3);
@@ -332,7 +323,6 @@ class ReportsController extends BaseController {
     drb.addColumn(c4);
     drb.addColumn(c5);
     drb.addColumn(c6);
-    //drb.addColumn(c7);
 
     drb.setUseFullPageWidth(true);
 
@@ -345,48 +335,37 @@ class ReportsController extends BaseController {
 
     DynamicReport dr = drb.build();
 
-    //Definimos la fuente de datos
     JRDataSource ds =  new JRBeanCollectionDataSource(report);
 
     File outfile = File.createTempFile("hourly_report", "hourly_report");
     String reportExt
     Boolean excelReport = Boolean.parseBoolean(params.excel);
 
-    if (excelReport){
-      //Generamos el informe como JasperPrint con los datos ya a�adidos.
-      JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ListLayoutManager(), ds);
-
-      //Exportaci�n a formato XLS
-      exportReportToXLS(jp,outfile.getAbsolutePath());
-
-      reportExt = "xls"
-      response.contentType = 'application/vnd.ms-excel'
+    if (excelReport) {
+        reportExt = "xls"
+        JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ListLayoutManager(), ds);
+        exportReportToXLS(jp,outfile.getAbsolutePath());
+        response.contentType = 'application/vnd.ms-excel'
     } else {
-      //Generamos el informe como JasperPrint con los datos ya a�adidos.
-      JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
-
-      //Exportaci�n a formato PDF
-      exportReportToPDF(jp,outfile.getAbsolutePath());
-
-       reportExt = "pdf"
-      response.contentType = 'application/pdf'
+        reportExt = "pdf"
+        JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
+        exportReportToPDF(jp,outfile.getAbsolutePath());
+        response.contentType = 'application/pdf'
     }
 
-    FileInputStream ins= new FileInputStream(outfile);
-    int inData = ins.read ( );
+    FileInputStream ins = new FileInputStream(outfile);
+    int inData = ins.read();
     while (inData != -1) {
-      response.outputStream.write(inData);
-      inData = ins.read ( );
+        response.outputStream.write(inData);
+        inData = ins.read();
     }
     ins.close();
 
     String reportName = "reporte"
-
     response.setHeader("Content-disposition", "attachment; filename=" +reportName + "."+reportExt);
     response.outputStream.close()
 
     return false
-
   }
 
 
@@ -398,7 +377,6 @@ class ReportsController extends BaseController {
 
       if (params.projectId != null && !"undefined".equals(params.projectId)){
         // If we have a project to filter, we filter available roles and users.
-
         roles = Role.executeQuery("select distinct ro from Role as ro, Assignment as ass where  ass.role = ro and ass.project = ? order by ro.name asc", [Project.get(params.projectId)])
         users = User.executeQuery("select distinct us from User as us, Assignment as ass where  ass.user = us and ass.project = ? order by us.name asc", [Project.get(params.projectId)])
       } else {
@@ -480,8 +458,6 @@ class ReportsController extends BaseController {
 		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, fos);
 
 		exporter.exportReport();
-
-		// logger.debug("Report exported: " + path);
 	}
 
     private void exportReportToXLS(JasperPrint jp, String path) throws JRException, FileNotFoundException{
@@ -505,23 +481,15 @@ class ReportsController extends BaseController {
 
 	}
 
-  /**  Listado de usuarios. Usuario actual. Listado de meses. Listado de a�os.
-    *  . A�os: De los que haya datos.
-    *  . Meses: De los que haya datos.
-    *
-    */
-
   /**
-    *   Desde ac�, gr�ficamos el humor de la empresa a lo largo del tiempo.
-    */
-
+   *   Chart company's mood
+   */
   def mood = {
 
     def user = findLoggedUser()
     def date = new Date()
     def userList = User.findAllByCompany(user.company)
 
-    // En teor�a, esto deber�a venir por par�metro: Meses.
     def month
     def year
 
@@ -533,24 +501,17 @@ class ReportsController extends BaseController {
       year  = date.year
     }
 
-    // 'selectedUser' deber�a ser elegible solo por PL's o COMPANY OWNERS
+    // 'selectedUser' should be selected only if requester is PROJECT LEADER or COMPANY OWNER
     if (params.selectedUser){
       user = User.get(Integer.parseInt(params.selectedUser))
     }
 
-    /**   Si no hay datos, creo el del �ltimo mes.
-    *     Si hay datos, creo el solicitado.
-    */
-
-    // Lleno el listado de a�os y de meses para elegir.
     def years  = databaseService.findAvailableYears()
     def months = [1,2,3,4,5,6,7,8,9,10,11,12]
 
     SimpleDateFormat sdf = new SimpleDateFormat("yy_MM_dd__hh_mm_ss")
     String dateString = sdf.format(date)
 
-
-    // Year y Month tienen valores asignados.
     GregorianCalendar gc = new GregorianCalendar()
     gc.set(year, month, 1) // year month date
 
