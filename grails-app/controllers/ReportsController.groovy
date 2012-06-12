@@ -155,10 +155,11 @@ class ReportsController extends BaseController {
 
 
     def newKnowledge = {
-    def user = findLoggedUser()
-    if(!g.message(code: "reports.knowledge.new.learning.empty").equals(flash.message))
-        flash.message = ""
-    render(view: 'newKnowledge', model: [user: user])
+        def user = findLoggedUser()
+        if(!g.message(code: "reports.knowledge.new.learning.empty").equals(flash.message)) {
+            flash.message = ""
+        }
+        render(view: 'newKnowledge', model: [user: user])
   }
 
   def list = {
