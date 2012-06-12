@@ -156,8 +156,6 @@ class EffortController extends BaseController {
     private JSONObject create(request, params) {
         JSONObject jsonResponse
 
-        // Removing parseTags 27/07/2010
-        // parseTags(params)
         Effort effortInstance = new Effort(params)
 
         effortInstance.user = findLoggedUser()
@@ -182,8 +180,6 @@ class EffortController extends BaseController {
                 effortInstance.errors.rejectValue("version", "effort.optimistic.locking.failure", "Another user has updated this Effort while you were editing")
                 jsonResponse = buildJsonErrorResponse(request, effortInstance.errors)
             } else {
-                // Removing parseTags: 27/7/2010.
-                // parseTags(params)
                 bindData(effortInstance, params, [exclude: 'date'])
 
                 Assignment assignment = Assignment.get(params.assignmentId)
@@ -256,7 +252,6 @@ class EffortController extends BaseController {
             jsonResponse.put('date_month', effortInstance.date.month + 1)
             jsonResponse.put('date_year', effortInstance.date.year + 1900)
             jsonResponse.put('timeSpent', effortInstance.timeSpent)
-            // jsonResponse.put('tags', effortInstance.tags.join(', '))
             jsonResponse.put('assignmentId', effortInstance.assignment?.id)
             jsonResponse.put('comment', effortInstance.comment)
 
