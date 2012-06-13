@@ -8,7 +8,7 @@ class ReconnectJob {
     def group = 'jenna-jobs'
     def name = 'reconnect-job'
 
-    def sessionRequired = false
+    def sessionRequired = true
     def concurrent = false
 
     JabberService jabberService
