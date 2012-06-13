@@ -13,7 +13,7 @@
         $('#assignment_endDate_datePicker').attr("readonly", "true");
         $('#assignment_startDate_datePicker').attr("readonly", "true");
     })
-    $(function() {
+    $(document).ready(function() {
         var milestoneId = $("#milestone_id");
         var milestoneVersion = $("#milestone_version");
         var milestoneName = $("#milestone_name");
@@ -101,7 +101,7 @@
             }
         }
 
-        $("#tabPanel").tabs();
+        
         <%--
         $('#btnCreateMilestone').click(function() {
           $('#ui-dialog-title-milestoneDialog').text('<g:message code="milestone.create"/>');
@@ -171,6 +171,7 @@
                 assignmentTips.text('');
             }
         });
+        $("#tabPanel").tabs();
 
     });
     <%--
