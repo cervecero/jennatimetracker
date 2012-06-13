@@ -64,6 +64,7 @@ log4j = { root ->
     root.level = org.apache.log4j.Level.WARN
 
     appenders {
+        'null' name: "stacktrace" // Shutting down the StackTrace logger
         //console name: 'stdout', layout: pattern(conversionPattern: '%d{dd MMM yyyy HH:mm:ss,SSS} [%15.15t] %-5p %30.30c %x - %m%n')
         rollingFile name: 'file', maxFileSize: 1024 * 1024 * 1024, maxBackupIndex: 10, file: '/tmp/jenna.log', layout: pattern(conversionPattern: '%d{dd MMM yyyy HH:mm:ss,SSS} [%15.15t] %-5p %30.30c %x - %m%n')
     }
