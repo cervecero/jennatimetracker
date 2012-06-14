@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title><g:layoutTitle default="Project Guide" /></title>
+    <title>Jenna Timetracker - <g:layoutTitle default="${message(code:'app.tagline')}"/></title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <meta name="description" content="Forget about tracking time!"/>
     <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
