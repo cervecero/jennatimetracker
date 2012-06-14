@@ -65,7 +65,7 @@
             <g:message code="reports.project" default="Project"  />
           </td>
           <td valign="top">
-              <g:select name="project" optionKey="id" from="${projects}"/>
+              <g:select name="projectId" optionKey="id" from="${projects}"/>
           </td>
         </tr>
       </table>
