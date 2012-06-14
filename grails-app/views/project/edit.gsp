@@ -63,23 +63,6 @@
 
                                 </td>
                             </tr>
-
-                        <%--
-                            <tr class="prop even">
-                                <td valign="top" class="name">
-                                    <label for="tags"><g:message code="project.tags" default="Tags" />:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: projectInstance, field: 'tags', 'errors')}">
-                                    <g:select name="tags"
-from="${Tag.findAllByCompany(projectInstance.company)}"
-size="5" multiple="yes" optionKey="id"
-value="${projectInstance?.tags}" />
-
-
-                                </td>
-                            </tr>
-                            --%>
-
                         </tbody>
                     </table>
                 </div>
