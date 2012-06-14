@@ -129,12 +129,14 @@ class EffortController extends BaseController {
 
     }
 
+    // TODO: Not used anymore?
     def create = {
         def effortInstance = new Effort()
         effortInstance.properties = params
         return [effortInstance: effortInstance]
     }
 
+    // TODO: Not used anymore?
     def save = {
         def effortInstance = new Effort(params)
         if (!effortInstance.hasErrors() && effortInstance.save()) {
