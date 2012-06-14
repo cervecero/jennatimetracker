@@ -2,6 +2,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="layout" content="main"/>
+    <title><g:message code="app.title.project" args="${[projectInstance]}"/></title>
     <g:javascript src="jquery-ui/ui.core.js"/>
     <g:javascript src="jquery-ui/ui.tabs.js"/>
     <g:javascript src="jquery-ui/jquery.form.js"/>

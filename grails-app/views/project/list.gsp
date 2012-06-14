@@ -2,6 +2,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="layout" content="main"/>
+    <title><g:message code="app.menu.management.projects"/></title>
     <g:javascript src="jquery-ui/jquery.form.js"/>
 
     <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'jquery.jgrowl.css')}" media="screen">
