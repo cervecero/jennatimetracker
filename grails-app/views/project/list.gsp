@@ -20,7 +20,7 @@
 
 <script>
 
-    // TODO: Modificar desde la librería.
+    // TODO: Modify from library
     $(document).ready(function() {
         $("#startDateEdit_datePicker").attr("readonly", "true");
         $("#endDateEdit_datePicker").attr("readonly", "true");
@@ -107,7 +107,6 @@
         }
 
         function beforeSubmitEdit() {
-            // alert("beforeSubmitEdit");
             $("#validateTipsEdit").text("");
             allFieldsEdit.removeClass('ui-state-error');
         }
@@ -130,11 +129,9 @@
         });
 
         function showResponseEdit(response, statusText) {
-            // alert("showResponseEdit");
             if (response.ok) {
                 allFieldsEdit.val('');
                 $("#dialogEdit").dialog('close');
-                //reloadListado();
             } else {
                 var message = "";
                 for (var key in response.errors) {
@@ -180,9 +177,7 @@
                 });
 
         function reloadListado() {
-            // alert("Realoading Listado");
             $("#ajaxProjectCreated").submit();
-
         }
 
         $("#dialogEdit").dialog({
