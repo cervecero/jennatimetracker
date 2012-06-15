@@ -41,6 +41,13 @@ class TimeZoneUtilTest extends GroovyTestCase {
         assertEquals(DAY_AFTER_REFERENCE_DATE, systemDate)
     }
 
+    void testCurrentTimeInDifferentTimeZone() {
+        Date systemDate = GregorianCalendar.getInstance().getTime()
+         def myTimeZone = buildTimeZoneFromOffsetInHours(DEFAULT_TZ_OFFSET-1)
+        Date currentDate = TimeZoneUtil.getCurrentDateInTimeZone(myTimeZone)
+        assertTrue(currentDate.before(systemDate)) // Even though the date is taken after, the TimeZone should be rolled
+    }
+
     TimeZone buildTimeZoneFromOffsetInHours(hours) {
         return new SimpleTimeZone(hoursToMillis(hours), "GMT${hours < 0 ? '-' : '+'}${Math.abs(hours) < 10 ? '0' : ''}${hours}00")
     }

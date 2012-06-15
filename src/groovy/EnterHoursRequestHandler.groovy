@@ -1,5 +1,3 @@
-import java.util.regex.Matcher
-import java.text.ParseException
 
 class EnterHoursRequestHandler extends RequestHandler {
 
@@ -109,7 +107,7 @@ class EnterHoursRequestHandler extends RequestHandler {
 
     def saveEffort(Conversation _conversation) {
         Effort effort = _conversation.context.effort
-        effort.date=new Date()
+        effort.date = TimeZoneUtil.getCurrentDateInTimeZone(_conversation.actualRequest.user.timeZone)
         effort.assignment= new Assignment()
         effort.assignment= Assignment.get(_conversation.context.assignments.peek())
         effort.user= _conversation.actualRequest.user
@@ -144,7 +142,7 @@ class EnterHoursRequestHandler extends RequestHandler {
             Effort effort = new Effort()
             effort.timeSpent = effortToSave.timeSpent
             effort.comment = effortToSave.comment
-            effort.date = new Date()
+            effort.date = effortToSave.date
             effort.assignment = effortToSave.assignment
 
             /*

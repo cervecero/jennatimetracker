@@ -112,4 +112,16 @@ class TimeZoneUtil {
         format.setTimeZone getTimeZone(tz)
         format.format(calendar.time)
     }
+
+    /**
+     * @param tz TimeZone from which to get the current date and time
+     * @return a Date object, representing the current date and time in the tz
+     */
+    def static getCurrentDateInTimeZone(tz) {
+        final Calendar targetCalendar = GregorianCalendar.getInstance(tz)
+        Calendar systemCalendar = GregorianCalendar.getInstance()
+        systemCalendar.set(targetCalendar.get(Calendar.YEAR), targetCalendar.get(Calendar.MONTH), targetCalendar.get(Calendar.DAY_OF_MONTH),
+            targetCalendar.get(Calendar.HOUR), targetCalendar.get(Calendar.MINUTE))
+        return systemCalendar.getTime()
+    }
 }
