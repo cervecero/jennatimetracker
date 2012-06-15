@@ -256,7 +256,10 @@ class EffortController extends BaseController {
             jsonResponse.put('date_day', effortInstance.date.date)
             jsonResponse.put('date_month', effortInstance.date.month + 1)
             jsonResponse.put('date_year', effortInstance.date.year + 1900)
-            jsonResponse.put('timeSpent', effortInstance.timeSpent)
+            // FIXME: As the number is going to be translated using the browser's locale when the user sends the form, we must transform it.
+            // However, this is not consistent with how we show numbers in the rest of the app.
+            // Handling i18n for number separators is hard, but should be consistent :(
+            jsonResponse.put('timeSpent', formatNumber(number:effortInstance.timeSpent, format:'##0.#'))
             jsonResponse.put('assignmentId', effortInstance.assignment?.id)
             jsonResponse.put('comment', effortInstance.comment)
 
