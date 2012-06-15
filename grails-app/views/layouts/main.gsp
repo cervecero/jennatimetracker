@@ -260,7 +260,7 @@
     </div>
 </div>
 <div id="footer">
-    <p class="style1">Jenna Timetracker v<g:message code="${grailsApplication.metadata['app.version']}"/> is proudly powered by <a href="http://fdvsolutions.com/">FDV Solutions</a></p>
+    <p class="style1">Jenna Timetracker v<g:message code="${grailsApplication.metadata['app.version']}"/> <g:message code="app.powered"/></p>
 </div>
 <div id="loading" title="<g:message code="app.loading"/>"/>
 <div id="messageDialog" title="">
