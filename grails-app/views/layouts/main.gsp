@@ -260,7 +260,7 @@
     </div>
 </div>
 <div id="footer">
-    <p class="style1">Project Guide v<g:message code="${grailsApplication.metadata['app.version']}"/> is proudly powered by <a href="http://fdvsolutions.com/">FDV Solutions</a></p>
+    <p class="style1">Jenna Timetracker v<g:message code="${grailsApplication.metadata['app.version']}"/> is proudly powered by <a href="http://fdvsolutions.com/">FDV Solutions</a></p>
 </div>
 <div id="loading" title="<g:message code="app.loading"/>"/>
 <div id="messageDialog" title="">
