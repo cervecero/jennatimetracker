@@ -199,6 +199,7 @@ class EffortController extends BaseController {
         return jsonResponse
     }
 
+    // TODO: Not used anymore?
     private parseTags(params) {
         def tags = params.tags?.split(',')?.collect { tagName ->
             tagName = tagName.trim()
@@ -212,6 +213,7 @@ class EffortController extends BaseController {
         params.tags = tags
     }
 
+    // TODO: Not used anymore?
     def show = {
         def effortInstance = Effort.get(params.id)
         if (!effortInstance) {
@@ -225,6 +227,7 @@ class EffortController extends BaseController {
         }
     }
 
+    // TODO: Not used anymore?
     def edit = {
         def effortInstance = Effort.get(params.id)
         if (!effortInstance) {
