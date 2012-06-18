@@ -22,12 +22,10 @@ class KnowledgeStep2RequestHandler extends RequestHandler {
       String answer = userAnswer(user, actualMessage);
 
       if (answer.equals(Answer.POSITIVE)){
-        // Aprendió algo y le vamos a preguntar qué.
         _conversation.responses << Response.build('KnowledgeStep2RequestHandlerDidLearnSomething')
         _conversation.responses << Response.build('KnowledgeStep2RequestHandlerAskKnowledge')
         _conversation.context.askForKnowledge3=true
       } else if (answer.equals(Answer.NEGATIVE)){
-        // No aprendió nada.
         _conversation.responses << Response.build('KnowledgeStep2RequestHandlerDidNotLearnAnything')
         _conversation.responses << Response.build('KnowledgeStep2RequestHandlerDidNotLearnAnythingPunish')
       } else {
