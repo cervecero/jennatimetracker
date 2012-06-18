@@ -1,10 +1,8 @@
 
 /**
- * Created by IntelliJ IDEA.
- * User: Lea
+ * @author Leandro Larroulet
  * Date: 12/01/11
  * Time: 16:48
- * To change this template use File | Settings | File Templates.
  */
 class ProblemStep3RequestHandler extends RequestHandler {
 
@@ -24,7 +22,7 @@ class ProblemStep3RequestHandler extends RequestHandler {
 
       String actualMessage = _conversation.actualRequest.message
 
-      // Acá validamos que la cantidad de horas indicadas estén bien.
+      // Acï¿½ validamos que la cantidad de horas indicadas estï¿½n bien.
       int hours
 
       try {
@@ -35,14 +33,14 @@ class ProblemStep3RequestHandler extends RequestHandler {
       _conversation.context.assignmentId = assignmentId
 
       if (hours > 0 && hours < 16){
-        // Si la cantidad de horas está OK, pedimos una descripción del problema.
+        // Si la cantidad de horas estï¿½ OK, pedimos una descripciï¿½n del problema.
         _conversation.context.problemStep4=true
         _conversation.context.hours = hours
         _conversation.responses << Response.build('ProblemRequestHandler.ask.description')
         return
       }
       else {
-        // Si la cantidad de horas está MAL, pedimos que reingrese la cantidad de horas.
+        // Si la cantidad de horas estï¿½ MAL, pedimos que reingrese la cantidad de horas.
         _conversation.context.problemStep3=true
         _conversation.context.assignmentId = assignmentId
         _conversation.responses << Response.build('ProblemRequestHandler.ask.description.hours.error')

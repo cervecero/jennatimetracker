@@ -1,10 +1,8 @@
 
 /**
- * Created by IntelliJ IDEA.
- * User: Lea
+ * @author Leandro Larroulet
  * Date: 17/09/2010
  * Time: 15:37:00
- * To change this template use File | Settings | File Templates.
  */
 public class IsSoftDeletable {
 

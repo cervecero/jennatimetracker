@@ -1,10 +1,8 @@
 
 /**
- * Created by IntelliJ IDEA.
- * User: Lea
+ * @author Leandro Larroulet
  * Date: 29/09/2010
  * Time: 15:40:03
- * To change this template use File | Settings | File Templates.
  */
 import org.hibernate.type.LocaleType
 import org.hibernate.type.TimeZoneType

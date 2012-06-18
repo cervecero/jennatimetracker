@@ -1,10 +1,8 @@
 
 /**
- * Created by IntelliJ IDEA.
- * User: Lea
+ * @author Leandro Larroulet
  * Date: 07/10/2010
  * Time: 17:19:51
- * To change this template use File | Settings | File Templates.
  */
 class Score {
 

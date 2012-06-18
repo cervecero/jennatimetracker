@@ -6,11 +6,9 @@ import org.hibernate.engine.PersistenceContext
 import java.text.SimpleDateFormat;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Lea
+ * @author Leandro Larroulet
  * Date: 17/09/2010
  * Time: 10:42:24
- * To change this template use File | Settings | File Templates.
  */
 public class SoftDeleteListener extends DefaultDeleteEventListener {
 

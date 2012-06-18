@@ -1,10 +1,8 @@
 
 /**
- * Created by IntelliJ IDEA.
- * User: Lea
+ * @author Leandro Larroulet
  * Date: 12/01/11
  * Time: 16:48
- * To change this template use File | Settings | File Templates.
  */
 class ProblemStep4RequestHandler extends RequestHandler {
 
@@ -22,7 +20,7 @@ class ProblemStep4RequestHandler extends RequestHandler {
 
       _conversation.context.clear()
 
-      // Si la cantidad de horas está OK, pedimos una descripción del problema.
+      // Si la cantidad de horas estï¿½ OK, pedimos una descripciï¿½n del problema.
 
       Boolean partsToProcess = Boolean.TRUE
       int sequence = 0

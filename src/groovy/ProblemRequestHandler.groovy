@@ -1,10 +1,8 @@
 
 /**
- * Created by IntelliJ IDEA.
- * User: Lea
+ * @author Leandro Larroulet
  * Date: 12/01/11
  * Time: 16:46
- * To change this template use File | Settings | File Templates.
  */
 class ProblemRequestHandler extends RequestHandler {
 
