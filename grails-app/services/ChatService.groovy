@@ -47,7 +47,6 @@ class ChatService  implements InitializingBean, GrailsApplicationAware, MessageS
             return expressResponse(conversation)
         } else {
             conversation.responses << Response.build('unknownCommand')
-            //conversation.responses << new Response(text: conversation.eliza.processInput(_request.message))
             return expressResponse(conversation)
         }
     }
@@ -86,26 +85,12 @@ class ChatService  implements InitializingBean, GrailsApplicationAware, MessageS
 
         if (assignments) {
             Queue queue = new LinkedList(assignments*.id)
-            // Comentar para que pregunte a la vieja andanza.
-            // conversation.context.assignments = queue
-
-            // Descomentar para que pregunte copada
-            // conversation.context.assignmentsAuxiliar = queue
-            // Assignment assignment = Assignment.get(queue.peek())
-
-            // Descomentar para que pregunte copada
             conversation.context.salutateStep1=true
-
             //FIXME: Can this redirect actual 'conversation' to my Request Handler
             return handleRequest(conversation.actualRequest);
-
-            // conversation.responses << Response.build('requestTracking.assignment', [assignment.project.name, assignment.role.name])
-        } else {
-            // Aunque no tenga asignaciones, hacemos que pregunte Jenna.
+        } else { // Even if there are no assignments, salute
             conversation.context.salutateStep1=true
             return handleRequest(conversation.actualRequest);
-
-            // conversation.responses << Response.build('requestTracking')
         }
         return expressResponse(conversation)
     }
