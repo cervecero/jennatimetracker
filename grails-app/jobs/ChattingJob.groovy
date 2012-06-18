@@ -26,7 +26,7 @@ class ChattingJob {
                 List usersToQuery = new ArrayList()
 
                 users.each{ User us ->
-                        if (!userAlreadyEnteredHoursToday(us))
+                        if (!us.registeredEffortsFor(now))
                           usersToQuery.add(us)
                 }
                 if (usersToQuery) {
@@ -34,29 +34,5 @@ class ChattingJob {
                 }
             }
         }
-    }
-
-    boolean userAlreadyEnteredHoursToday(User user){
-
-      Date beginToday = new Date()
-      Date endToday = new Date()
-
-      beginToday.setHours(0)
-      beginToday.setMinutes(0)
-      beginToday.setSeconds(0)
-      endToday.setHours(23)
-      endToday.setMinutes(59)
-      endToday.setSeconds(59)
-
-      def efforts = Effort.withCriteria(){
-          eq('user', user)
-          gt('date', beginToday)
-          lt('date', endToday)
-      }
-
-      if (efforts)
-        return true
-
-      return false
     }
 }

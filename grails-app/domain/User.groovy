@@ -42,6 +42,7 @@ class User {
     }
 
     int getPoints(){
+      //FIXME: Use default?
       if (!points)
         return 0;
       return points
