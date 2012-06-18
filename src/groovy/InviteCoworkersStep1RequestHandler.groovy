@@ -17,10 +17,10 @@ class InviteCoworkersStep1RequestHandler extends RequestHandler {
         _conversation.context.clear()
         _conversation.context.inviteCoworkers2=true
 
-        _conversation.responses << Response.build('sweet.InviteCoworkersStep1RequestHandlerAsk1') //FIXME: Hardcoded humour!
-        _conversation.responses << Response.build('sweet.InviteCoworkersStep1RequestHandlerAsk2') //FIXME: Hardcoded humour!
-        _conversation.responses << Response.build('sweet.InviteCoworkersStep1RequestHandlerYes') //FIXME: Hardcoded humour!
-        _conversation.responses << Response.build('sweet.InviteCoworkersStep1RequestHandlerMaybe') //FIXME: Hardcoded humour!
-        _conversation.responses << Response.build('sweet.InviteCoworkersStep1RequestHandlerNo') //FIXME: Hardcoded humour!
+        _conversation.responses << Response.build('InviteCoworkersStep1RequestHandlerAsk1')
+        _conversation.responses << Response.build('InviteCoworkersStep1RequestHandlerAsk2')
+        _conversation.responses << Response.build('InviteCoworkersStep1RequestHandlerYes')
+        _conversation.responses << Response.build('InviteCoworkersStep1RequestHandlerMaybe')
+        _conversation.responses << Response.build('InviteCoworkersStep1RequestHandlerNo')
     }
 }

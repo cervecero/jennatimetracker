@@ -109,8 +109,7 @@ class ChatService  implements InitializingBean, GrailsApplicationAware, MessageS
     def remindEvent(Event _event, User _participant) {
         Conversation conversation = getConversationForUser(_participant)
         conversation.actualRequest = new Request(user: _participant, message: 'dummy request')
-        // FIXME: Why is humour hardcoded?
-        conversation.responses << Response.build('angry.remindEvent', [_event.name, _event.startDate])
+        conversation.responses << Response.build('remindEvent', [_event.name, _event.startDate])
         return expressResponse(conversation)
     }
 
