@@ -81,18 +81,11 @@ class ChatService  implements InitializingBean, GrailsApplicationAware, MessageS
             }
         }
 
-
-
         if (assignments) {
             Queue queue = new LinkedList(assignments*.id)
-            conversation.context.salutateStep1=true
-            //FIXME: Can this redirect actual 'conversation' to my Request Handler
-            return handleRequest(conversation.actualRequest);
-        } else { // Even if there are no assignments, salute
-            conversation.context.salutateStep1=true
-            return handleRequest(conversation.actualRequest);
         }
-        return expressResponse(conversation)
+        conversation.context.salutateStep1 = true
+        return handleRequest(conversation.actualRequest);
     }
 
     def remind(Reminder _reminder) {
