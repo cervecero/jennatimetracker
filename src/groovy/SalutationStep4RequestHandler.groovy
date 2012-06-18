@@ -5,7 +5,7 @@
  */
 class SalutationStep4RequestHandler extends RequestHandler {
 
-    DatabaseService dbService
+    DatabaseService dbService // FIXME: Not used?
 
     def accepts(Conversation _conversation) {
       boolean accepted = _conversation.context.salutateStep4
@@ -13,19 +13,14 @@ class SalutationStep4RequestHandler extends RequestHandler {
     }
 
     def doHandle(Conversation _conversation, ChatService _chatService) {
-      User user =_conversation.actualRequest.user 
-
       _conversation.context.clear()
 
-      String actualMessage = _conversation.actualRequest.message
-      String answer = userAnswer(user, actualMessage);
-
-      if (answer.equals(Answer.POSITIVE)){
+      if (_conversation.isAffirmative()){
         _conversation.context.assignments = _conversation.actualRequest.user.listActiveAssignments()
         EnterHoursRequestHandler handler = new EnterHoursRequestHandler()
         handler.handle(_conversation, _chatService)
 
-      } else if (answer.equals(Answer.NEGATIVE)){
+      } else if (_conversation.isNegative()){
         _conversation.responses << Response.build('SalutationRequestHandlerStep4Bad')
 
       } else {
@@ -34,24 +29,5 @@ class SalutationStep4RequestHandler extends RequestHandler {
         handler.handle(_conversation, _chatService)
 
       }
-    }
-
-    private String userAnswer(User user, String message){
-      String answer = Answer.UNKNOWN
-
-      message.split().each{ String actualWord ->
-        List word = Dictionary.withCriteria {
-          eq("type", "answer")
-          eq("locale", user.locale)
-          eq("word", actualWord.toLowerCase())
-        }
-        word.each{ Dictionary dw ->
-          if (dw.category.equals(Answer.POSITIVE))
-            answer = Answer.POSITIVE;
-          if (dw.category.equals(Answer.NEGATIVE))
-            answer = Answer.NEGATIVE;
-        }
-      }
-      return answer;
     }
 }
