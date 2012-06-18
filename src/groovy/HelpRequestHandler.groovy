@@ -6,7 +6,7 @@
 class HelpRequestHandler extends RequestHandler {
 
     def doHandle(Conversation _conversation, ChatService _chatService) {
-        _conversation.responses << Response.build('sweet.HelpRequestHandler.begin') //FIXME: Hardcoded humour!
+        _conversation.responses << Response.build('HelpRequestHandler.begin')
         _conversation.handlers.each { RequestHandler handler ->
             if (handler.isAuthorized(_conversation.actualRequest.user)) {
                 String name = handler.getName(_conversation)
@@ -15,7 +15,7 @@ class HelpRequestHandler extends RequestHandler {
                 }
             }
         }
-        _conversation.responses << Response.build('sweet.HelpRequestHandler.end') //FIXME: Hardcoded humour!
+        _conversation.responses << Response.build('HelpRequestHandler.end')
         _conversation.context.clear()
     }
 }
