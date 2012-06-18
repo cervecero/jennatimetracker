@@ -74,7 +74,7 @@ class SalutationStep3RequestHandler extends RequestHandler {
       GregorianCalendar calendar = GregorianCalendar.getInstance();
       java.sql.Date date = new java.sql.Date(calendar.getTimeInMillis());
 
-      // Si estamos acá, es porque la respuesta calificó en alguna de las opciones válidas.
+      // If this is executed, the response matched a valid option
       UserMood uMood = new UserMood()
       uMood.user = user
       uMood.date = date
@@ -86,7 +86,7 @@ class SalutationStep3RequestHandler extends RequestHandler {
       // List user assignments so that workflow will change in case user doesn't have any.
       def assignments = user.listActiveAssignments()
 
-      // Sea como sea que esté, le voy a preguntar por sus asignaciones, si tiene.
+      // Don't really care about humor :P just ask about assignments
       if (assignments){
         List<Response> responses = getAnswerFor(answer)
         _conversation.responses = responses
@@ -99,82 +99,7 @@ class SalutationStep3RequestHandler extends RequestHandler {
         
         KnowledgeStep1RequestHandler handler = new KnowledgeStep1RequestHandler()
         handler.handle(_conversation, _chatService)
-
-
       }
 
     }
-
-    /*
-    def doHandleOld(Conversation _conversation, ChatService _chatService) {
-      _conversation.context.clear()
-      _conversation.context.salutateStep4=true
-      User user =_conversation.actualRequest.user 
-
-      String actualMessage = _conversation.actualRequest.message
-      String answer = userMood(user, actualMessage);
-
-      Status status = new Status()
-      status.user = user
-      status.date = new Date()
-      status.status = actualMessage
-      status.category = answer
-      status.save(flush:true)
-      
-      _conversation.context.status = status
-
-      // List user assignments so that workflow will change in case user doesn't have any.
-      def assignments = user.listActiveAssignments()
-
-      if (answer.equals(Answer.POSITIVE)){
-        // Está bien.
-        if (assignments){
-          _conversation.responses << Response.build('SalutationRequestHandlerStep3Fine')
-          _conversation.responses << Response.build('SalutationRequestHandlerStep3FineAskHours')
-        } else {
-          _conversation.responses << Response.build('SalutationRequestHandlerStep3FineDontAskHours')
-          _conversation.context.clear()
-        }
-
-      } else if (answer.equals(Answer.NEGATIVE)){
-        // Está mal.
-        if (assignments){
-          _conversation.responses << Response.build('SalutationRequestHandlerStep3Bad')
-          _conversation.responses << Response.build('SalutationRequestHandlerStep3BadAskHours')
-        } else {
-          _conversation.responses << Response.build('SalutationRequestHandlerStep3BadDontAskHours')
-          _conversation.context.clear()
-        }
-      } else {
-        // No sabemos que le pasa, como si fuera una mujer.
-
-        if (assignments){
-          _conversation.responses << Response.build('SalutationRequestHandlerStep3Final')
-          _conversation.responses << Response.build('SalutationRequestHandlerStep3FinalAskHours')
-        } else {
-          _conversation.responses << Response.build('SalutationRequestHandlerStep3FinalDontAskHours')
-          _conversation.context.clear()
-        }
-      }
-    }
-
-    private String userMood(User user, String message){
-      String answer = Answer.UNKNOWN
-
-      message.split().each{ String actualWord ->
-        List word = Dictionary.withCriteria {
-          eq("type", "adjective")
-          eq("locale", user.locale)
-          eq("word", actualWord.toLowerCase())
-        }
-        word.each{ Dictionary dw ->
-          if (dw.category.equals(Answer.POSITIVE))
-            answer = Answer.POSITIVE;
-          if (dw.category.equals(Answer.NEGATIVE))
-            answer = Answer.NEGATIVE;
-        }
-      }
-      return answer;
-    }
-    */
 }
