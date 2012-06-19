@@ -52,6 +52,8 @@ grails.project.dependency.resolution = {
         compile ":session-temp-files:1.0"
         compile ":export:1.1"
 
+        runtime ':database-migration:1.1'
+
         build ":tomcat:$grailsVersion"
     }
 }
