@@ -19,14 +19,10 @@ class Project {
     }
 
     static hasMany = [tags: Tag, milestones: Milestone, assignments: Assignment, technologies: Technology]
-    //static hasMany = [asignaciones: Asignacion, estimaciones: Estimacion]
-
-    //static transients = ['xxxx']
 
     static mapping = {
         company cascade: 'save-update'
         milestones sort: 'dueDate'
-        //estimaciones cascade: 'all,delete-orphan'
     }
 
     static belongsTo = Tag
@@ -42,7 +38,6 @@ class Project {
         client(nullable: false)
         account(nullable: false)
         teamLeader(nullable: false)
-       // mode(nullable: false)
     }
 
     static hibernateFilters = {
