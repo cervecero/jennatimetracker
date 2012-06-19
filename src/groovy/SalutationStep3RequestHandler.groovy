@@ -35,11 +35,11 @@ class SalutationStep3RequestHandler extends RequestHandler {
     private List<Response> getAnswerFor(String answer){
       List<Response> responses = []
 
-      if (answer.equals(Answer.POSITIVE)){
+      if (answer == Answer.POSITIVE){
         responses << Response.build('SalutationRequestHandlerStep3IsFine')
         responses << Response.build('SalutationRequestHandlerStep3FineAskHours')
 
-      } else if (answer.equals(Answer.NEGATIVE)){
+      } else if (answer == Answer.NEGATIVE){
         responses << Response.build('SalutationRequestHandlerStep3IsNotFine')
         responses << Response.build('SalutationRequestHandlerStep3BadAskHours')
 
@@ -59,7 +59,7 @@ class SalutationStep3RequestHandler extends RequestHandler {
       String actualMessage = _conversation.actualRequest.message
       String answer = answerEvaluation(actualMessage);
 
-      if (answer.equals(Answer.UNKNOWN)){
+      if (answer == Answer.UNKNOWN){
         _conversation.responses << Response.build('SalutationRequestHandlerStep2')
         _conversation.responses << Response.build('SalutationRequestHandlerStep2Options')
         _conversation.responses << Response.build('SalutationRequestHandlerStep2Options1')
@@ -96,7 +96,7 @@ class SalutationStep3RequestHandler extends RequestHandler {
         _conversation.responses << Response.build('SalutationRequestHandlerStep3NoAssignments')
         _conversation.context.clear()
         _conversation.context.askForKnowledge=true
-        
+
         KnowledgeStep1RequestHandler handler = new KnowledgeStep1RequestHandler()
         handler.handle(_conversation, _chatService)
       }
