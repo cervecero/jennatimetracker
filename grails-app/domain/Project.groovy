@@ -7,8 +7,6 @@ class Project {
     Company company
     Boolean active
     Boolean billable
-    Client client
-    Account account
     User teamLeader
     Mode mode
 
@@ -35,8 +33,6 @@ class Project {
             obj.properties['startDate'] <= val ? null : 'default.invalid.validator.message'
         })
         company(nullable: false)
-        client(nullable: false)
-        account(nullable: false)
         teamLeader(nullable: false)
     }
 

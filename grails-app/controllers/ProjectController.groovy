@@ -28,19 +28,12 @@ class ProjectController extends BaseController {
         redirect(action: "list", params: params)
     }
 
-    def ajaxGetClients = {
-        def account = Account.findById(params.id)
-        render(template: 'clients', model: [clients: account?.clients])
-        
-    }
-
     def list = { ProjectFilterCommand cmd ->
         def user = findLoggedUser()
         setUpDefaultPagingParams(params)
         def projectInstanceList = listByCriteria(params, cmd, user)
         def projectInstanceTotal = countByCriteria(cmd, user)
-        def accountList = Account.list()
-        [accountList: accountList, projectInstanceList: projectInstanceList, projectInstanceTotal: projectInstanceTotal, project: cmd.project, startDate: cmd.startDate, endDate: cmd.endDate, ongoing: cmd.ongoing]
+        [projectInstanceList: projectInstanceList, projectInstanceTotal: projectInstanceTotal, project: cmd.project, startDate: cmd.startDate, endDate: cmd.endDate, ongoing: cmd.ongoing]
     }
 
     private List<Project> listByCriteria(params, cmd, user) {

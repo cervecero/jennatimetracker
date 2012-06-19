@@ -228,8 +228,6 @@
           <g:ifAnyGranted role="ROLE_COMPANY_ADMIN">
             <li><a href="${createLink(controller: 'pendingUsers')}" title="Pending Users"><g:message code="app.menu.administration.pending.users"/></a></li>
             <li><a href="${createLink(controller: 'score')}" title="Users"><g:message code="app.menu.administration.scores"/></a></li>
-            <li><a href="${createLink(controller: 'account')}" title="Account"><g:message code="app.menu.administration.accounts"/></a></li>
-            <li><a href="${createLink(controller: 'client')}" title="Client"><g:message code="app.menu.administration.client"/></a></li>
           </g:ifAnyGranted>
 
         </ul>

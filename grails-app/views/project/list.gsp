@@ -35,30 +35,6 @@
         $("#ajaxProjectDeleted").submit();
     }
 
-    function setClients(response) {
-        $('#position_select_client').html(response);
-    }
-
-    function changeClients(accountId) {
-       if (accountId != "null") { 
-		$.ajax({
-		     type: "GET",
-		     url: "${createLink(action: 'ajaxGetClients')}",
-		     data: {id: accountId},
-		     cache: false,
-		     success: function(response, statusText) {
-		         setClients(response);
-		
-		     },
-		     error: function(response, statusText) {
-		         alert(statusText);
-		     }
-		 });
-       } else {
-           setClients("");
-       }
-
-    }
     function deleteIt(id) {
 
         var answer = confirm("<g:message code='delete.project.confirm'/>");
@@ -261,10 +237,6 @@
     });
 
     function edit(id) {
-        /**
-         *  alert("Location");
-         *  window.location("/project/edit");
-         */
         $('#ui-dialog-title-dialog').text('<g:message code="project.edit"/>');
         $("#editProjectId").val(id);
         $("#editProjectForm").submit();
@@ -369,12 +341,6 @@
 
             <label for="endDate"><g:message code="project.endDate" default="End Date"/>:</label>
             <jquery:datePicker name="endDate" value="${projectInstance?.endDate}"/>
-
-            <label for="account"><g:message code="project.account" default="Account"/>:</label>
-            <g:select onchange="changeClients(this.value)" name="account.id" from="${accountList}" optionKey="id" value="${projectInstance?.account?.id}" noSelection="${['null': g.message(['code':'default.select.one'])]}"/>
-
-            %{-- Where the select for clients is displayed --}%
-            <div id='position_select_client'></div>
 
             <label for="teamLeader.id"><g:message code="project.teamLeader" default="Team Leader"/>:</label>
             <g:select name="teamLeader.id" from="${User.list()}" optionKey="id" value="${projectInstance?.teamLeader?.id}"/>
