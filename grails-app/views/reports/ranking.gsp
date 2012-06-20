@@ -11,7 +11,7 @@
 
      <g:if test="${flash.message}">
          <div id='messageDiv' class="message">
-      <g:message code="${flash.message}" args="${flash.args}" default="${flash.defaultMessage}" />
+            ${flash.message}
          </div>
       </g:if>
      <g:else >
