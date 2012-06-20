@@ -210,7 +210,7 @@ class ReportsController extends BaseController {
 
     if (user.company != loggedUser.company){
       params.clear()
-      flash.message="CHEAAAAAAATER"
+      flash.message="CHEAAAAAAATER" //FIXME: WTF?
       redirect(action: "knowledge", params:params)
     }
 
