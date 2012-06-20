@@ -145,8 +145,8 @@
        <a tabindex="0" href="#my-info" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="my-info-button"><span class="ui-icon ui-icon-triangle-1-s"></span><g:message code="app.menu.my.info"/></a>
        <div id="my-info" class="hidden">
          <ul>
-             <li><a href="${createLink(controller: 'effort', action: 'myList')}" title="My Efforts"><g:message code="app.menu.my.efforts"/></a></li>
-              <li><a href="${createLink(controller: 'profile', action: 'show')}" title="My Profile"><g:message code="app.menu.my.profile"/></a></li>
+             <li><a href="${createLink(controller: 'effort', action: 'myList')}"><g:message code="app.menu.my.efforts"/></a></li>
+              <li><a href="${createLink(controller: 'profile', action: 'show')}"><g:message code="app.menu.my.profile"/></a></li>
           </ul>
         </div>
       </div>
@@ -156,13 +156,13 @@
           <a tabindex="0" href="#management" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="management-button"><span class="ui-icon ui-icon-triangle-1-s"></span><g:message code="app.menu.management"/></a>
           <div id="management" class="hidden">
             <ul>
-              <li><a href="${createLink(controller: 'assignment')}" title="Assignments"><g:message code="app.menu.management.assignments"/></a></li>
-              <li><a href="${createLink(controller: 'effort', action: 'list')}" title="Efforts"><g:message code="app.menu.management.efforts"/></a></li>
-              <li><a href="${createLink(controller: 'project')}" title="Projects"><g:message code="app.menu.management.projects"/></a></li>
-              <li><a href="${createLink(controller: 'role')}" title="Roles"><g:message code="app.menu.management.roles"/></a></li>
-              <li><a href="${createLink(controller: 'tag')}" title="Tags"><g:message code="app.menu.management.tags"/></a></li>
-              <li><a href="${createLink(controller: 'skill')}" title="Skills"><g:message code="app.menu.management.skill"/></a></li>
-              <li><a href="${createLink(controller: 'technology')}" title="Technology"><g:message code="app.menu.management.technology"/></a></li>
+              <li><a href="${createLink(controller: 'assignment')}"><g:message code="app.menu.management.assignments"/></a></li>
+              <li><a href="${createLink(controller: 'effort', action: 'list')}"><g:message code="app.menu.management.efforts"/></a></li>
+              <li><a href="${createLink(controller: 'project')}"><g:message code="app.menu.management.projects"/></a></li>
+              <li><a href="${createLink(controller: 'role')}"><g:message code="app.menu.management.roles"/></a></li>
+              <li><a href="${createLink(controller: 'tag')}"><g:message code="app.menu.management.tags"/></a></li>
+              <li><a href="${createLink(controller: 'skill')}"><g:message code="app.menu.management.skill"/></a></li>
+              <li><a href="${createLink(controller: 'technology')}"><g:message code="app.menu.management.technology"/></a></li>
             </ul>
           </div>
         </div>
@@ -177,12 +177,12 @@
                 <g:ifAnyGranted role="ROLE_SYSTEM_ADMIN,ROLE_PROJECT_LEADER">
                   <li><a href="${createLink(controller: 'reports')}" title="Reports"><g:message code="app.menu.administration.reports.time.spent"/></a></li>
                 </g:ifAnyGranted>
-                <li><a href="${createLink(controller: 'reports',action:'knowledge')}" title="Knowledge"><g:message code="app.menu.administration.reports.knowledge"/></a></li>
-                <li><a href="${createLink(controller: 'reports',action:'ranking')}" title="Knowledge Ranking"><g:message code="app.menu.administration.reports.knowledge.ranking"/></a></li>
-                <li><a href="${createLink(controller: 'reports', action:'mood')}" title="Mood"><g:message code="app.menu.administration.reports.mood"/></a></li>
-                <li><a href="${createLink(controller: 'reports', action:'usersGantt')}" title="Users' assignations "><g:message code="app.menu.administration.reports.usersGantt"/></a></li>
-                <li><a href="${createLink(controller: 'user', action:'list')}" title="Users' Week Reports "><g:message code="app.menu.administration.reports.users"/></a></li>
-                <li><a href="${createLink(controller: 'dashboard', action:'project')}" title="Users' Week Reports "><g:message code="app.menu.administration.reports.projects"/></a></li>
+                <li><a href="${createLink(controller: 'reports',action:'knowledge')}"><g:message code="app.menu.administration.reports.knowledge"/></a></li>
+                <li><a href="${createLink(controller: 'reports',action:'ranking')}"><g:message code="app.menu.administration.reports.knowledge.ranking"/></a></li>
+                <li><a href="${createLink(controller: 'reports', action:'mood')}"><g:message code="app.menu.administration.reports.mood"/></a></li>
+                <li><a href="${createLink(controller: 'reports', action:'usersGantt')}"><g:message code="app.menu.administration.reports.usersGantt"/></a></li>
+                <li><a href="${createLink(controller: 'user', action:'list')}"><g:message code="app.menu.administration.reports.users"/></a></li>
+                <li><a href="${createLink(controller: 'dashboard', action:'project')}"><g:message code="app.menu.administration.reports.projects"/></a></li>
             </ul>
           </div>
         </div>
@@ -195,13 +195,13 @@
         <div id="administration" class="hidden">
         <ul>
           <g:ifAnyGranted role="ROLE_SYSTEM_ADMIN">
-            <li><a href="${createLink(controller: 'company')}" title="Companies"><g:message code="app.menu.administration.companies"/></a></li>
+            <li><a href="${createLink(controller: 'company')}"><g:message code="app.menu.administration.companies"/></a></li>
             <li><a href="${createLink(controller: 'quartz')}"><g:message code="app.menu.administration.scheduled.jobs"/></a></li>
           </g:ifAnyGranted>
 
           <g:ifAnyGranted role="ROLE_COMPANY_ADMIN">
-            <li><a href="${createLink(controller: 'pendingUsers')}" title="Pending Users"><g:message code="app.menu.administration.pending.users"/></a></li>
-            <li><a href="${createLink(controller: 'score')}" title="Users"><g:message code="app.menu.administration.scores"/></a></li>
+            <li><a href="${createLink(controller: 'pendingUsers')}"><g:message code="app.menu.administration.pending.users"/></a></li>
+            <li><a href="${createLink(controller: 'score')}"><g:message code="app.menu.administration.scores"/></a></li>
           </g:ifAnyGranted>
 
         </ul>
