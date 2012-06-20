@@ -223,6 +223,7 @@
         <ul>
           <g:ifAnyGranted role="ROLE_SYSTEM_ADMIN">
             <li><a href="${createLink(controller: 'company')}" title="Companies"><g:message code="app.menu.administration.companies"/></a></li>
+            <li><a href="${createLink(controller: 'quartz')}"><g:message code="app.menu.administration.scheduled.jobs"/></a></li>
           </g:ifAnyGranted>
 
           <g:ifAnyGranted role="ROLE_COMPANY_ADMIN">
