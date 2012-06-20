@@ -339,16 +339,6 @@
                 </tr>
 
                 <tr class="prop odd">
-                    <td valign="top" class="name"><g:message code="project.account" default="Account"/>:</td>
-                    <td valign="top" class="value">${fieldValue(bean: projectInstance, field: "account")}</td>
-                </tr>
-
-                <tr class="prop even">
-                    <td valign="top" class="name"><g:message code="project.client" default="Client"/>:</td>
-                    <td valign="top" class="value">${fieldValue(bean: projectInstance, field: "client")}</td>
-                </tr>
-
-                <tr class="prop odd">
                     <td valign="top" class="name"><g:message code="project.mode" default="Mode"/>:</td>
                     <td valign="top" class="value">${fieldValue(bean: projectInstance, field: "mode")}</td>
                 </tr>
