@@ -358,11 +358,6 @@
                     </td>
 
                 </tr>
-
-                <!--<tr class="prop even">
-                                <td valign="top" class="name"><g:message code="project.tags"/>:</td>
-                              <td valign="top" class="value">${projectInstance.tags.join(', ')}</td>
-                            </tr>-->
                 </tbody>
             </table>
         </div>
