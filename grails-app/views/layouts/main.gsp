@@ -234,7 +234,7 @@
 <div id="footer">
     <p class="style1">Jenna Timetracker v<g:message code="${grailsApplication.metadata['app.version']}"/> <g:message code="app.powered"/></p>
 </div>
-<div id="loading" title="<g:message code="app.loading"/>"/>
+<div id="loading" title="<g:message code="app.loading"/>"></div>
 <div id="messageDialog" title="">
   <p>
     <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
