@@ -381,8 +381,7 @@
                   style="-moz-user-select: none;">Filter</span>
         </div>
 
-        <div id="dialogFilter" title="Project assignment" class="ui-dialog-content ui-widget-content"
-             style="height: auto; width: auto;">
+        <div id="dialogFilter" class="ui-dialog-content ui-widget-content">
             <g:form action="list" method="post" name="projectFormList">
 
                 <g:hiddenField name="offset" value="${params.offset ?: '0'}"/>
