@@ -71,8 +71,9 @@
                 <tr class="prop even">
                     <td valign="top" class="name"><g:message code="user.birthday" default="Birthday"/>:</td>
 
-                    <td valign="top" class="value"><g:formatDate date="${userInstance?.birthday}"
-                                                                 format="MM-dd-yyyy"/> (MM-dd-yyyy)</td>
+                    <td valign="top" class="value">
+                        <g:formatDate date="${userInstance?.birthday}" format="MM-dd-yyyy"/>
+                    </td>
 
                 </tr>
                 <tr class="prop odd">
