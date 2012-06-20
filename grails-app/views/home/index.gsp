@@ -247,7 +247,7 @@
 					</div>
 				</div>
 				<div class="div-new-dashboard-column div-margin">
-					<div class="div-new-dashboard-column-title">Knowledge Rankins</div>
+					<div class="div-new-dashboard-column-title">Knowledge Ranking</div>
 					<div id="container2"></div>
 				</div>
 				<div class="div-new-dashboard-column">
