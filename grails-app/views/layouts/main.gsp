@@ -236,16 +236,12 @@
 </div>
 <div id="loading" title="<g:message code="app.loading"/>"></div>
 <div id="messageDialog" title="">
-  <p>
     <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
     <p id="messageText"></p>
-  </p>
 </div>
 <div id="errorDialog" title="">
-  <p>
     <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
     <p id="errorText"></p>
-  </p>
 </div>
 </body>
 </html>
