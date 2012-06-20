@@ -82,27 +82,6 @@
             }
         }
     });
-
-    $("#confirmation").dialog({
-        autoOpen: false,
-        bgiframe: true,
-        resizable: false,
-        height:140,
-        modal: true,
-        buttons: {
-            '<g:message code="ok"/>': function() {
-                confirmOK = true;
-                $(this).dialog('close');
-            },
-            '<g:message code="cancel"/>': function() {
-                confirmOK = false;
-                $(this).dialog('close');
-            }
-        },
-        open: function() {
-          confirmOK = false;
-        }
-    });
   });
 
   function showDialog(response, statusText) {
@@ -116,11 +95,6 @@
       $("#errorDialog").dialog('open');
     }
   }
-
-      function showConfirm(message) {
-          $("#confirmText").text(message);
-          $("#confirmation").dialog('open');
-      }
   </script>
 
   <script type="text/javascript">
@@ -214,7 +188,6 @@
         </div>
       </g:ifAnyGranted>
 
-      <%-- <g:ifAnyGranted role="${Permission.ROLE_COMPANY_ADMIN}">--%>
       <g:ifAnyGranted role="ROLE_COMPANY_ADMIN,ROLE_PROJECT_LEADER">
        <div id="administration_div" style="float: left;">
 
@@ -273,10 +246,6 @@
     <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
     <p id="errorText"></p>
   </p>
-</div>
-<div id="confirmation" title="Confirmacion">
-	<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
-    <p id="confirmText">Esta seguro?</p>
 </div>
 </body>
 </html>
