@@ -4,7 +4,6 @@
     <meta name="layout" content="main"/>
     <title><g:message code="app.title.project" args="${[projectInstance]}"/></title>
     <g:javascript src="jquery-ui/ui.core.js"/>
-    <g:javascript src="jquery-ui/ui.tabs.js"/>
     <g:javascript src="jquery-ui/jquery.form.js"/>
 </head>
 
@@ -172,7 +171,6 @@
                 assignmentTips.text('');
             }
         });
-        $("#tabPanel").tabs();
 
     });
     <%--
@@ -297,88 +295,76 @@
 </div>
 
 <div class="body">
-    <h1><span class="style7"><g:message code="project.show" default="Show Project"/></span></h1>
+    <h1><span class="style7"><g:message code="project.show" args="${ [projectInstance.name] }" /></span></h1>
 
     <p>&nbsp;</p>
     <g:if test="${flash.message}">
-        <div class="message"><g:message code="${flash.message}" args="${flash.args}"
-                                        default="${flash.defaultMessage}"/></div>
+        <div class="message">
+            <g:message code="${flash.message}" args="${flash.args}" default="${flash.defaultMessage}"/>
+        </div>
     </g:if>
 
-    <div id="tabPanel">
-        <ul>
-            <li><a href="#projectTab"><span><g:message code="project.show.title" default="View Project"/></span></a>
-            </li>
-            <%--
-            <li><a href="#milestonesTabs"><span><g:message code="project.property.milestone" default="Milestones"/></span></a></li>
-            --%>
-            <li><a href="#assignmentsTab"><span><g:message code="project.property.assignment"
-                                                           default="Assignments"/></span></a></li>
-        </ul>
+    <div id="projectTab">
+        <table>
+            <tbody style="color:black">
+            <tr class="prop odd">
+                <td valign="top" class="name"><g:message code="project.description"/>:</td>
+                <td valign="top" class="value">${fieldValue(bean: projectInstance, field: "description")}</td>
+            </tr>
+            <tr class="prop even">
+                <td valign="top" class="name"><g:message code="project.startDate"/>:</td>
+                <td valign="top" class="value"><g:formatDate date="${projectInstance?.startDate}"
+                                                             formatName='onlyDate.format'/></td>
+            </tr>
+            <tr class="prop even">
+                <td valign="top" class="name"><g:message code="project.endDate"/>:</td>
+                <td valign="top" class="value"><g:formatDate date="${projectInstance?.endDate}"
+                                                             formatName='onlyDate.format'/></td>
+            </tr>
 
-        <div id="projectTab">
-            <table>
-                <tbody style="color:black">
-                <tr class="prop even">
-                    <td valign="top" class="name"><g:message code="project.name"/>:</td>
-                    <td valign="top" class="value">${fieldValue(bean: projectInstance, field: "name")}</td>
-                </tr>
-                <tr class="prop odd">
-                    <td valign="top" class="name"><g:message code="project.description"/>:</td>
-                    <td valign="top" class="value">${fieldValue(bean: projectInstance, field: "description")}</td>
-                </tr>
-                <tr class="prop even">
-                    <td valign="top" class="name"><g:message code="project.startDate"/>:</td>
-                    <td valign="top" class="value"><g:formatDate date="${projectInstance?.startDate}"
-                                                                 formatName='onlyDate.format'/></td>
-                </tr>
-                <tr class="prop even">
-                    <td valign="top" class="name"><g:message code="project.endDate"/>:</td>
-                    <td valign="top" class="value"><g:formatDate date="${projectInstance?.endDate}"
-                                                                 formatName='onlyDate.format'/></td>
-                </tr>
+            <tr class="prop odd">
+                <td valign="top" class="name"><g:message code="project.mode" default="Mode"/>:</td>
+                <td valign="top" class="value">${fieldValue(bean: projectInstance, field: "mode")}</td>
+            </tr>
 
-                <tr class="prop odd">
-                    <td valign="top" class="name"><g:message code="project.mode" default="Mode"/>:</td>
-                    <td valign="top" class="value">${fieldValue(bean: projectInstance, field: "mode")}</td>
-                </tr>
+            <tr class="prop even">
+                <td valign="top" class="name"><g:message code="project.technologies" default="Technologies"/>:</td>
 
-                <tr class="prop even">
-                    <td valign="top" class="name"><g:message code="project.technologies" default="Technologies"/>:</td>
+                <td valign="top" style="text-align: left;" class="value">
+                    <ul>
+                        <g:each in="${projectInstance?.technologies}" var="technologiesInstance">
+                            <g:if test="${!technologiesInstance.deleted}">
+                                <li><g:link style="color: #000000;" controller="technology" action="show"
+                                            id="${technologiesInstance.id}">${technologiesInstance.encodeAsHTML()}</g:link></li>
+                            </g:if>
+                        </g:each>
+                    </ul>
+                </td>
 
-                    <td valign="top" style="text-align: left;" class="value">
-                        <ul>
-                            <g:each in="${projectInstance?.technologies}" var="technologiesInstance">
-                                <g:if test="${!technologiesInstance.deleted}">
-                                    <li><g:link style="color: #000000;" controller="technology" action="show"
-                                                id="${technologiesInstance.id}">${technologiesInstance.encodeAsHTML()}</g:link></li>
-                                </g:if>
-                            </g:each>
-                        </ul>
-                    </td>
-
-                </tr>
-                </tbody>
-            </table>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br/>
+    <h2><span><g:message code="project.property.assignment" default="Assignments"/></span></h2>
+        
+    <div id="assignmentsTab">
+        <div id="assignmentsList">
+            <g:render template="assignmentsList" model="[assignments: projectInstance.assignments]"/>
         </div>
-        <%--
-
-        <div id="milestonesTabs">
-          <div id="milestonesList">
-            <g:render template="milestonesList" model="[milestones: projectInstance.milestones]"/>
-          </div>
-          <button id="btnCreateMilestone" class="ui-button ui-state-default ui-corner-all"><g:message code="milestone.new" /></button>
-        </div>
-        --%>
-        <div id="assignmentsTab">
-            <div id="assignmentsList">
-                <g:render template="assignmentsList" model="[assignments: projectInstance.assignments]"/>
-            </div>
-            <button id="btnCreateAssignment" class="ui-button ui-state-default ui-corner-all"><g:message
-                    code="assignment.new"/></button>
-        </div>
+        <button id="btnCreateAssignment" class="ui-button ui-state-default ui-corner-all">
+            <g:message code="assignment.new"/>
+        </button>
     </div>
 
+    <%--
+    <div id="milestonesTabs">
+      <div id="milestonesList">
+        <g:render template="milestonesList" model="[milestones: projectInstance.milestones]"/>
+      </div>
+      <button id="btnCreateMilestone" class="ui-button ui-state-default ui-corner-all"><g:message code="milestone.new" /></button>
+    </div>
+    --%>
 </div>
 </body>
 </html>
