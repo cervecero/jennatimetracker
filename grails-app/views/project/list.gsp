@@ -4,19 +4,11 @@
     <meta name="layout" content="main"/>
     <title><g:message code="app.menu.management.projects"/></title>
     <g:javascript src="jquery-ui/jquery.form.js"/>
-
     <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'jquery.jgrowl.css')}" media="screen">
     <g:javascript library="jgrowl"/>
-
 </head>
 
 <body>
-
-<script type="text/javascript">
-    function notifySearch() {
-        alert("Click on a column header to update results.");
-    }
-</script>
 
 <script>
 
@@ -28,7 +20,6 @@
             $("#offset").val('0');
             $("#projectFormList").submit();
         });
-
     });
 
     function reloadAfterDelete() {
@@ -36,7 +27,6 @@
     }
 
     function deleteIt(id) {
-
         var answer = confirm("<g:message code='delete.project.confirm'/>");
         if (answer) {
             $.ajax({
@@ -52,7 +42,6 @@
                 }
             });
         }
-
     }
 
     $(function() {
@@ -286,10 +275,6 @@
 
 <g:form action="ajaxProjectDeleted" method="POST" name="ajaxProjectDeleted">
 </g:form>
-
-<%--
- <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'edit', 'default': 'Edit')}" /></span>
---%>
 
 <div id="dialogEdit" title="Edit Project">
     <p id="validateTipsEdit"/>
