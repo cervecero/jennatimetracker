@@ -403,17 +403,18 @@
         </div>
 
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-            <button type="button" id="filterButton" class="ui-state-default ui-corner-all"><g:message code="filter"
-                                                                                                      default="Filter"/></button>
+            <button type="button" id="filterButton" class="ui-state-default ui-corner-all">
+                <g:message code="filter" default="Filter"/>
+            </button>
         </div>
-
     </div>
 
     <div id="list">
         <g:render template="list"/>
     </div>
-    <button id="btnCreate" class="ui-button ui-state-default ui-corner-all"><g:message code="project.new"
-                                                                                       default="New Project"/></button>
+    <button id="btnCreate" class="ui-button ui-state-default ui-corner-all">
+        <g:message code="project.new" default="New Project"/>
+    </button>
 </div>
 </body>
 </html>
