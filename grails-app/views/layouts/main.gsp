@@ -146,7 +146,8 @@
        <div id="my-info" class="hidden">
          <ul>
              <li><a href="${createLink(controller: 'effort', action: 'myList')}"><g:message code="app.menu.my.efforts"/></a></li>
-              <li><a href="${createLink(controller: 'profile', action: 'show')}"><g:message code="app.menu.my.profile"/></a></li>
+             <li><a href="${createLink(controller: 'home')}">Dashboard</a></li>
+             <li><a href="${createLink(controller: 'profile', action: 'show')}"><g:message code="app.menu.my.profile"/></a></li>
           </ul>
         </div>
       </div>
