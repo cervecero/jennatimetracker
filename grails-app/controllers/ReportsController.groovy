@@ -108,7 +108,6 @@ class ReportsController extends BaseController {
         def user = findLoggedUser()
         def likeCondition = ""
 
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
         params.max = Math.min(params?.max?.toInteger() ?: 10, 100)
         params.offset = params?.offset?.toInteger() ?: 0
         params.sort = params?.sort ?: "date"
@@ -128,6 +127,7 @@ class ReportsController extends BaseController {
                     useOrDefaultOperator()
                     setDefaultSearchProperty('description')
                 })
+                //sort(params.sort, CompassQuery.SortDirection.AUTO params.order) // FIXME: property does not seem to be indexed
                 sort(CompassQuery.SortImplicitType.SCORE)
             }
             learnings = result.results

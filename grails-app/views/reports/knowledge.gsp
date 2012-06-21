@@ -47,7 +47,7 @@
       <table width="400">
         <tr>
           <td align="right">
-              <g:form action="knowledge" method="POST" name="searchForm" id="searchForm">
+              <g:form action="knowledge" method="GET" name="searchForm" id="searchForm">
                 <g:textField name="search" id="search" value="${search}"/>
               </g:form>
           </td>
@@ -65,10 +65,10 @@
 
         <thead>
             <tr>
-	            <g:sortableColumn property="user" title="User" titleKey="learning.user" />
+	            <g:sortableColumn property="user" title="User" titleKey="learning.user" params="${[search:search]}" />
 	            <th><g:message code="learning.learning" default="Learning" style="width:80%"/></th>
-	            <g:sortableColumn property="date" title="Date" titleKey="learning.date" />
-	            <g:sortableColumn property="points" title="Votes" titleKey="learning.points"  style="width:5%"/>
+	            <g:sortableColumn property="date" title="Date" titleKey="learning.date" params="${[search:search]}"/>
+	            <g:sortableColumn property="points" title="Votes" titleKey="learning.points" params="${[search:search]}" style="width:5%"/>
             </tr>
         </thead>
 

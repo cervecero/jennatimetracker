@@ -17,7 +17,7 @@ class Learning {
     }
 
     static constraints = {
-      description(nullable: true)
+      description(nullable: true) // FIXME: Description should be mandatory, shouldn't it?
       user(nullable:false)
       company(nullable:false)
     }
