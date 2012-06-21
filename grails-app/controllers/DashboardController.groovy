@@ -4,7 +4,7 @@ class DashboardController extends BaseController {
 
     def beforeInterceptor = [action: this.&auth]
 
-    def dashboardService
+    def companyService
     def projectFollowUpService
     def grailsApplication
 
@@ -27,19 +27,19 @@ class DashboardController extends BaseController {
         def startDate = new Date(params.dateStart)
         def endDate = new Date(params.dateEnd)
         def company = findLoggedCompany()
-        def activeProjects = dashboardService.countActiveProjects(company, startDate, endDate)
-        def timeSpent = dashboardService.sumTimeSpent(company, startDate, endDate)
-        def timeSpentByProject = dashboardService.sumTimeSpentByProject(company, startDate, endDate)
-        def newUsers = dashboardService.listNewUsers(company, startDate, endDate)
-        def newProjects = dashboardService.listNewProjects(company, startDate, endDate)
-        def weekMood = dashboardService.avgMood(company, startDate, endDate)
-        def mood = dashboardService.avgMood(company)
-        def newLearnings = dashboardService.listNewLearnings(company, startDate, endDate)
-        def newAssignments = dashboardService.listNewAssignments(company, startDate, endDate)
+        def activeProjects = companyService.countActiveProjects(company, startDate, endDate)
+        def timeSpent = companyService.sumTimeSpent(company, startDate, endDate)
+        def timeSpentByProject = companyService.sumTimeSpentByProject(company, startDate, endDate)
+        def newUsers = companyService.listNewUsers(company, startDate, endDate)
+        def newProjects = companyService.listNewProjects(company, startDate, endDate)
+        def weekMood = companyService.avgMood(company, startDate, endDate)
+        def mood = companyService.avgMood(company)
+        def newLearnings = companyService.listNewLearnings(company, startDate, endDate)
+        def newAssignments = companyService.listNewAssignments(company, startDate, endDate)
         def nextWeekStart = endDate
         def nextWeekEnd = nextWeekStart + 7
-        def anniversaries = dashboardService.listAnniversaries(company, nextWeekStart, nextWeekEnd)
-        def birthdays = dashboardService.listBirthdays(company, nextWeekStart, nextWeekEnd)
+        def anniversaries = companyService.listAnniversaries(company, nextWeekStart, nextWeekEnd)
+        def birthdays = companyService.listBirthdays(company, nextWeekStart, nextWeekEnd)
         return [activeProjects: activeProjects, timeSpent: timeSpent, timeSpentByProject: timeSpentByProject, newUsers: newUsers, newProjects: newProjects,
                 weekMood: weekMood, mood: mood, newLearnings: newLearnings, newAssignments: newAssignments, anniversaries: anniversaries, birthdays: birthdays]
     }

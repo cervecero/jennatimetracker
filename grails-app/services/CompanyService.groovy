@@ -1,4 +1,4 @@
-class DashboardService {
+class CompanyService {
 
     boolean transactional = true
 

@@ -4,7 +4,7 @@ class HomeController extends BaseController {
 
     def authenticateService
     def emailerService
-    def dashboardService
+    def companyService
 
     def beforeInterceptor = [action:this.&auth]
 
@@ -27,10 +27,10 @@ class HomeController extends BaseController {
             def endDate = today + 1
             def nextWeekStart = endDate
             def nextWeekEnd = nextWeekStart + 7
-            def birthdays = dashboardService.listBirthdays(company, nextWeekStart, nextWeekEnd)
-            def newProjects = dashboardService.listNewProjects(company, startDate, endDate)
-            def timeSpent = dashboardService.sumTimeSpent(company, startDate, endDate)
-            def timeSpentByProject = dashboardService.sumTimeSpentByProject(company, startDate, endDate)
+            def birthdays = companyService.listBirthdays(company, nextWeekStart, nextWeekEnd)
+            def newProjects = companyService.listNewProjects(company, startDate, endDate)
+            def timeSpent = companyService.sumTimeSpent(company, startDate, endDate)
+            def timeSpentByProject = companyService.sumTimeSpentByProject(company, startDate, endDate)
             def timeSpentTop = timeSpentTop(timeSpent, timeSpentByProject)
             def efforts = Effort.findAll('from Effort as e where e.date >= :fromDate and e.date < :toDate and e.user = :user',
                     [fromDate: startDate, toDate: endDate, user: user]
@@ -44,9 +44,9 @@ class HomeController extends BaseController {
                     orderedEfforts[projectIndex] << findTimeSpentByDateAndProject(efforts, date, project)
                 }
             }
-            def myProjects = dashboardService.listProjectsByUser(user, startDate, endDate)
-            def myPartners = dashboardService.listPartners(user, startDate, endDate)
-            def knowledge = dashboardService.listKnowledge(company, startDate, endDate)
+            def myProjects = companyService.listProjectsByUser(user, startDate, endDate)
+            def myPartners = companyService.listPartners(user, startDate, endDate)
+            def knowledge = companyService.listKnowledge(company, startDate, endDate)
             return [birthdays: birthdays, newProjects: newProjects, timeSpentByProject: timeSpentByProject,
                     timeSpentTop: timeSpentTop, orderedEfforts: orderedEfforts, projects: projects, dates: getWeekDayNames(dates),
                     myProjects: myProjects[0..<Math.min(8, myProjects.size())], myPartners: myPartners[0..<Math.min(8, myPartners.size())], startDate: startDate,
