@@ -112,16 +112,6 @@ class ProjectController extends BaseController {
         render(template: 'list', model: [projectInstanceList: projectInstanceList, projectInstanceTotal: projectInstanceListTotals.size()])
     }
 
-    def ajaxMilestonesList = {
-        def user = findLoggedUser()
-        Project project = Project.get(params.id)
-        if (!project || project.company != user.company) {
-            render ''
-            return
-        }
-        render(template: 'milestonesList', model: [milestones: project.milestones])
-    }
-
     def ajaxAssignmentsList = {
         def user = findLoggedUser()
         Project project = Project.get(params.id)

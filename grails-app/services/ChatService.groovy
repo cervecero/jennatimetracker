@@ -70,20 +70,12 @@ class ChatService  implements InitializingBean, GrailsApplicationAware, MessageS
         }
         Conversation conversation = getConversationForUser(_user)
         conversation.actualRequest = new Request(user: _user, message: 'dummy request')
-        def assignments = _user.listActiveAssignments()
-        def projects = assignments*.project.unique()
-        Date today = new Date()
-        projects.each { Project project ->
-            project.milestones.find { Milestone milestone ->
-                if (milestone.dueDate.after(today) && milestone.dueDate - today < 7) {
-                    conversation.responses << Response.build('reminderForMilestone', [milestone.name, milestone.project.name, milestone.dueDate])
-                }
-            }
-        }
 
+        def assignments = _user.listActiveAssignments()
         if (assignments) {
             Queue queue = new LinkedList(assignments*.id)
         }
+
         conversation.context.salutateStep1 = true
         return handleRequest(conversation.actualRequest);
     }

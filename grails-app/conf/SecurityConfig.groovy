@@ -80,7 +80,6 @@ security {
 		/quartz/**=${Permission.ROLE_SYSTEM_ADMIN}
 		/effort/**=${Permission.ROLE_USER},${Permission.ROLE_PROJECT_LEADER},${Permission.ROLE_COMPANY_ADMIN},${Permission.ROLE_SYSTEM_ADMIN}
 		/project/**=${Permission.ROLE_PROJECT_LEADER}
-		/milestone/**=${Permission.ROLE_PROJECT_LEADER}
 		/assignment/**=${Permission.ROLE_PROJECT_LEADER}
 		/role/**=${Permission.ROLE_PROJECT_LEADER}
 		/tags/**=${Permission.ROLE_PROJECT_LEADER}

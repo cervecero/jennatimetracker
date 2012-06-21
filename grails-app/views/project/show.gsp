@@ -14,14 +14,6 @@
         $('#assignment_startDate_datePicker').attr("readonly", "true");
     })
     $(document).ready(function() {
-        var milestoneId = $("#milestone_id");
-        var milestoneVersion = $("#milestone_version");
-        var milestoneName = $("#milestone_name");
-        var milestoneDescription = $("#milestone_description");
-        var milestoneDueDate = $("#milestone_dueDate_datePicker");
-        var milestoneAllFields = $([]).add(milestoneId).add(milestoneVersion).add(milestoneName).add(milestoneDescription).add(milestoneDueDate);
-        var milestoneTips = $("#milestone_validateTips");
-
         var assignmentId = $("#assignment_id");
         var assignmentVersion = $("#assignment_version");
         var assignmentUserId = $("#assignment_user_id");
@@ -33,57 +25,21 @@
         var assignmentAllFields = $([]).add(assignmentId).add(assignmentVersion).add(assignmentUserId).add(assignmentRoleId).add(assignmentDescription).add(assignmentStartDate).add(assignmentEndDate).add(assignmentActive);
         var assignmentTips = $("#assignment_validateTips");
 
-        <%--
-        function updateMilestoneTips(t) {
-          milestoneTips.text(t).effect("highlight", {}, 1500);
-        }
-        --%>
         function updateAssignmentTips(t) {
             assignmentTips.text(t).effect("highlight", {}, 1500);
         }
 
-        <%--
-
-        function beforeMilestoneSubmit() {
-            milestoneTips.text("");
-            milestoneAllFields.removeClass('ui-state-error');
-        }
-        --%>
         function beforeAssignmentSubmit() {
             assignmentTips.text("");
             assignmentAllFields.removeClass('ui-state-error');
         }
 
-        <%--
-        $('#milestoneForm').ajaxForm({
-          beforeSubmit: beforeMilestoneSubmit,
-          dataType: 'json',
-          success: showMilestoneResponse
-        });
-        --%>
         $('#assignmentForm').ajaxForm({
             beforeSubmit: beforeAssignmentSubmit,
             dataType: 'json',
             success: showAssignmentResponse
         });
-        <%--
-        function showMilestoneResponse(response, statusText) {
-          if (response.ok) {
-            milestoneAllFields.val('');
-            $("#milestoneDialog").dialog('close');
-            showDialog(response, statusText);
-            reloadMilestonesList();
-          } else {
-            var message = "";
-            for (var key in response.errors) {
-              $("#" + key).addClass("ui-state-error");
-              message += response.errors[key] + "\n\n";
-            }
-            updateMilestoneTips(message);
-            showDialog(response, statusText);
-          }
-        }
-        --%>
+
         function showAssignmentResponse(response, statusText) {
             if (response.ok) {
                 assignmentAllFields.val('');
@@ -101,22 +57,6 @@
             }
         }
 
-        
-        <%--
-        $('#btnCreateMilestone').click(function() {
-          $('#ui-dialog-title-milestoneDialog').text('<g:message code="milestone.create"/>');
-          $('#milestoneDialog').dialog('open');
-        }).hover(function() {
-          $(this).addClass("ui-state-hover");
-        },
-                function() {
-                  $(this).removeClass("ui-state-hover");
-                }).mousedown(function() {
-          $(this).addClass("ui-state-active");
-        }).mouseup(function() {
-          $(this).removeClass("ui-state-active");
-        });
-        --%>
         $('#btnCreateAssignment').click(
                 function() {
                     $('#ui-dialog-title-assignmentDialog').text('<g:message code="assignment.create"/>');
@@ -133,26 +73,7 @@
                 }).mouseup(function() {
                     $(this).removeClass("ui-state-active");
                 });
-        <%--
-        $("#milestoneDialog").dialog({
-            bgiframe: true,
-            autoOpen: false,
-            height: 300,
-            modal: true,
-            buttons: {
-                '<g:message code="ok"/>': function() {
-                    $("#milestoneForm").submit();
-                },
-                '<g:message code="cancel"/>': function() {
-                    $(this).dialog('close');
-                }
-            },
-            close: function() {
-                milestoneAllFields.val('').removeClass('ui-state-error');
-                milestoneTips.text('');
-            }
-        });
-        --%>
+
         $("#assignmentDialog").dialog({
             bgiframe: true,
             autoOpen: false,
@@ -173,31 +94,7 @@
         });
 
     });
-    <%--
 
-    function editMilestone(id) {
-      $('#ui-dialog-title-milestoneDialog').text('<g:message code="milestone.edit"/>');
-      $.ajax({
-        url: "${createLink(controller: 'milestone', action: 'ajaxEdit')}",
-        global: true,
-        type: "GET",
-        data: ({id: id}),
-        dataType: "json",
-        success: function(response, statusText) {
-          if (response.ok) {
-              $('#milestone_id').val(response.id);
-              $('#milestone_version').val(response.version);
-              $('#milestone_name').val(response.name);
-              $('#milestone_description').val(response.description);
-              $('#milestone_dueDate_datePicker').val(response.dueDate);
-              $("#milestoneDialog").dialog('open');
-          } else {
-            showDialog(response, statusText)
-          }
-        }
-      });
-    }
-    --%>
     function editAssignment(id) {
         $('#ui-dialog-title-assignmentDialog').text('<g:message code="assignment.edit"/>');
         $.ajax({
@@ -225,18 +122,6 @@
         });
     }
 
-    <%--
-   function reloadMilestonesList() {
-     $.ajax({
-       url: "${createLink(action: 'ajaxMilestonesList')}",
-       data: {id: ${projectInstance.id}},
-       async: false,
-       success: function(resp) {
-         $("#milestonesList").html(resp);
-       }
-     });
-   }
-    --%>
     function reloadAssignmentsList() {
         $.ajax({
             url: "${createLink(action: 'ajaxAssignmentsList')}",
@@ -248,26 +133,7 @@
         });
     }
 </script>
-<%--
-<div id="milestoneDialog">
-  <p id="milestone_validateTips"/>
-  <g:form controller="milestone" action="ajaxSave" method="post" name="milestoneForm">
-    <g:hiddenField name="id" id="milestone_id"/>
-    <g:hiddenField name="version" id="milestone_version"/>
-    <g:hiddenField name="project.id" value="${projectInstance.id}" id="milestone_project_id"/>
-    <fieldset>
-      <fieldset>
-        <label for="name"><g:message code="milestone.name"/>:</label>
-        <g:textField name="name" id="milestone_name" maxlength="50" value=""/>
-        <label for="description"><g:message code="milestone.description" />:</label>
-        <g:textField name="description" id="milestone_description" maxlength="50" value=""/>
-        <label for="dueDate"><g:message code="milestone.dueDate" />:</label>
-        <jquery:datePicker name="dueDate" id="milestone_dueDate" value=""/>
-      </fieldset>
-    </fieldset>
-  </g:form>
-</div>
---%>
+
 <div id="assignmentDialog">
     <p id="assignment_validateTips"/>
     <g:form controller="assignment" action="ajaxSave" method="post" name="assignmentForm">
@@ -356,15 +222,6 @@
             <g:message code="assignment.new"/>
         </button>
     </div>
-
-    <%--
-    <div id="milestonesTabs">
-      <div id="milestonesList">
-        <g:render template="milestonesList" model="[milestones: projectInstance.milestones]"/>
-      </div>
-      <button id="btnCreateMilestone" class="ui-button ui-state-default ui-corner-all"><g:message code="milestone.new" /></button>
-    </div>
-    --%>
 </div>
 </body>
 </html>

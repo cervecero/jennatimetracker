@@ -16,11 +16,10 @@ class Project {
         name
     }
 
-    static hasMany = [tags: Tag, milestones: Milestone, assignments: Assignment, technologies: Technology]
+    static hasMany = [tags: Tag, assignments: Assignment, technologies: Technology]
 
     static mapping = {
         company cascade: 'save-update'
-        milestones sort: 'dueDate'
     }
 
     static belongsTo = Tag
