@@ -48,8 +48,7 @@
     </fieldset>
 
 
-      <table >
-
+    <table>
         <thead>
             <tr>
 	            <g:sortableColumn property="user" title="User" titleKey="learning.user" params="${[search:search]}" />
