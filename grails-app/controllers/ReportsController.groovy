@@ -463,80 +463,45 @@ class ReportsController extends BaseController {
   def mood = {
 
     def user = findLoggedUser()
-    def date = new Date()
     def userList = User.findAllByCompany(user.company)
 
-    def month
-    def year
-
-    if (params.selectedMonth && params.selectedYear){
-      month = Integer.parseInt(params.selectedMonth)-1
-      year  = Integer.parseInt(params.selectedYear)-1900
-    } else {
-      month = date.month
-      year  = date.year
-    }
+    def now = new Date()
+    def month = params.selectedMonth ? Integer.parseInt(params.selectedMonth) - 1 : now.month
+    def year = params.selectedYear ? Integer.parseInt(params.selectedYear) : now.year
 
     // 'selectedUser' should be selected only if requester is PROJECT LEADER or COMPANY OWNER
     if (params.selectedUser){
       user = User.get(Integer.parseInt(params.selectedUser))
     }
 
-    def years  = databaseService.findAvailableYears()
-    def months = [1,2,3,4,5,6,7,8,9,10,11,12]
-
-    SimpleDateFormat sdf = new SimpleDateFormat("yy_MM_dd__hh_mm_ss")
-    String dateString = sdf.format(date)
-
-    GregorianCalendar gc = new GregorianCalendar()
-    gc.set(year, month, 1) // year month date
-
-    def startDate = new Date()
-    def endDate = new Date()
-
-    startDate.month = month
-    startDate.date = 1
-    startDate.year = year
-
-    endDate.month = month
-    endDate.year  = year
-    endDate.date  = gc.getActualMaximum(GregorianCalendar.DAY_OF_MONTH)
+    GregorianCalendar beginningOfMonth = new GregorianCalendar(year, month, 1)
+    GregorianCalendar endOfMonth = new GregorianCalendar(year, month, beginningOfMonth.getActualMaximum(GregorianCalendar.DAY_OF_MONTH))
 
     def userMood = UserMood.withCriteria {
       eq("user", user)
-      lt("date", endDate)
-      gt("date", startDate)
+      gte("date", beginningOfMonth.getTime())
+      lte("date", endOfMonth.getTime())
       eq("company", user.company)
       order('date', 'asc')
     }
-
-    TimeSeriesCollection dataset = new TimeSeriesCollection();
-    dataset.setDomainIsPointsInTime(true);
-
     TimeSeries s1 = new TimeSeries("${user.name}", Day.class);
-    TimeSeries s2 = new TimeSeries("${user.company.name}", Day.class);
-
     userMood.each { UserMood um ->
       s1.addOrUpdate(new Day(um.date.date, um.date.month+1, um.date.year+1900), um.value)
     }
 
-    HashMap<Integer,Integer> allMood = databaseService.getCompanyMood(user, startDate, endDate)
-
-    Iterator ite = allMood.keySet().iterator();
-    while (ite.hasNext()) {
-        Integer companyDate = (Integer) ite.next();
-        Double companyAverageValue = (Double) allMood.get(companyDate);
-        s2.addOrUpdate(new Day(companyDate, month+1, year+1900), companyAverageValue )
+    HashMap<Integer, Integer> allMoods = databaseService.getCompanyMood(user, beginningOfMonth.getTime(), endOfMonth.getTime())
+    TimeSeries s2 = new TimeSeries("${user.company.name}", Day.class);
+    for (avgMood in allMoods) {
+        s2.addOrUpdate(new Day(avgMood.key, month+1, year), avgMood.value )
     }
 
+    TimeSeriesCollection dataset = new TimeSeriesCollection();
     dataset.addSeries(s1)
     dataset.addSeries(s2)
 
-    int monthTitle= month +1
-    int yearTitle = year +1900
     // Creating the chart
     JFreeChart chart = ChartFactory.createTimeSeriesChart(
-      "${user.name} - ${monthTitle}/${yearTitle}", // title
+      "${user.name} - ${month+1}/${year}", // title
       g.message(code:"reports.graphic.x"),        // x-axis label
       g.message(code:"reports.graphic.y"),        // y-axis label
       dataset,                // data
@@ -559,12 +524,14 @@ class ReportsController extends BaseController {
 
     File tempDir = (File) new File(servletContext.getRealPath("/"));
 
+    SimpleDateFormat sdf = new SimpleDateFormat("yy_MM_dd__hh_mm_ss")
+    String dateString = sdf.format(now)
     File tempFile = File.createTempFile("${user.id}_${dateString}" , ".jpg", tempDir );
     session.setAttribute(tempFile.getAbsolutePath(), tempFile);
-                                        tempFile.deleteOnExit()
+    tempFile.deleteOnExit()
     ChartUtilities.saveChartAsJPEG(tempFile, chart, 500, 300);
 
-    render(view: 'mood', model: [imagePath: tempFile.name, monthList: months, yearList: years, usersList: userList])
+    render(view: 'mood', model: [imagePath: tempFile.name, yearList: databaseService.findAvailableYears(), usersList: userList])
   }
 
     def final COLORS = ['#A2EF00', '#00B945', '#FFEF00', '#88B32D', '#238B49', '#BFB630', '#699B00', '#00782D', '#A69C00', '#BBF73E', '#37DC74', '#FFF340', '#CBF76F', '#63DC90', '#FFF673']
