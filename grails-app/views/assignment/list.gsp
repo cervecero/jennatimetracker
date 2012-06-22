@@ -71,10 +71,10 @@
           <g:hiddenField name="max" value="${params.max ?: '10'}"/>
           <fieldset>
               <label for="project"><g:message code="assignment.project" default="Project"/>:</label>
-              <g:select name="project" from="${projectList}" optionKey="id" noSelection="['': '']" value="${project}"/>
+              <g:select name="project" from="${projectList}" optionKey="id" noSelection="${['':message(code:'default.all')]}" value="${project}"/>
 
               <label for="user"><g:message code="assignment.user" default="User"/>:</label>
-              <g:select name="user" from="${userList}" optionKey="id" noSelection="['': '']" value="${user}"/>
+              <g:select name="user" from="${userList}" optionKey="id" noSelection="${['':message(code:'default.all')]}" value="${user}"/>
 
             <label for="startDate"><g:message code="project.startDate" default="Start Date"/>:</label>
             <jquery:datePicker name="startDate" value="${startDate}" default="none"/>
