@@ -11,10 +11,6 @@
     </head>
     <body>
     <script type="text/javascript">
-      function search(){
-        $("#searchForm").submit();
-      }
-
       function vote(id){
         $.ajax({
           type: "POST",
@@ -40,24 +36,15 @@
     <br>
 
     <fieldset title='<g:message code="reports.knowledge.learn" default="Learn" />'>
-        <a class="ui-button ui-state-default ui-corner-all" href="${createLink(controller: 'reports',action:'newKnowledge')}" title="newLearning"><g:message code="reports.knowledge.new.learning"/></a>
-
+        <a class="ui-button ui-state-default ui-corner-all" href="${createLink(controller: 'reports',action:'newKnowledge')}" title="newLearning">
+            <g:message code="reports.knowledge.new.learning"/>
+        </a>
     </fieldset>
     <fieldset title='<g:message code="reports.knowledge.search" default="Search" />'>
-      <table width="400">
-        <tr>
-          <td align="right">
-              <g:form action="knowledge" method="GET" name="searchForm" id="searchForm">
-                <g:textField name="search" id="search" value="${search}"/>
-              </g:form>
-          </td>
-          <td align="left">
-              <button id="btnSearch" class="ui-button ui-state-default ui-corner-all" onclick="search();">
-                <g:message code="reports.knowledge.search" default="Search" />
-              </button>
-          </td>
-        </tr>
-      </table>
+        <g:form action="knowledge" method="GET">
+            <g:textField name="search" id="search" value="${search}"/>
+            <input type="submit" id="btnSearch" class="ui-button ui-state-default ui-corner-all" value="${message(code:"reports.knowledge.search")}" />
+        </g:form>
     </fieldset>
 
 
