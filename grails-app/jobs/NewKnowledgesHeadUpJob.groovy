@@ -12,10 +12,8 @@ class NewKnowledgesHeadUpJob {
 
     HeadsUpService headsUpService
 
-    /*
-    static triggers = {
-    }
-*/
+    static triggers = { }
+
     def execute() {
 		Company.all.each { Company company ->
 			headsUpService.sendNewKnowledgeReport(company)

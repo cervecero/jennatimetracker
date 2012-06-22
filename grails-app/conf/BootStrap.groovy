@@ -136,6 +136,7 @@ class BootStrap {
 		EventJob.schedule(grailsApplication.config.event.cronExpression)
 		InviteCoworkersJob.schedule(grailsApplication.config.chat.cronExpression)
 		ProjectFollowUpJob.schedule(grailsApplication.config.projectFollowUp.cronExpression)
+        NewKnowledgesHeadUpJob.schedule(grailsApplication.config.knowledgeHeadsUp.cronExpression)
 		ReconnectJob.schedule(grailsApplication.config.reconnect.cronExpression)
 		// FIXME: Reminders are not fully-implemented, so we're deactivating this
         //ReminderJob.schedule(grailsApplication.config.chat.cronExpression)

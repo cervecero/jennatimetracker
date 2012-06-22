@@ -1,0 +1,2 @@
+<p><g:message code="email.salutation" locale="${recipient.locale}" args="${[recipient]}" /></p>
+<p><g:message code="knowledge.heads.up.no.new" locale="${recipient.locale}" args="${[company, from, to]}" /></p>
