@@ -106,7 +106,6 @@ class ReportsController extends BaseController {
 
     def knowledge = {
         def user = findLoggedUser()
-        def likeCondition = ""
 
         params.max = Math.min(params?.max?.toInteger() ?: 10, 100)
         params.offset = params?.offset?.toInteger() ?: 0
@@ -141,7 +140,6 @@ class ReportsController extends BaseController {
                     max: params.max,
                     offset: params.offset) {
                 eq "company", user.company
-                like("description", "%" + likeCondition + "%")
                 order(params.sort, params.order)
             }
             total = learnings.totalCount
