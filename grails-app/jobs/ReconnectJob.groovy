@@ -14,6 +14,7 @@ class ReconnectJob {
     JabberService jabberService
 
     static triggers = {
+        cron name: 'everyFiveMinutes', cronExpression: "0 0/5 * ? * *"
     }
 
     def execute() {

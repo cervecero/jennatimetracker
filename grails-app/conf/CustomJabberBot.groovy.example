@@ -5,7 +5,6 @@ environments {
         // conversations expire in 2 minutes
         conversationExpiracy = 1000 * 60 * 2
         chat.cronExpression = '0 0 0-23 ? * *'
-        reconnect.cronExpression = '0 0 * ? * *'
         reminder.cronExpression = '0 0 * ? * *'
         projectFollowUp.cronExpression = '0 0 9 ? * FRI'
         knowledgeHeadsUp.cronExpression = '0 0 9 ? * MON'
