@@ -6,9 +6,8 @@ class HeadsUpService {
     boolean transactional = false
 
     MessageSource messageSource
-    EmailerService emailerService
     CompanyService companyService
-    PageRenderer groovyPageRenderer
+    EmailNotificationService emailNotificationService
     
     def sendNewKnowledgeReport(company) {
         def today = new Date()
@@ -16,13 +15,14 @@ class HeadsUpService {
         def to = today.onlyDate
         def newKnowledge = companyService.listNewLearnings(company, from, to)
         company.employees.each { employee ->
-            def email = [
-                    to: [employee.account],
-                    subject: messageSource.getMessage('knowledge.heads.up.subject', null, employee.locale),
-                    from: messageSource.getMessage('application.email', null, employee.locale),
-                    text: groovyPageRenderer.render(view: newKnowledge ? '/email/knowledgeHeadsUp' : '/email/knowledgeHeadsUpNoNew', model: [recipient: employee, company: company, newKnowledge: newKnowledge, from: from, to: to])
-            ]
-            emailerService.sendEmails([email])
+            log.info("Preparing report for ${employee} (locale: ${employee.locale})")
+            def model = [
+                    recipient: employee, company: company, newKnowledge: newKnowledge,
+                    from: messageSource.getMessage("default.date.formatted.short", [from] as Object[], employee.locale),
+                    to: messageSource.getMessage("default.date.formatted.short", [to] as Object[], employee.locale)
+                ]
+            emailNotificationService.sendNotification(employee, messageSource.getMessage('knowledge.heads.up.subject', null, employee.locale), 'knowledgeHeadsUp', model)
+            log.info("Report for ${employee} sent")
         }
     }
 }

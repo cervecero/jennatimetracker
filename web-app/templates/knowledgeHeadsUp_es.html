@@ -1,0 +1,13 @@
+<p>Hola ${recipient}<p>
+
+<% if (newKnowledge) { %>
+    <p>La gente de ${company} aprendi&oacute; mucho entre el ${from} y el ${to}. Mir&aacute; este resumen:</p>
+    
+    <ul>
+        <% newKnowledge.each { learning -> %>
+                <li>${learning.description} - ${learning.user}</li>
+        <% } %>
+    </ul>
+<% } else { %>
+    <p>Parece que nadie aprendi&oacute; nada entre el ${from} y el ${to}. No te olvides de anunciar tus nuevos aprendizajes en Jenna Timetracker</p>
+<% } %>

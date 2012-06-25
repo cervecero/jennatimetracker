@@ -16,6 +16,7 @@ class NewKnowledgesHeadUpJob {
 
     def execute() {
 		Company.all.each { Company company ->
+            log.info("Sending knowledge report to members of ${company} through ${headsUpService}")
 			headsUpService.sendNewKnowledgeReport(company)
 		}
     }
