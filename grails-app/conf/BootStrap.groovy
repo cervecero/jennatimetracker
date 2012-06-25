@@ -139,7 +139,6 @@ class BootStrap {
 		ReconnectJob.schedule(grailsApplication.config.reconnect.cronExpression)
 		// FIXME: Reminders are not fully-implemented, so we're deactivating this
         //ReminderJob.schedule(grailsApplication.config.chat.cronExpression)
-		TimeConverterJob.schedule(grailsApplication.config.timeConverter.cronExpression)
     }
 
     def destroy = {

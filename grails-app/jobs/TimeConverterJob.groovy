@@ -1,5 +1,11 @@
 
 /**
+ * As some countries use Daylight Saving Time, this Job moves:
+ * - User#localChatTime
+ * - Reminder#localMoment
+ * 
+ * In order for the server to respect DST if the User's Timezone uses it
+ * 
  * @author Alejandro Gomez (alejandro.gomez@fdvsolutions.com)
  * Date: Jul 31, 2009
  * Time: 8:21:15 PM
@@ -13,6 +19,7 @@ class TimeConverterJob {
     def concurrent = false
 
     static triggers = {
+        cron name: 'beforeEachHour', cronExpression: "0 55 * ? * *"
     }
 
     def execute() {

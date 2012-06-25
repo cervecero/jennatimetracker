@@ -7,7 +7,6 @@ environments {
         chat.cronExpression = '0 0 0-23 ? * *'
         reconnect.cronExpression = '0 0 * ? * *'
         reminder.cronExpression = '0 0 * ? * *'
-        timeConverter.cronExpression = '0 3 23 ? * *'
         projectFollowUp.cronExpression = '0 0 9 ? * FRI'
         knowledgeHeadsUp.cronExpression = '0 0 9 ? * MON'
 
