@@ -180,19 +180,6 @@ class JabberService implements InitializingBean {
         return !this.lastException
     }
 
-    def remindEvents(events) {
-        events.each { event ->
-            event.participants?.each { participant ->
-                def presence = connection.roster.getPresence(participant.account)
-                if (presence?.available) {
-                    String askingMessage = chatService.remindEvent(event, participant)
-                    Chat chat = createOutgoingChatWith(participant)
-                    chat.sendMessage askingMessage
-                }
-            }
-        }
-    }
-
     def queryUsers(users) {
         users?.each { User user ->
             def presence = connection.roster.getPresence(user.account)

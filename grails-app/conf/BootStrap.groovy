@@ -133,7 +133,6 @@ class BootStrap {
 		 * we have to schedule the Jobs here (and pray not to forget any)
 		 */
 		ChattingJob.schedule(grailsApplication.config.chat.cronExpression)
-		EventJob.schedule(grailsApplication.config.event.cronExpression)
 		InviteCoworkersJob.schedule(grailsApplication.config.chat.cronExpression)
 		ProjectFollowUpJob.schedule(grailsApplication.config.projectFollowUp.cronExpression)
         NewKnowledgesHeadUpJob.schedule(grailsApplication.config.knowledgeHeadsUp.cronExpression)
