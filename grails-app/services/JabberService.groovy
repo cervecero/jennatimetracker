@@ -17,7 +17,6 @@ class JabberService implements InitializingBean {
     def scope = 'singleton'
 
     ChatService chatService
-    ManagerService managerService
     def grailsApplication
 
     private XMPPConnection connection
@@ -127,7 +126,6 @@ class JabberService implements InitializingBean {
         String jabberServer = config['host']
         ConnectionConfiguration connConf = new ConnectionConfiguration(jabberServer)
         connConf.setSASLAuthenticationEnabled false
-        //connConf.securityMode(ConnectionConfiguration.SecurityMode.disabled)
         connection = new XMPPConnection(connConf)
         connection.connect()
 
@@ -149,17 +147,20 @@ class JabberService implements InitializingBean {
         }
 
         def listener = [
-                entriesAdded: { },
-                entriesUpdated: { },
-                entriesDeleted: { },
-                presenceChanged: {Presence pr ->
-                    if (pr.type == Presence.Type.available) {
-                        checkPreviousDateEffortsFor(extractAccountFrom(pr.from))
-                    }
+            entriesAdded: { },
+            entriesUpdated: { },
+            entriesDeleted: { },
+            presenceChanged: {/*
+            // FIXME: This is not fully defined yet. Should we ask people to track yesterday's hours every time they forgot and change their status?
+            Presence pr ->
+                if (pr.type == Presence.Type.available) {
+                    checkPreviousDateEffortsFor(extractAccountFrom(pr.from))
                 }
+                */
+            }
         ]
-        //FIXME
-        //connection.roster.addRosterListener(listener as RosterListener)
+        connection.roster.addRosterListener(listener as RosterListener)
+        
         return connection
     }
 
@@ -216,17 +217,21 @@ class JabberService implements InitializingBean {
         }
     }
 
+    /**
+     * Checks if the user tracked Efforts during the last "Chatting Day" and, if not,
+     * reminds her to do it
+     * FIXME: Not being used, as the listener that should invoke this is not configured
+     */
     def checkPreviousDateEffortsFor(String _account) {
         Date today = new Date().onlyDate
-        if (managerService.isChattingDay(today)) {
-            User.withTransaction {
-                User user = User.findByAccount(_account)
-                Date previousDate = managerService.getPreviousChattingDay(today)
-                if (!user.registeredEffortsFor(previousDate)) {
-                    String message = chatService.askForEfforts(user, previousDate)
-                    Chat chat = createOutgoingChatWith(user)
-                    chat.sendMessage message
-                }
+        // TODO: Check if today is a "Chatting Day" ?
+        User.withTransaction {
+            User user = User.findByAccount(_account)
+            Date previousDate = (today - 1).onlyDate // TODO: Was this a "Chatting Day"?
+            if (!user.registeredEffortsFor(previousDate)) {
+                String message = chatService.askForEfforts(user, previousDate)
+                Chat chat = createOutgoingChatWith(user)
+                chat.sendMessage message
             }
         }
     }
