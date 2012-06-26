@@ -4,6 +4,7 @@ import org.springframework.security.GrantedAuthorityImpl
 import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUserImpl
 import org.json.JSONObject
 import groovy.text.SimpleTemplateEngine
+import org.springframework.security.context.SecurityContextHolder as SCH
 
 class RegisterController extends BaseController {
 
@@ -197,7 +198,7 @@ class RegisterController extends BaseController {
 
                 // Send registration email based on current locale.
               String templatePath = File.separator + "templates" + File.separator + getMessage(request, 'registration.mail.template')
-              File tplFile = grailsAttributes.getApplicationContext().getResource(templatePath).getFile();
+              File tplFile = grailsAttributes.getApplicationContext().getResource(templatePath).getFile()
 
 			  String linkHash = createLink(controller:"register",action:"activate",params:[hash:person.activationHash],absolute:true)
               def binding = ["name": person.name, "account": person.account, "accountToAdd": getMessage(request, 'application.email.account'), "linkHash": linkHash]
@@ -292,7 +293,7 @@ class RegisterController extends BaseController {
       }
       if (!clientTag){
         clientTag = new Tag()
-        clientTag.category=TagCategory.findByName("client");
+        clientTag.category=TagCategory.findByName("client")
         clientTag.name=    g.message(code:'default.tag.client.name')
         clientTag.company= company
       }
@@ -304,7 +305,7 @@ class RegisterController extends BaseController {
       }
       if (!projectTag){
         projectTag = new Tag()
-        projectTag.category=TagCategory.findByName("project");
+        projectTag.category=TagCategory.findByName("project")
         projectTag.name=    g.message(code:'default.tag.project.name')
         projectTag.company= company
       }
