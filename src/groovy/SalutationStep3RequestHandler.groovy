@@ -10,29 +10,29 @@ class SalutationStep3RequestHandler extends RequestHandler {
       return accepted
     }
 
-    private String answerEvaluation(String msg){
-
-      String evaluation = Answer.UNKNOWN
+    private Answer answerEvaluation(String msg){
+      Answer evaluation = Answer.UNKNOWN
       int value
       try {
         value = Integer.parseInt(msg)
       } catch (Exception e){
         // No valid integer number entered by user.
+        return evaluation
       }
 
-      if (value >0 && value < 3){
-        evaluation = Answer.NEGATIVE
+      if (value > 0 && value < 3){
+        return Answer.NEGATIVE
       }
       if (value == 3){
-        evaluation = Answer.NEUTRAL
+        return Answer.NEUTRAL
       }
       if (value > 3 && value < 6){
-        evaluation = Answer.POSITIVE
+        return Answer.POSITIVE
       }
       return evaluation
     }
 
-    private List<Response> getAnswerFor(String answer){
+    private List<Response> getAnswerFor(Answer answer){
       List<Response> responses = []
 
       if (answer == Answer.POSITIVE){
@@ -57,7 +57,7 @@ class SalutationStep3RequestHandler extends RequestHandler {
       User user =_conversation.actualRequest.user
 
       String actualMessage = _conversation.actualRequest.message
-      String answer = answerEvaluation(actualMessage);
+      Answer answer = answerEvaluation(actualMessage);
 
       if (answer == Answer.UNKNOWN){
         _conversation.responses << Response.build('SalutationRequestHandlerStep2')
