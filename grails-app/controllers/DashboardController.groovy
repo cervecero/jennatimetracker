@@ -53,7 +53,7 @@ class DashboardController extends BaseController {
 
     def project = {
         def today = new Date().onlyDate
-        def projects = projectFollowUpService.listProjects(findLoggedCompany())
+        def projects = Project.findAllByCompany(findLoggedCompany(), [sort: 'name'])
         [startDateValue: today - 6, endDateValue: today + 1, projects: projects]
     }
 

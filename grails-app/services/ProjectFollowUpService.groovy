@@ -14,17 +14,6 @@ class ProjectFollowUpService {
     ExportService exportService
     EmailerService emailerService
 
-    def listProjects(company) {
-        def projects = Project.executeQuery(
-                '''select p
-from Project p
-where p.company = :company
-order by p.name asc''',
-                [company: company]
-        )
-        return projects
-    }
-
     def listEffortsGrouped(project, minDate, maxDate) {
         def effortsGrouped = User.executeQuery(
                 '''select u.name, r.name, sum(e.timeSpent)
