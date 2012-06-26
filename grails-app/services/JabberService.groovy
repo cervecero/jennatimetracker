@@ -6,11 +6,6 @@ import org.springframework.beans.factory.InitializingBean
 import org.jivesoftware.smack.*
 import grails.util.GrailsUtil
 
-/*
-https://svn.codehaus.org/grails-plugins/grails-taggable/trunk/
-
-http://pleac.sourceforge.net/pleac_groovy/strings.html
-*/
 class JabberService implements InitializingBean {
 
     boolean transactional = true
