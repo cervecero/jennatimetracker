@@ -599,7 +599,7 @@ and p.company = ? '''
             session['projectColors'] = projectColors
         }
         map.each { k, v ->
-            def record = new GanttGroup(id: v[0][6], name: k, series: [])
+            def record = [id: v[0][6], name: k, series: []]
             v.each {
                 def projectId = it[8]
                 def projectColor = projectColors[projectId]
@@ -607,7 +607,7 @@ and p.company = ? '''
                     projectColor = COLORS[colorIndex++ % COLORS.size()]
                     projectColors[projectId] = projectColor
                 }
-                def subrecord = new GanttSubgroup(name: "${it[3]} - ${it[7]}", start: [it[1], startDate].max(), end: [it[2], endDate].min(), color: projectColor)
+                def subrecord = [name: "${it[3]} - ${it[7]}", start: [it[1], startDate].max(), end: [it[2], endDate].min(), color: projectColor]
                 record.series << subrecord
             }
             list << record
@@ -615,31 +615,14 @@ and p.company = ? '''
         if (!list) {
             return list as JSON
         }
-        def start = params.start ? params.start as int : 0
-        if (start < 0) {
-            start = 0
-        }
+        def start = (params.start ?: 0) as int
+        start = Math.min(Math.max(start, 0), list.size()-1)
         def end = Math.min(start + MAX_GANTT_ROWS, list.size()) - 1
         render list[start..end] as JSON
     }
-
-}
-
-class GanttGroup {
-    Long id
-    String name
-    List series
-}
-
-class GanttSubgroup {
-    String name
-    Date start
-    Date end
-    String color
 }
 
 class UserGanttFilter {
-
     int start
     int max
     Date startDate
