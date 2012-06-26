@@ -7,7 +7,11 @@
 <title><g:message code="app.menu.my.efforts"/></title>
 <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'fullcalendar.css')}" media="screen">
 <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'jquery.jgrowl.css')}" media="screen">
-
+<style>
+.fg-menu-container {
+    z-index: 100;
+}
+</style>
 <g:javascript src="jquery-ui/jquery.form.js"/>
 <g:javascript library="calendar"/>
 <g:javascript library="qtip"/>

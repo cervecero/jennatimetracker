@@ -5,6 +5,11 @@
   <meta name="layout" content="main"/>
   <title><g:message code="app.menu.management.efforts"/></title>
   <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'fullcalendar.css')}" media="screen">
+  <style>
+    .fg-menu-container {
+      z-index: 100;
+    }
+  </style>
   <g:javascript src="jquery-ui/jquery.form.js"/>
   <g:javascript library="calendar" />
   <g:javascript library="qtip" />
