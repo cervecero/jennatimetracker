@@ -13,7 +13,6 @@ and (p.startDate <= :maxDate or p.endDate >= :minDate)''',
     }
 
     def sumTimeSpent(company, minDate, maxDate) {
-        //TODO: se suman tambien las de proyectos HC?
         def result = Effort.executeQuery(
                 '''select sum(e.timeSpent)
 from Effort e join e.user u
