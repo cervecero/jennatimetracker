@@ -168,8 +168,8 @@ class ReportsController extends BaseController {
         order("name", "asc")
 
       }
-      def roles = Role.findAllByCompany(user.company)
-      def users = User.findAllByCompany(user.company)
+      def roles = Role.findAllByCompany(user.company, [sort: 'name'])
+      def users = User.findAllByCompany(user.company, [sort: 'name'])
 
       [projects: projects, roles: roles, users: users]
 
