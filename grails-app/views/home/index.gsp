@@ -203,14 +203,15 @@
 				<div class="div-new-dashboard-column">
 					<div class="div-new-dashboard-column-title">My Projects</div>
 					<div class="div-new-dashboard-column-content2">
-						<table width="100%" border="0">
+					   <ul>
                             <g:each in="${myProjects}" var="project">
-                                <tr>
-                                    <td width="70%"><b>- ${project.name}</b></td>
-                                    <td><a href="${request.contextPath}/dashboard/projectFollowUp?dateStart=<g:formatDate date="${startDate}" type="date" locale="en"/>&dateEnd=<g:formatDate date="${endDate}" type="date" locale="en"/>&projectId=${project.id}">See Info</a></td>
-                                </tr>
+                                <li>
+                                    <a href="<g:createLink controller="dashboard" action="projectFollowUp" params="${ [dateStart: g.formatDate('date': startDate, type: 'date', locale: 'en'), dateEnd: g.formatDate('date': endDate, type: 'date', locale: 'en'), projectId: project.id] }"/>">
+                                        ${project.name}
+                                    </a>
+                                </li>
                             </g:each>
-						</table>
+                        </ul>
 					</div>
 				</div>
 				<div class="div-new-dashboard-column div-margin">
@@ -220,14 +221,13 @@
 				<div class="div-new-dashboard-column">
 					<div class="div-new-dashboard-column-title">My Team Partners</div>
 					<div class="div-new-dashboard-column-content2">
-						<table width="100%" border="0">
+						<ul>
                             <g:each in="${myPartners}" var="partner">
-                                <tr>
-                                    <td width="70%"><b>- ${partner.name}</b></td>
-                                    <td><a href="${request.contextPath}/user/showReports/${partner.id}">See Info</a></td>
-                                </tr>
+                                <li>
+                                    <a href="<g:createLink controller="user" action="showReports" id="${partner.id}"/>">${partner.name}</a>
+                                </li>
                             </g:each>
-						</table>
+                        </ul>
 					</div>
 				</div>
 			</div>
