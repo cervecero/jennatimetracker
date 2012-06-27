@@ -3,8 +3,6 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="layout" content="main" />
 		<g:javascript src="jquery-ui/jquery.form.js" />
-		<g:javascript library="flot" />
-		<!--[if IE]><g:javascript library="excanvas" /><![endif]-->
 		<script src="http://code.highcharts.com/highcharts.js"></script>
 		<script src="http://code.highcharts.com/modules/exporting.js"></script>
     </head>

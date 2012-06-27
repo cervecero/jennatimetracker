@@ -28,8 +28,6 @@ class BootStrap {
         if (GrailsUtil.isDevelopmentEnv()) {
             JavascriptTagLib.LIBRARY_MAPPINGS.jquery = ["jquery/jquery-1.7"]
             JavascriptTagLib.LIBRARY_MAPPINGS.jquery_ui = ["jquery-ui/jquery-ui-1.8.16.custom"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.flot = ["flot/jquery.flot"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.excanvas = ["flot/excanvas"]
             JavascriptTagLib.LIBRARY_MAPPINGS.calendar = ["calendar/fullcalendar"]
             JavascriptTagLib.LIBRARY_MAPPINGS.qtip = ["qtip/jquery.qtip-1.0.0-rc3"]
             JavascriptTagLib.LIBRARY_MAPPINGS.jgrowl = ["jgrowl/jquery.jgrowl"]
@@ -38,8 +36,6 @@ class BootStrap {
         } else {
             JavascriptTagLib.LIBRARY_MAPPINGS.jquery = ["jquery/jquery-1.7.min"]
             JavascriptTagLib.LIBRARY_MAPPINGS.jquery_ui = ["jquery-ui/jquery-ui-1.8.16.custom.min"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.flot = ["flot/jquery.flot.min"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.excanvas = ["flot/excanvas.min"]
             JavascriptTagLib.LIBRARY_MAPPINGS.calendar = ["calendar/fullcalendar"]
             JavascriptTagLib.LIBRARY_MAPPINGS.qtip = ["qtip/jquery.qtip-1.0.0-rc3.min"]
             JavascriptTagLib.LIBRARY_MAPPINGS.jgrowl = ["jgrowl/jquery.jgrowl"]
