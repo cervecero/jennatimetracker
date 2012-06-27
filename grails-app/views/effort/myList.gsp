@@ -77,17 +77,27 @@
             autoOpen:false,
             height:400,
             modal:true,
-            buttons:{
-                '<g:message code="ok"/>':function () {
-                    $("#effortForm").submit();
+            buttons: [
+                {
+                    text: '<g:message code="ok"/>',
+                    click :function () {
+                        $("#effortForm").submit();
+                    }
                 },
-                '<g:message code="cancel"/>':function () {
-                    $(this).dialog('close');
+                {
+                    text: '<g:message code="cancel"/>',
+                    click: function () {
+                        $(this).dialog('close');
+                    }
                 },
-                '<g:message code="delete"/>':function () {
-                    deleteIt($("#id").val());
+                {
+                    id: 'deleteEffort',
+                    text: '<g:message code="delete"/>',
+                    click :function () {
+                        deleteIt($("#id").val());
+                    }
                 }
-            },
+            ],
             close:function () {
                 allFields.val('').removeClass('ui-state-error');
                 tips.text('');
@@ -166,6 +176,7 @@
                     $('#date_day').val(day);
                     $('#date_month').val(month);
                     $('#date_year').val(year);
+                    $('#deleteEffort').hide();
                     $('#dialog').dialog('open');
 
                 } else {
@@ -197,6 +208,7 @@
                     $("#assignmentId").html(response.assignmentList);
 
                     $("#comment").val(response.comment);
+                    $('#deleteEffort').show();
                     $("#dialog").dialog('open');
                 } else {
                     showDialog(response, statusText);
@@ -210,10 +222,6 @@
 
 
     function deleteIt(id) {
-        if (id == null || "" == id) {
-            alert("<g:message code='delete.effort.not.deletable'/>");
-            return;
-        }
         var answer = confirm("<g:message code='delete.effort.confirm'/>");
         if (answer) {
             $.ajax({
