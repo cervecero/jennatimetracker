@@ -48,13 +48,11 @@
 			});
 		});
 
-
 		var chart;
 		$(document).ready(function() {
 
 			var colors = Highcharts.getOptions().colors,
 				categories = [<g:each in="${knowledge}" var="k">'${k.user}', </g:each>],
-				name = '<g:message code='score.points'/>',
 				data = [<g:each in="${knowledge}" var="k">${k.points}, </g:each>];
 
 			function setChart(name, categories, data, color) {
@@ -74,10 +72,10 @@
 					plotBackgroundColor: 'rgb(247, 247, 247)',
 					backgroundColor: 'rgb(247, 247, 247)'
 				},
-				title: {
-					text: ''
+				legend: {
+				    enabled: false
 				},
-				subtitle: {
+				title: {
 					text: ''
 				},
 				xAxis: {
@@ -88,34 +86,19 @@
 						text: ''
 					}
 				},
-				plotOptions: {
-					column: {
-						cursor: 'pointer',
-					}
-				},
 				credits: {
 					  enabled: false,
-
      			},
 				tooltip: {
 					formatter: function() {
-						var point = this.point,
-							s = this.x +':<b>'+ this.y +' Puntos</b><br/>';
-
-						return s;
+					    return this.x +':<b>'+ this.y +'</b><br/>';
 					}
 				},
 				series: [{
-					name: name,
 					data: data,
-					color: 'red'
 				}],
-				exporting: {
-					enabled: true
-				}
 			});
 		});
-
 
 		var chart;
 		$(document).ready(function() {
@@ -127,9 +110,6 @@
 					backgroundColor: 'rgb(247, 247, 247)'
 				},
 				title: {
-					text: ''
-				},
-				subtitle: {
 					text: ''
 				},
 				xAxis: {
