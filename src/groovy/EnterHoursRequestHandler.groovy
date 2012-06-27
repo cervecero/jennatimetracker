@@ -145,19 +145,11 @@ class EnterHoursRequestHandler extends RequestHandler {
             effort.date = effortToSave.date
             effort.assignment = effortToSave.assignment
 
-            /*
-            tags.each { Tag tag ->
-                effort.addToTags(tag)
-            }
-            */
-
-            // 23-9-2010 / Lea
-            // With new many-to-many mapping, adding a 'Tag Instance' to 'Efforts', populate 'tag_efforts' join table. 
             tags.each { Tag tag ->
               tag.addToEfforts(effort)
             }
 
-            // Now, we save the effor, associated to this user. (This goes to efforts table).
+            // Now, we save the effort, associated to this user. (This goes to efforts table).
             User user = _conversation.actualRequest.user
             user.addToEfforts(effort)
             
