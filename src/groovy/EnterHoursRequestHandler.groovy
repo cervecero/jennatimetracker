@@ -96,8 +96,7 @@ class EnterHoursRequestHandler extends RequestHandler {
             _conversation.context.clear()
             _conversation.responses << Response.build('EnterHoursRequestHandler.ok')
 
-            // Iniciamos el siguiente handler :)
-            _conversation.context.askForKnowledge=true
+            _conversation.context.askForKnowledge = true
             KnowledgeStep1RequestHandler handler = new KnowledgeStep1RequestHandler()
             handler.handle(_conversation, _chatService)
           }
@@ -216,7 +215,7 @@ class SetEnterHoursComment extends WizardStep {
   boolean skipStep(Conversation _conversation) {
     Effort effort = _conversation.context.effort
 
-    if (effort == null || effort.timeSpent ==0 )
+    if (effort == null || effort.timeSpent == 0)
       return true;
 
     return false;
