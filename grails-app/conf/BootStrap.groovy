@@ -42,29 +42,6 @@ class BootStrap {
             JavascriptTagLib.LIBRARY_MAPPINGS.fgmenu = ["fg.menu"]
             JavascriptTagLib.LIBRARY_MAPPINGS.query = ["jquery.query-2.1.7"]
         }
-        def getOnlyDateUTC = { ->
-            Calendar calendar = Calendar.getInstance()
-            calendar.time = delegate
-            calendar.set(Calendar.ZONE_OFFSET, 0)
-            calendar.set(Calendar.HOUR_OF_DAY, 0)
-            calendar.set(Calendar.MINUTE, 0)
-            calendar.set(Calendar.SECOND, 0)
-            calendar.set(Calendar.MILLISECOND, 0)
-            calendar.time
-        }
-        def getISO8601Formatted = {
-            DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-            format.timeZone = TimeZone.getTimeZone("Etc/UTC")
-            format.format(delegate)
-        }
-        Date.metaClass.getOnlyDateUTC = getOnlyDateUTC
-        Date.metaClass.getISO8601Formatted = getISO8601Formatted
-        java.sql.Date.metaClass.getOnlyDateUTC = getOnlyDateUTC
-        java.sql.Date.metaClass.getISO8601Formatted = getISO8601Formatted
-        java.sql.Time.metaClass.getOnlyDateUTC = getOnlyDateUTC
-        java.sql.Time.metaClass.getISO8601Formatted = getISO8601Formatted
-        java.sql.Timestamp.metaClass.getOnlyDateUTC = getOnlyDateUTC
-        java.sql.Timestamp.metaClass.getISO8601Formatted = getISO8601Formatted
 
 		/*
 		 Seed Data...
