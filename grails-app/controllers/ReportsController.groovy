@@ -543,7 +543,7 @@ class ReportsController extends BaseController {
         def today = new Date().onlyDate
         def startDate = today - 7
         def endDate = today + 28
-        def billings = [0: 'Todos', 1: 'Billable', 2: 'No Billable']
+        def billings = [0: g.message(code:"default.all"), 1: 'Billable', 2: 'No Billable']
         def modes = Mode.list()
         def skills = Skill.list()
         [start: 0, max: MAX_GANTT_ROWS, startDate: startDate, endDate: endDate, billings: billings, modes: modes, skills: skills, billing: 1]
