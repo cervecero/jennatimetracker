@@ -1,245 +1,238 @@
-<%@ page import="java.text.SimpleDateFormat" %>
-
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<meta name="layout" content="main"/>
-<title><g:message code="app.menu.my.efforts"/></title>
-<link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'fullcalendar.css')}" media="screen">
-<link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'jquery.jgrowl.css')}" media="screen">
-<style>
-.fg-menu-container {
-    z-index: 100;
-}
-</style>
-<g:javascript src="jquery-ui/jquery.form.js"/>
-<g:javascript library="calendar"/>
-<g:javascript library="qtip"/>
-<g:javascript library="jgrowl"/>
-
-<script type="text/javascript">
-    var calStart;
-    var calEnd;
-
-    function reload() {
-        moveCalendar(calStart, calEnd);
-    }
-
-    function moveCalendar(start, end) {
-        $('#calendar').fullCalendar('refetchEvents');
-    }
-
-    $(function () {
-        var id = $("#id");
-        var version = $("#version");
-        var day = $("#date_day");
-        var month = $("#date_month");
-        var year = $("#date_year");
-        var timeSpent = $("#timeSpent");
-        var tags = $("#tags");
-        var comment = $("#comment");
-        var allFields = $([]).add(id).add(version).add(day).add(month).add(year).add(timeSpent).add(tags).add(comment);
-        var tips = $("#validateTips");
-
-        function updateTips(t) {
-            tips.text(t).effect("highlight", {}, 1500);
-        }
-
-        function beforeSubmit() {
-            $("#validateTips").text("");
-            allFields.removeClass('ui-state-error');
-        }
-
-        $('#effortForm').ajaxForm({
-            beforeSubmit:beforeSubmit,
-            dataType:'json',
-            success:showResponse
-        });
-
-        function showResponse(response, statusText) {
-            if (response.ok) {
-                allFields.val('');
-                $("#dialog").dialog('close');
-                reload();
-            } else {
-                var message = "";
-                for (var key in response.errors) {
-                    $("#" + key).addClass("ui-state-error");
-                    message += response.errors[key] + "\n\n";
-                }
-                updateTips(message);
-            }
-            showDialog(response, statusText);
-        }
-
-        $("#dialog").dialog({
-            bgiframe:true,
-            autoOpen:false,
-            height:400,
-            modal:true,
-            buttons: [
-                {
-                    text: '<g:message code="ok"/>',
-                    click :function () {
-                        $("#effortForm").submit();
-                    }
-                },
-                {
-                    text: '<g:message code="cancel"/>',
-                    click: function () {
-                        $(this).dialog('close');
-                    }
-                },
-                {
-                    id: 'deleteEffort',
-                    text: '<g:message code="delete"/>',
-                    click :function () {
-                        deleteIt($("#id").val());
-                    }
-                }
-            ],
-            close:function () {
-                allFields.val('').removeClass('ui-state-error');
-                tips.text('');
-            }
-        });
-
-        $('#calendar').fullCalendar({
-            buttons:{
-                today:'today',
-                prevYear:true,
-                prevMonth:true,
-                nextMonth:true,
-                nextYear:true
-            },
-            showTime:false,
-            dayClick:function (dayDate) {
-                add(dayDate.getDate(), dayDate.getMonth() + 1, dayDate.getFullYear());
-            },
-
-            eventRender:function (calEvent, element) {
-
-                var tipContent = "<strong>" + calEvent.assignmentList + "</strong><br/>" + calEvent.currentDate + " - " + calEvent.timeSpent + "<br/>" + "<blockquote>" + calEvent.comment + "</blockquote>";
-
-                $(element).qtip({
-                    content:tipContent,
-                    position:{
-                        corner:{
-                            target:'leftMiddle',
-                            tooltip:'rightMiddle'
-                        }
-                    },
-                    border:{
-                        radius:4,
-                        width:3
-                    },
-                    style:{
-                        name:'dark',
-                        tip:'rightMiddle'
-                    }
-                });
-
-                $(element).click(function (event) {
-                    edit(calEvent.id);
-                });
-            },
-
-            events:function (start, end, callback) {
-                calStart = start;
-                calEnd = end;
-                $.ajax({
-                    url:"${createLink(action: 'myCalendar')}",
-                    global:true,
-                    type:"GET",
-                    data:({start:start.getTime(), end:end.getTime()}),
-                    dataType:"json",
-                    success:function (response, statusText) {
-                        callback(response);
-                    }
-                });
-            }
-        });
-    });
-
-    function add(day, month, year) {
-        $.ajax({
-            url:"${createLink(controller: 'effort', action: 'ajaxGetAssignments')}",
-            global:true,
-            type:"GET",
-            data:({day:day, month:month, year:year}),
-            dataType:"json",
-            success:function (response, statusText) {
-                if (response.ok) {
-                    $("#assignmentId").html(response.assignmentList);
-
-            $('#ui-dialog-title-dialog').text('<g:message code="effort.create"/>');
-                    $('#date_day').val(day);
-                    $('#date_month').val(month);
-                    $('#date_year').val(year);
-                    $('#deleteEffort').hide();
-                    $('#dialog').dialog('open');
-
-                } else {
-                    alert("There are no assignments for the selected date.");
-                }
-            }
-        });
-
-
-    }
-
-    function edit(id) {
-        $('#ui-dialog-title-dialog').text('<g:message code="effort.edit"/>');
-        $.ajax({
-            url:"${createLink(action: 'ajaxEdit')}",
-            global:true,
-            type:"GET",
-            data:({id:id}),
-            dataType:"json",
-            success:function (response, statusText) {
-                if (response.ok) {
-                    $("#id").val(response.id);
-                    $("#version").val(response.version);
-                    $("#date_day").val(response.day);
-                    $("#date_month").val(response.month);
-                    $("#date_year").val(response.year);
-                    $("#timeSpent").val(response.timeSpent);
-
-                    $("#assignmentId").html(response.assignmentList);
-
-                    $("#comment").val(response.comment);
-                    $('#deleteEffort').show();
-                    $("#dialog").dialog('open');
-                } else {
-                    showDialog(response, statusText);
-                }
-            },
-            error:function () {
-                alert("ERROR");
-            }
-        });
-    }
-
-
-    function deleteIt(id) {
-        var answer = confirm("<g:message code='delete.effort.confirm'/>");
-        if (answer) {
-            $.ajax({
-                url:"${createLink(action: 'ajaxDelete')}",
-                global:true,
-                type:"GET",
-                data:({id:id}),
-                dataType:"json",
-                success:function (response, statusText) {
-                    $("#dialog").dialog('close');
-                    reload();
-                    $.jGrowl(response.message);
-
-                }
-            });
-        }
-    }
-</script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="layout" content="main"/>
+	<title><g:message code="app.menu.my.efforts"/></title>
+	<style>
+		.fg-menu-container {
+		    z-index: 100;
+		}
+	</style>
+	<r:require modules="calendar"/>
+	<r:require modules="jquery-form"/>
+	
+	<script type="text/javascript">
+	    var calStart;
+	    var calEnd;
+	
+	    function reload() {
+	        moveCalendar(calStart, calEnd);
+	    }
+	
+	    function moveCalendar(start, end) {
+	        $('#calendar').fullCalendar('refetchEvents');
+	    }
+	
+	    $(function () {
+	        var id = $("#id");
+	        var version = $("#version");
+	        var day = $("#date_day");
+	        var month = $("#date_month");
+	        var year = $("#date_year");
+	        var timeSpent = $("#timeSpent");
+	        var tags = $("#tags");
+	        var comment = $("#comment");
+	        var allFields = $([]).add(id).add(version).add(day).add(month).add(year).add(timeSpent).add(tags).add(comment);
+	        var tips = $("#validateTips");
+	
+	        function updateTips(t) {
+	            tips.text(t).effect("highlight", {}, 1500);
+	        }
+	
+	        function beforeSubmit() {
+	            $("#validateTips").text("");
+	            allFields.removeClass('ui-state-error');
+	        }
+	
+	        $('#effortForm').ajaxForm({
+	            beforeSubmit:beforeSubmit,
+	            dataType:'json',
+	            success:showResponse
+	        });
+	
+	        function showResponse(response, statusText) {
+	            if (response.ok) {
+	                allFields.val('');
+	                $("#dialog").dialog('close');
+	                reload();
+	            } else {
+	                var message = "";
+	                for (var key in response.errors) {
+	                    $("#" + key).addClass("ui-state-error");
+	                    message += response.errors[key] + "\n\n";
+	                }
+	                updateTips(message);
+	            }
+	            showDialog(response, statusText);
+	        }
+	
+	        $("#dialog").dialog({
+	            bgiframe:true,
+	            autoOpen:false,
+	            height:400,
+	            modal:true,
+	            buttons: [
+	                {
+	                    text: '<g:message code="ok"/>',
+	                    click :function () {
+	                        $("#effortForm").submit();
+	                    }
+	                },
+	                {
+	                    text: '<g:message code="cancel"/>',
+	                    click: function () {
+	                        $(this).dialog('close');
+	                    }
+	                },
+	                {
+	                    id: 'deleteEffort',
+	                    text: '<g:message code="delete"/>',
+	                    click :function () {
+	                        deleteIt($("#id").val());
+	                    }
+	                }
+	            ],
+	            close:function () {
+	                allFields.val('').removeClass('ui-state-error');
+	                tips.text('');
+	            }
+	        });
+	
+	        $('#calendar').fullCalendar({
+	            buttons:{
+	                today:'today',
+	                prevYear:true,
+	                prevMonth:true,
+	                nextMonth:true,
+	                nextYear:true
+	            },
+	            showTime:false,
+	            dayClick:function (dayDate) {
+	                add(dayDate.getDate(), dayDate.getMonth() + 1, dayDate.getFullYear());
+	            },
+	
+	            eventRender:function (calEvent, element) {
+	
+	                var tipContent = "<strong>" + calEvent.assignmentList + "</strong><br/>" + calEvent.currentDate + " - " + calEvent.timeSpent + "<br/>" + "<blockquote>" + calEvent.comment + "</blockquote>";
+	
+	                $(element).qtip({
+	                    content:tipContent,
+	                    position:{
+	                        corner:{
+	                            target:'leftMiddle',
+	                            tooltip:'rightMiddle'
+	                        }
+	                    },
+	                    border:{
+	                        radius:4,
+	                        width:3
+	                    },
+	                    style:{
+	                        name:'dark',
+	                        tip:'rightMiddle'
+	                    }
+	                });
+	
+	                $(element).click(function (event) {
+	                    edit(calEvent.id);
+	                });
+	            },
+	
+	            events:function (start, end, callback) {
+	                calStart = start;
+	                calEnd = end;
+	                $.ajax({
+	                    url:"${createLink(action: 'myCalendar')}",
+	                    global:true,
+	                    type:"GET",
+	                    data:({start:start.getTime(), end:end.getTime()}),
+	                    dataType:"json",
+	                    success:function (response, statusText) {
+	                        callback(response);
+	                    }
+	                });
+	            }
+	        });
+	    });
+	
+	    function add(day, month, year) {
+	        $.ajax({
+	            url:"${createLink(controller: 'effort', action: 'ajaxGetAssignments')}",
+	            global:true,
+	            type:"GET",
+	            data:({day:day, month:month, year:year}),
+	            dataType:"json",
+	            success:function (response, statusText) {
+	                if (response.ok) {
+	                    $("#assignmentId").html(response.assignmentList);
+	
+	            $('#ui-dialog-title-dialog').text('<g:message code="effort.create"/>');
+	                    $('#date_day').val(day);
+	                    $('#date_month').val(month);
+	                    $('#date_year').val(year);
+	                    $('#deleteEffort').hide();
+	                    $('#dialog').dialog('open');
+	
+	                } else {
+	                    alert("There are no assignments for the selected date.");
+	                }
+	            }
+	        });
+	
+	
+	    }
+	
+	    function edit(id) {
+	        $('#ui-dialog-title-dialog').text('<g:message code="effort.edit"/>');
+	        $.ajax({
+	            url:"${createLink(action: 'ajaxEdit')}",
+	            global:true,
+	            type:"GET",
+	            data:({id:id}),
+	            dataType:"json",
+	            success:function (response, statusText) {
+	                if (response.ok) {
+	                    $("#id").val(response.id);
+	                    $("#version").val(response.version);
+	                    $("#date_day").val(response.day);
+	                    $("#date_month").val(response.month);
+	                    $("#date_year").val(response.year);
+	                    $("#timeSpent").val(response.timeSpent);
+	
+	                    $("#assignmentId").html(response.assignmentList);
+	
+	                    $("#comment").val(response.comment);
+	                    $('#deleteEffort').show();
+	                    $("#dialog").dialog('open');
+	                } else {
+	                    showDialog(response, statusText);
+	                }
+	            },
+	            error:function () {
+	                alert("ERROR");
+	            }
+	        });
+	    }
+	
+	
+	    function deleteIt(id) {
+	        var answer = confirm("<g:message code='delete.effort.confirm'/>");
+	        if (answer) {
+	            $.ajax({
+	                url:"${createLink(action: 'ajaxDelete')}",
+	                global:true,
+	                type:"GET",
+	                data:({id:id}),
+	                dataType:"json",
+	                success:function (response, statusText) {
+	                    $("#dialog").dialog('close');
+	                    reload();
+	                    $.jGrowl(response.message);
+	
+	                }
+	            });
+	        }
+	    }
+	</script>
 </head>
 <body>
 <div id="dialog">
@@ -267,4 +260,3 @@
     <div id="calendar"></div>
 </div>
 </body>
-</html>

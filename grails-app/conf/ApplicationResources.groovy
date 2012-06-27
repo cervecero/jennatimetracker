@@ -1,0 +1,32 @@
+modules = {
+    'core' {
+        resource id: 'css', url: [dir: 'css', file: 'jquery-ui-1.7.3.custom.css']
+        resource id: 'css', url: [dir: 'css', file: 'fg.menu.css']
+        resource id: 'css', url: [dir: 'css', file: 'jquery.jgrowl.css']
+        resource id: 'css', url: [dir: 'css', file: 'style.css']
+
+        resource id: 'js', url: [dir: 'js', file: 'jquery/jquery-1.7.js'], disposition: 'head'
+        resource id: 'js', url: [dir: 'js', file: 'jquery-ui/jquery-ui-1.8.16.custom.js'], disposition: 'head'
+        resource id: 'js', url: [dir: 'js', file: 'fg.menu.js'], disposition: 'head'
+        resource id: 'js', url: [dir: 'js', file: 'jquery.query-2.1.7.js'], disposition: 'head'
+        resource id: 'js', url: [dir: 'js', file: 'jgrowl/jquery.jgrowl.js'], disposition: 'head'
+    }
+
+    'calendar' {
+        resource id: 'css', url: [dir: 'css', file: 'fullcalendar.css']
+
+        resource id: 'js', url: [dir: 'js', file: 'calendar/fullcalendar.js']
+        resource id: 'js', url: [dir: 'js', file: 'qtip/jquery.qtip-1.0.0-rc3.js']
+    }
+
+    'jquery-form' {
+        resource id: 'js', url: [dir: 'js', file: 'jquery-ui/jquery.form.js']
+    }
+
+    'jquery-ganttview' {
+        resource id: 'css', url: [dir: 'css', file: 'jquery.ganttView.css']
+
+        resource id: 'js', url: [dir: 'js', file: 'jquery.ganttView.js'], dispotion: 'head'
+        resource id: 'js', url: [dir: 'js', file: 'date.js'], dispotion: 'head'
+    }
+}

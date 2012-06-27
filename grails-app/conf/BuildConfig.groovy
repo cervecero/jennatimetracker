@@ -53,6 +53,7 @@ grails.project.dependency.resolution = {
         compile ":export:1.1"
 
         runtime ':database-migration:1.1'
+        runtime ":resources:1.2-RC1"
 
         build ":tomcat:$grailsVersion"
     }

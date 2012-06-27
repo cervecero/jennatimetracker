@@ -6,8 +6,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
         <title><g:message code="app.menu.administration.reports.knowledge"/></title>
-        <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'jquery.jgrowl.css')}" media="screen">
-        <g:javascript library="jgrowl" />
     </head>
     <body>
     <script type="text/javascript">

@@ -6,15 +6,8 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <meta name="description" content="Forget about tracking time!"/>
     <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
-    <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'style.css')}" media="screen"/>
-    <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'jquery-ui-1.7.3.custom.css')}" media="screen"/>
-    <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'fg.menu.css')}" media="screen"/>
-
-  <g:javascript library="application" />
-  <g:javascript library="jquery" />
-  <g:javascript library="jquery_ui" />
-  <g:javascript library="fgmenu" />
-  <g:javascript library="query"/>
+    <r:require modules="core"/>
+    <r:layoutResources/>
 
   <style type="text/css">
 	body { font-size:62.5%; margin:0; padding:0; }
@@ -244,5 +237,6 @@
     <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
     <p id="errorText"></p>
 </div>
+<r:layoutResources/>
 </body>
 </html>

@@ -24,24 +24,6 @@ class BootStrap {
         System.setProperty('user.country', 'US')
         Locale.setDefault(Locale.ENGLISH)
 
-        if (GrailsUtil.isDevelopmentEnv()) {
-            JavascriptTagLib.LIBRARY_MAPPINGS.jquery = ["jquery/jquery-1.7"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.jquery_ui = ["jquery-ui/jquery-ui-1.8.16.custom"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.calendar = ["calendar/fullcalendar"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.qtip = ["qtip/jquery.qtip-1.0.0-rc3"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.jgrowl = ["jgrowl/jquery.jgrowl"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.fgmenu = ["fg.menu"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.query = ["jquery.query-2.1.7"]
-        } else {
-            JavascriptTagLib.LIBRARY_MAPPINGS.jquery = ["jquery/jquery-1.7.min"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.jquery_ui = ["jquery-ui/jquery-ui-1.8.16.custom.min"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.calendar = ["calendar/fullcalendar"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.qtip = ["qtip/jquery.qtip-1.0.0-rc3.min"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.jgrowl = ["jgrowl/jquery.jgrowl"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.fgmenu = ["fg.menu"]
-            JavascriptTagLib.LIBRARY_MAPPINGS.query = ["jquery.query-2.1.7"]
-        }
-
 		/*
 		 Seed Data...
 		 TODO: Move to a plugin that supports this?
