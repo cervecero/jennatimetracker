@@ -149,19 +149,6 @@
                         }
                     }
 				},
-/*
-				legend: {
-                    align:'right',
-                    x:-100,
-                    verticalAlign:'top',
-                    y:20,
-                    floating:true,
-                    backgroundColor:(Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
-                    borderColor:'#CCC',
-                    borderWidth:1,
-                    shadow:false
-				},
-*/
 				tooltip: {
 					formatter: function() {
                         return '<b>' + this.x + '</b><br/>' +
