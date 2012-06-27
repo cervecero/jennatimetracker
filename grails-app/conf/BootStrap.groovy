@@ -14,17 +14,16 @@ class BootStrap {
 
     def init = { servletContext ->
 
-      //  Adding SoftDeleteListener to override default onDelete behaviour.
-       def ctx = servletContext.getAttribute(ApplicationAttributes.APPLICATION_CONTEXT)
-       def sessionFactory = ctx.sessionFactory
-       EventListeners eventListeners = sessionFactory.eventListeners
-       eventListeners.deleteEventListeners[0] = new SoftDeleteListener()
-
-
+        // Adding SoftDeleteListener to override default onDelete behaviour.
+        def ctx = servletContext.getAttribute(ApplicationAttributes.APPLICATION_CONTEXT)
+        def sessionFactory = ctx.sessionFactory
+        EventListeners eventListeners = sessionFactory.eventListeners
+        eventListeners.deleteEventListeners[0] = new SoftDeleteListener()
 
         System.setProperty('user.language', 'en')
         System.setProperty('user.country', 'US')
         Locale.setDefault(Locale.ENGLISH)
+
         if (GrailsUtil.isDevelopmentEnv()) {
             JavascriptTagLib.LIBRARY_MAPPINGS.jquery = ["jquery/jquery-1.7"]
             JavascriptTagLib.LIBRARY_MAPPINGS.jquery_ui = ["jquery-ui/jquery-ui-1.8.16.custom"]
