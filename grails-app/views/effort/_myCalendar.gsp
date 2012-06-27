@@ -37,7 +37,7 @@
       </tr>
       </thead>
       <tbody>
-      <g:set var="today" value="${new Date().onlyDate}" />
+      <g:set var="today" value="${new Date().clearTime()}" />
       <g:each in="${(fromCal.time)..(toCal.time)}" var="date" status="idx">
         <g:if test="${idx % 7 == 0}">
           <%

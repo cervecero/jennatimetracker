@@ -41,8 +41,8 @@ class EffortController extends BaseController {
     }
 
     def calendar = {
-        Date fromDate = new Date(params.start.toLong()).onlyDate
-        Date toDate = new Date(params.end.toLong()).onlyDate
+        Date fromDate = new Date(params.start.toLong()).clearTime()
+        Date toDate = new Date(params.end.toLong()).clearTime()
         def user = findLoggedUser()
         User reqUser
         if (params.userId) {
@@ -82,8 +82,8 @@ class EffortController extends BaseController {
     }
 
     def myCalendar = {
-        Date fromDate = new Date(params.start.toLong()).onlyDate
-        Date toDate = new Date(params.end.toLong()).onlyDate
+        Date fromDate = new Date(params.start.toLong()).clearTime()
+        Date toDate = new Date(params.end.toLong()).clearTime()
         def user = findLoggedUser()
         def effortInstanceList = Effort.withCriteria() {
             eq('user', user)

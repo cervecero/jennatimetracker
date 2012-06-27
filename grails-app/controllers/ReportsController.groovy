@@ -540,7 +540,7 @@ class ReportsController extends BaseController {
 
     def usersGantt = {
         session['projectColors'] = [:]
-        def today = new Date().onlyDate
+        def today = new Date().clearTime()
         def startDate = today - 7
         def endDate = today + 28
         def billings = [0: g.message(code:"default.all"), 1: 'Billable', 2: 'No Billable']
@@ -551,7 +551,7 @@ class ReportsController extends BaseController {
 
     def usersGanttData = { UserGanttFilter cmd ->
         def user = findLoggedUser()
-        def today = new Date().onlyDate
+        def today = new Date().clearTime()
         def startDate = cmd.startDate ?: today - 7
         def endDate = cmd.endDate ?: today + 28
         String sql = '''select a.id, a.startDate, a.endDate, p.name, u.name, a.description, u.id, r.name, p.id

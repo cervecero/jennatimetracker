@@ -22,7 +22,7 @@ class HomeController extends BaseController {
         if (isAuthenticated()) {
             User user = findLoggedUser()
             Company company = user.company
-            Date today = new Date().onlyDate
+            Date today = new Date().clearTime()
             def startDate = today - 6
             def endDate = today + 1
             def nextWeekStart = endDate
@@ -73,7 +73,7 @@ class HomeController extends BaseController {
 
     private findTimeSpentByDateAndProject(efforts, date, project) {
         def effort = efforts.findAll {
-            it.date.onlyDate == date && it.assignment.project.id == project.id
+            it.date.clearTime() == date && it.assignment.project.id == project.id
         }.inject(0.0) { acum, actual ->
             acum + actual.timeSpent
         }

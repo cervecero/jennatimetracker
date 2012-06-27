@@ -24,11 +24,11 @@ class Conversation {
 
     Date parseDate(String _value) {
         if (getMessage('today') == _value) {
-            return new Date().onlyDate
+            return new Date().clearTime()
         } else if (getMessage('tomorrow') == _value) {
-            return (new Date() + 1).onlyDate
+            return (new Date() + 1).clearTime()
         } else if (getMessage('yesterday') == _value) {
-            return (new Date() - 1).onlyDate
+            return (new Date() - 1).clearTime()
         } else {
             DateFormat format = DateFormat.getDateInstance(DateFormat.SHORT, locale)
             return format.parse(_value)

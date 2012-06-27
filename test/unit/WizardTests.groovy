@@ -15,19 +15,6 @@ class WizardTests extends GrailsUnitTestCase {
         messageSource.addMessage('today', Locale.ENGLISH, 'today')
         messageSource.addMessage('tomorrow', Locale.ENGLISH, 'tomorrow')
         messageSource.addMessage('yesterday', Locale.ENGLISH, 'yesterday')
-        def getOnlyDate = { ->
-            Calendar calendar = Calendar.getInstance()
-            calendar.time = delegate
-            calendar.set(Calendar.HOUR_OF_DAY, 0)
-            calendar.set(Calendar.MINUTE, 0)
-            calendar.set(Calendar.SECOND, 0)
-            calendar.set(Calendar.MILLISECOND, 0)
-            calendar.time
-        }
-        Date.metaClass.getOnlyDate = getOnlyDate
-        java.sql.Date.metaClass.getOnlyDate = getOnlyDate
-        java.sql.Time.metaClass.getOnlyDate = getOnlyDate
-        java.sql.Timestamp.metaClass.getOnlyDate = getOnlyDate
     }
 
     void testFirstStepOk() {

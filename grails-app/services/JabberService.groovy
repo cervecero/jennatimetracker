@@ -218,11 +218,11 @@ class JabberService implements InitializingBean {
      * FIXME: Not being used, as the listener that should invoke this is not configured
      */
     def checkPreviousDateEffortsFor(String _account) {
-        Date today = new Date().onlyDate
+        Date today = new Date().clearTime()
         // TODO: Check if today is a "Chatting Day" ?
         User.withTransaction {
             User user = User.findByAccount(_account)
-            Date previousDate = (today - 1).onlyDate // TODO: Was this a "Chatting Day"?
+            Date previousDate = (today - 1).clearTime() // TODO: Was this a "Chatting Day"?
             if (!user.registeredEffortsFor(previousDate)) {
                 String message = chatService.askForEfforts(user, previousDate)
                 Chat chat = createOutgoingChatWith(user)

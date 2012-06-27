@@ -29,14 +29,14 @@ class User {
     List<Assignment> listAssignmentsByDate(Date _date) {
         return Assignment.executeQuery(
                 'select distinct a from Assignment a where a.user = :user and a.startDate <= :date and a.endDate >= :date and (a.deleted is null or a.deleted = false) and a.active = true order by a.id asc',
-                [user: this, date: _date.onlyDate]
+                [user: this, date: _date.clearTime()]
         )
     }
 
     boolean registeredEffortsFor(Date _date) {
         Object result = Effort.executeQuery(
                 'select count(*) as c from Effort e where e.user = :user and e.date >= :fromDate and e.date < :toDate',
-                [user: this, fromDate: _date.onlyDate, toDate: (_date + 1).onlyDate]
+                [user: this, fromDate: _date.clearTime(), toDate: (_date + 1).clearTime()]
         )
         return result[0] > 0
     }

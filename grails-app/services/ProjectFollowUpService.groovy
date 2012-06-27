@@ -59,7 +59,7 @@ group by u.id
         efforts.each { e ->
             def record = new ProjectFollowUpRecord(date: e[0], userName: e[4], timeSpent: e[1], comment: e[2], roleName: e[5])
             def mood = moods.find { m ->
-                m[2] == e[3] && m[0].onlyDate == e[0].onlyDate
+                m[2] == e[3] && m[0].clearTime() == e[0].clearTime()
             }
             if (mood) {
                 record.mood = mood[1]

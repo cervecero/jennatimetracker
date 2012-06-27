@@ -42,15 +42,6 @@ class BootStrap {
             JavascriptTagLib.LIBRARY_MAPPINGS.fgmenu = ["fg.menu"]
             JavascriptTagLib.LIBRARY_MAPPINGS.query = ["jquery.query-2.1.7"]
         }
-        def getOnlyDate = { ->
-            Calendar calendar = Calendar.getInstance()
-            calendar.time = delegate
-            calendar.set(Calendar.HOUR_OF_DAY, 0)
-            calendar.set(Calendar.MINUTE, 0)
-            calendar.set(Calendar.SECOND, 0)
-            calendar.set(Calendar.MILLISECOND, 0)
-            calendar.time
-        }
         def getOnlyDateUTC = { ->
             Calendar calendar = Calendar.getInstance()
             calendar.time = delegate
@@ -66,16 +57,12 @@ class BootStrap {
             format.timeZone = TimeZone.getTimeZone("Etc/UTC")
             format.format(delegate)
         }
-        Date.metaClass.getOnlyDate = getOnlyDate
         Date.metaClass.getOnlyDateUTC = getOnlyDateUTC
         Date.metaClass.getISO8601Formatted = getISO8601Formatted
-        java.sql.Date.metaClass.getOnlyDate = getOnlyDate
         java.sql.Date.metaClass.getOnlyDateUTC = getOnlyDateUTC
         java.sql.Date.metaClass.getISO8601Formatted = getISO8601Formatted
-        java.sql.Time.metaClass.getOnlyDate = getOnlyDate
         java.sql.Time.metaClass.getOnlyDateUTC = getOnlyDateUTC
         java.sql.Time.metaClass.getISO8601Formatted = getISO8601Formatted
-        java.sql.Timestamp.metaClass.getOnlyDate = getOnlyDate
         java.sql.Timestamp.metaClass.getOnlyDateUTC = getOnlyDateUTC
         java.sql.Timestamp.metaClass.getISO8601Formatted = getISO8601Formatted
 

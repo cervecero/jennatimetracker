@@ -39,7 +39,7 @@ class CalendarTagLib {
         out << '</tr></thead>'
         out << '<tbody>'
 
-        Date today = new Date().onlyDate
+        Date today = new Date().clearTime()
 
         Calendar auxCal = Calendar.getInstance(locale)
         ((calStart.time)..(calEnd.time)).eachWithIndex { d, idx ->

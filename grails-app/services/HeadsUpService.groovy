@@ -10,9 +10,9 @@ class HeadsUpService {
     EmailNotificationService emailNotificationService
     
     def sendNewKnowledgeReport(company) {
-        def today = new Date()
-        def from = (today-7).onlyDate
-        def to = today.onlyDate
+        def today = new Date().clearTime()
+        def from = today-7
+        def to = today
         def newKnowledge = companyService.listNewLearnings(company, from, to)
         company.employees.each { employee ->
             log.info("Preparing report for ${employee} (locale: ${employee.locale})")

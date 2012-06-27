@@ -19,7 +19,7 @@ class DashboardController extends BaseController {
     }
 
     def index = {
-        def today = new Date().onlyDate
+        def today = new Date().clearTime()
         [startDateValue: today - 6, endDateValue: today + 1]
     }
 
@@ -52,7 +52,7 @@ class DashboardController extends BaseController {
     }
 
     def project = {
-        def today = new Date().onlyDate
+        def today = new Date().clearTime()
         def projects = Project.findAllByCompany(findLoggedCompany(), [sort: 'name'])
         [startDateValue: today - 6, endDateValue: today + 1, projects: projects]
     }

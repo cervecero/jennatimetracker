@@ -92,7 +92,7 @@ class ChartController extends BaseController {
             def values = []
             def totalByDate = 0
             groups.eachWithIndex { group, idx ->
-                def timeSpent = efforts.find { it.tags == group && it.date.onlyDate == date}?.timeSpent ?: 0
+                def timeSpent = efforts.find { it.tags == group && it.date.clearTime() == date}?.timeSpent ?: 0
                 if (timeSpent) {
                     values << new StackValue(timeSpent, COLORS[idx % COLORS.size()])
                 }
@@ -166,12 +166,12 @@ class ChartController extends BaseController {
         def bars = []
         def labels = []
         def sbc = new StackedBarChart()
-        def firstDate = efforts.date.min().onlyDate
-        def lastDate = efforts.date.max().onlyDate
+        def firstDate = efforts.date.min().clearTime()
+        def lastDate = efforts.date.max().clearTime()
         (firstDate..lastDate).each { date ->
             def values = []
             groups.eachWithIndex { group, idx ->
-                def timeSpent = efforts.find { it.tags == group && it.date.onlyDate == date}?.timeSpent ?: 0
+                def timeSpent = efforts.find { it.tags == group && it.date.clearTime() == date}?.timeSpent ?: 0
                 if (timeSpent) {
                     values << new StackValue(timeSpent, COLORS[idx % COLORS.size()])
                 }
