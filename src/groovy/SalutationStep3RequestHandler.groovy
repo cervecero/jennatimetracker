@@ -1,3 +1,5 @@
+import chat.Answer
+
 /**
  * @author Leandro Larroulet
  * Date: Jul 30, 2009
