@@ -20,7 +20,7 @@
     }
 
     function moveCalendar(start, end) {
-      $('#calendar').fullCalendar('refresh');
+      $('#calendar').fullCalendar('refetchEvents');
     }
 
     $(function() {
