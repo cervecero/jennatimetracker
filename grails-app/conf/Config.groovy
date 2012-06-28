@@ -51,6 +51,13 @@ grails.enable.native2ascii = true
 grails.dbconsole.enabled = false
 grails.dbconsole.urlRoot = '/admin/dbconsole'
 
+// Disabling bundling and minified resources for development
+environments {
+    development {
+        grails.resources.debug = true
+    }
+}
+
 jenna.availableHumours = ['sweet', 'angry']
 jenna.availableLanguages = ['en', 'es']
 jenna.defaultHumour = 'sweet'
