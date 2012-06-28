@@ -346,7 +346,7 @@
 
 
 <div class="body">
-    <h1><span class="style7"><g:message code="project.show" default="Project List"/></span></h1>
+    <h1><span class="style7"><g:message code="app.menu.management.projects" /></span></h1>
 
     <p>&nbsp;</p>
     <g:if test="${flash.message}">
