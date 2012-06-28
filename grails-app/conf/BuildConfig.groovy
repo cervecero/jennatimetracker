@@ -52,7 +52,7 @@ grails.project.dependency.resolution = {
         compile ":session-temp-files:1.0"
         compile ":export:1.1"
 
-        runtime ':database-migration:1.1'
+        compile ':database-migration:1.1'
         runtime ":resources:1.2-RC1"
         runtime ":yui-minify-resources:0.1.5"
 
