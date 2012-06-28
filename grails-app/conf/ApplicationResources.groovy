@@ -13,6 +13,7 @@ modules = {
     }
 
     'calendar' {
+        dependsOn 'core'
         resource id: 'css', url: [dir: 'css', file: 'fullcalendar.css']
 
         resource id: 'js', url: [dir: 'js', file: 'calendar/fullcalendar.js']
@@ -20,13 +21,21 @@ modules = {
     }
 
     'jquery-form' {
+        dependsOn 'core'
         resource id: 'js', url: [dir: 'js', file: 'jquery-ui/jquery.form.js']
     }
 
     'jquery-ganttview' {
+        dependsOn 'core'
         resource id: 'css', url: [dir: 'css', file: 'jquery.ganttView.css']
 
-        resource id: 'js', url: [dir: 'js', file: 'jquery.ganttView.js'], dispotion: 'head'
-        resource id: 'js', url: [dir: 'js', file: 'date.js'], dispotion: 'head'
+        resource id: 'js', url: [dir: 'js', file: 'jquery.ganttView.js'], disposition: 'head'
+        resource id: 'js', url: [dir: 'js', file: 'date.js'], disposition: 'head'
+    }
+
+    'highcharts' {
+        dependsOn 'core'
+        resource id: 'js', url: 'http://code.highcharts.com/highcharts.js', disposition: 'head'
+        resource id: 'js', url: 'http://code.highcharts.com/modules/exporting.js', disposition: 'head'
     }
 }

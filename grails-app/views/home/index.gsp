@@ -3,122 +3,118 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="layout" content="main" />
 		<r:require modules="jquery-form"/>
-		<script src="http://code.highcharts.com/highcharts.js"></script>
-		<script src="http://code.highcharts.com/modules/exporting.js"></script>
-    </head>
-    <body>
+		<r:require modules="highcharts"/>
+        <r:script>
+        var chart;
+        $(document).ready(function() {
+            chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'container',
+                    plotBackgroundColor: 'rgb(247, 247, 247)',
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    backgroundColor: 'rgb(247, 247, 247)',
+                },
+                 title: {
+                    text: ''
+                },
+                credits: {
+                      enabled: false,
 
-	<script type="text/javascript">
-		var chart;
-		$(document).ready(function() {
-			chart = new Highcharts.Chart({
-				chart: {
-					renderTo: 'container',
-					plotBackgroundColor: 'rgb(247, 247, 247)',
-					plotBorderWidth: null,
-					plotShadow: false,
-					backgroundColor: 'rgb(247, 247, 247)',
-				},
-				 title: {
-					text: ''
-				},
-				credits: {
-					  enabled: false,
-
-     			},
-				tooltip: {
-					formatter: function() {
-						return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(2) +' %';
-					}
-				},
-				series: [{
-					type: 'pie',
-					name: 'Time spent by project',
-					data: [
+                },
+                tooltip: {
+                    formatter: function() {
+                        return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(2) +' %';
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Time spent by project',
+                    data: [
                             <g:each in="${timeSpentTop}" var="project">
                         {
                             name:'${project.projectName}',
                             y: <g:formatNumber number="${project.timePct}" format="#0.00" locale="en"/>,
                         },
                         </g:each>
-					]
-				}]
-			});
-		});
+                    ]
+                }]
+            });
+        });
 
-		var chart;
-		$(document).ready(function() {
+        var chart;
+        $(document).ready(function() {
 
-			var colors = Highcharts.getOptions().colors,
-				categories = [<g:each in="${knowledge}" var="k">'${k.user}', </g:each>],
-				data = [<g:each in="${knowledge}" var="k">${k.points}, </g:each>];
+            var colors = Highcharts.getOptions().colors,
+                categories = [<g:each in="${knowledge}" var="k">'${k.user}', </g:each>],
+                data = [<g:each in="${knowledge}" var="k">${k.points}, </g:each>];
 
-			function setChart(name, categories, data, color) {
-				chart.xAxis[0].setCategories(categories);
-				chart.series[0].remove();
-				chart.addSeries({
-					name: name,
-					data: data,
-					color: color || 'white'
-				});
-			}
+            function setChart(name, categories, data, color) {
+                chart.xAxis[0].setCategories(categories);
+                chart.series[0].remove();
+                chart.addSeries({
+                    name: name,
+                    data: data,
+                    color: color || 'white'
+                });
+            }
 
-			chart = new Highcharts.Chart({
-				chart: {
-					renderTo: 'container2',
-					type: 'column',
-					plotBackgroundColor: 'rgb(247, 247, 247)',
-					backgroundColor: 'rgb(247, 247, 247)'
-				},
-				legend: {
-				    enabled: false
-				},
-				title: {
-					text: ''
-				},
-				xAxis: {
-					categories: categories
-				},
-				yAxis: {
-					title: {
-						text: ''
-					}
-				},
-				credits: {
-					  enabled: false,
-     			},
-				tooltip: {
-					formatter: function() {
-					    return this.x +':<b>'+ this.y +'</b><br/>';
-					}
-				},
-				series: [{
-					data: data,
-				}],
-			});
-		});
+            chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'container2',
+                    type: 'column',
+                    plotBackgroundColor: 'rgb(247, 247, 247)',
+                    backgroundColor: 'rgb(247, 247, 247)'
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: categories
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    }
+                },
+                credits: {
+                      enabled: false,
+                },
+                tooltip: {
+                    formatter: function() {
+                        return this.x +':<b>'+ this.y +'</b><br/>';
+                    }
+                },
+                series: [{
+                    data: data,
+                }],
+            });
+        });
 
-		var chart;
-		$(document).ready(function() {
-			chart = new Highcharts.Chart({
-				chart: {
-					renderTo: 'container3',
-					type: 'column',
-					plotBackgroundColor: 'rgb(247, 247, 247)',
-					backgroundColor: 'rgb(247, 247, 247)'
-				},
-				title: {
-					text: ''
-				},
-				xAxis: {
-					categories: [<g:each in="${dates}" var="dateName">'${dateName}', </g:each>]
-				},
-				yAxis: {
-					min: 0,
+        var chart;
+        $(document).ready(function() {
+            chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'container3',
+                    type: 'column',
+                    plotBackgroundColor: 'rgb(247, 247, 247)',
+                    backgroundColor: 'rgb(247, 247, 247)'
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: [<g:each in="${dates}" var="dateName">'${dateName}', </g:each>]
+                },
+                yAxis: {
+                    min: 0,
                     max: 10,
-					title: {
-						text: ''
-					},
+                    title: {
+                        text: ''
+                    },
                     stackLabels:{
                         enabled:true,
                         style:{
@@ -126,29 +122,29 @@
                             color:(Highcharts.theme && Highcharts.theme.textColor) || 'gray'
                         }
                     }
-				},
-				tooltip: {
-					formatter: function() {
+                },
+                tooltip: {
+                    formatter: function() {
                         return '<b>' + this.x + '</b><br/>' +
                                 this.series.name + ': ' + this.y + '<br/>' +
                                 'Total: ' + this.point.stackTotal;
-					}
-				},
-				credits: {
-					  enabled: false,
-     			},
-				plotOptions: {
-					column: {
+                    }
+                },
+                credits: {
+                      enabled: false,
+                },
+                plotOptions: {
+                    column: {
                         stacking:'normal',
                         dataLabels:{
                             enabled:true,
                             color:(Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
                         },
-						pointPadding: 0.2,
-						borderWidth: 0
-					}
-				},
-					series: [
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                    series: [
                         <g:each in="${orderedEfforts}" var="efforts" status="status">
                         {
                             name: '${projects[status]}',
@@ -156,11 +152,13 @@
 
                         },
                         </g:each>
-				]
-			});
-		});
+                ]
+            });
+        });
 
-	</script>
+    </r:script>
+    </head>
+    <body>
 
     <div class="body">
 
