@@ -8,7 +8,7 @@ modules = {
         resource id: 'js', url: [dir: 'js', file: 'jquery/jquery-1.7.js'], disposition: 'head'
         resource id: 'js', url: [dir: 'js', file: 'jquery-ui/jquery-ui-1.8.16.custom.js'], disposition: 'head'
         resource id: 'js', url: [dir: 'js', file: 'fg.menu.js'], disposition: 'head'
-        resource id: 'js', url: [dir: 'js', file: 'jquery.query-2.1.7.js'], disposition: 'head'
+        resource id: 'js', url: [dir: 'js', file: 'jquery.query-2.1.7.js'], disposition: 'head' // FIXME: Remove when paging/sorting parameters are handled correctly
         resource id: 'js', url: [dir: 'js', file: 'jgrowl/jquery.jgrowl.js'], disposition: 'head'
     }
 
