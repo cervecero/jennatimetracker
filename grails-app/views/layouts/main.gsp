@@ -24,8 +24,6 @@
 	.fg-button-icon-left .ui-icon { right: auto; left: .2em; margin-left: 0; }
 	.fg-button-icon-right .ui-icon { left: auto; right: .2em; margin-left: 0; }
 	.fg-button-icon-solo { display:block; width:8px; text-indent: -9999px; }	 /* solo icon buttons must have block properties for the text-indent to work */
-
-	.fg-button.ui-state-loading .ui-icon { background: url(spinner_bar.gif) no-repeat 0 0; }
 	</style>
 
   <script type="text/javascript">
