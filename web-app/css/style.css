@@ -248,7 +248,6 @@ ul#menu .current_page_item {
 }
 
 .details {
-    background-image:url('../images/sidebarbg.png');
     padding:2px 15px 2px 15px;
 }
 
@@ -261,51 +260,6 @@ ul#menu .current_page_item {
 
 .navigation {
     text-align:center;
-}
-
-/* ----------- Sidebar ----------- */
-
-.sidebar {
-    font-size:1.2em;
-    width:200px;
-    float:left;
-    margin-right:0px;
-    background:url('../images/sidebarbg.png');
-    color:#FFFFFF;
-}
-
-.sidebar h2 {
-    padding:0;
-    margin:5px;
-    color:#FFFFFF;
-    font-weight:200;
-    border-bottom:#c15b8b solid 1px;
-}
-
-.sidebar ul {
-    margin: 0;
-    padding: 2px;
-    list-style-type: none;
-}
-
-.sidebar ul li {
-    background:none;
-    padding:2px 0 2px 0;
-    margin:5px;
-}
-
-.sidebar ul li li {
-    border-bottom:#ae537b solid 1px;
-}
-
-.sidebar a {
-    text-decoration:none;
-    color:#FBD6FC;
-}
-
-.sidebar ul li li:hover {
-    background:url('../images/sidebarbg.png');
-    border-bottom:#ae537b solid 1px;
 }
 
 /* ----------- Search ----------- */
@@ -376,7 +330,6 @@ ol.commentlist {
 }
 
 .commenttext {
-    background: url('../images/sidebarbg.png');
     border-top:1px dotted #ffffff;
     padding: 0 20px 10px 20px;
     color:#fafcf6;
