@@ -96,41 +96,25 @@
                 <table>
                     <thead>
                         <tr>
-
-                   	    <g:sortableColumn property="id" title="Id" titleKey="assignment.id" />
-
-                   	    <th><g:message code="assignment.project" default="Project" /></th>
-
-                   	    <th><g:message code="assignment.user" default="User" /></th>
-
-                   	    <th><g:message code="assignment.role" default="Role" /></th>
-
-                   	    <g:sortableColumn property="startDate" title="Start Date" titleKey="assignment.startDate" />
-
-                   	    <g:sortableColumn property="endDate" title="End Date" titleKey="assignment.endDate" />
-
-                   	    <g:sortableColumn property="active" title="Active" titleKey="assignment.active" />
-
+	                   	    <g:sortableColumn property="id" title="Id" titleKey="assignment.id" />
+	                   	    <th><g:message code="assignment.project" default="Project" /></th>
+	                   	    <th><g:message code="assignment.user" default="User" /></th>
+	                   	    <th><g:message code="assignment.role" default="Role" /></th>
+	                   	    <g:sortableColumn property="startDate" title="Start Date" titleKey="assignment.startDate" />
+	                   	    <g:sortableColumn property="endDate" title="End Date" titleKey="assignment.endDate" />
+	                   	    <g:sortableColumn property="active" title="Active" titleKey="assignment.active" />
                         </tr>
                     </thead>
                     <tbody>
                     <g:each in="${assignmentInstanceList}" status="i" var="assignmentInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-
                             <td><g:link action="show" id="${assignmentInstance.id}">${fieldValue(bean: assignmentInstance, field: "id")}</g:link></td>
-
                             <td>${fieldValue(bean: assignmentInstance, field: "project")}</td>
-
                             <td>${fieldValue(bean: assignmentInstance, field: "user")}</td>
-
                             <td>${fieldValue(bean: assignmentInstance, field: "role")}</td>
-
-                            <td><g:formatDate date="${assignmentInstance.startDate}"  format="dd-MM-yyyy" /></td>
-
-                            <td><g:formatDate date="${assignmentInstance.endDate}"    format="dd-MM-yyyy"/></td>
-
-                          <td>${fieldValue(bean: assignmentInstance, field: "active")}</td>
-
+                            <td><g:formatDate date="${assignmentInstance.startDate}" type="date"/></td>
+                            <td><g:formatDate date="${assignmentInstance.endDate}" type="date"/></td>
+                            <td>${fieldValue(bean: assignmentInstance, field: "active")}</td>
                         </tr>
                     </g:each>
                     </tbody>
