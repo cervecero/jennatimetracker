@@ -9,7 +9,7 @@
          <g:form>
           <h1>
             <span class="style7">
-              <g:message code="role.show" default="Role List" />
+              <g:message code="score.show" />
             </span>
           </h1>
           <p>&nbsp;</p>
