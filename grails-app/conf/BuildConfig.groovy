@@ -54,6 +54,7 @@ grails.project.dependency.resolution = {
 
         runtime ':database-migration:1.1'
         runtime ":resources:1.2-RC1"
+        runtime ":yui-minify-resources:0.1.5"
 
         build ":tomcat:$grailsVersion"
     }
