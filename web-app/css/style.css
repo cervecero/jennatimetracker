@@ -262,20 +262,6 @@ ul#menu .current_page_item {
     text-align:center;
 }
 
-/* ----------- Search ----------- */
-
-#searchform {
-    padding:0;
-    margin:5px;
-}
-
-#searchform #s {
-    background:url("../images/contentbg.png");
-    border:0;
-    color:#FFFFFF;
-    font:1.0em Geneva, Arial, Helvetica, sans-serif;
-}
-
 /* ----------- Footer ----------- */
 
 #footer {
