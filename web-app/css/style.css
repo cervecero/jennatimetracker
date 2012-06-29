@@ -566,19 +566,19 @@ th.desc a {
     padding: 4px 6px;
 }
 
-.buttons input.delete {
+.buttons input.delete, .buttons a.delete {
     background: url(../images/skin/database_delete.png) center left no-repeat;
     color: #333;
     padding-left: 25px;
     float: none;
 }
-.buttons input.edit {
+.buttons input.edit, .buttons a.edit {
     background: url(../images/skin/database_edit.png) center left no-repeat;
     color: #333;
     padding-left: 25px;
     float: none;
 }
-.buttons input.save {
+.buttons input.save, .buttons a.save {
     background: url(../images/skin/database_save.png) center left no-repeat;
     color: #333;
     padding-left: 25px;

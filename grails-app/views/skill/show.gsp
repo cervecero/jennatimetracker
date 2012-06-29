@@ -12,50 +12,49 @@
     <g:if test="${flash.message}">
         <div class="message">${flash.message}</div>
     </g:if>
-    <g:form>
-        <g:hiddenField name="id" value="${skillInstance?.id}"/>
-        <div class="dialog">
-            <table>
-                <tbody>
 
-                <tr class="prop">
-                    <td valign="top" class="name"><g:message code="skill.id" default="Id"/>:</td>
+    <table>
+        <tbody>
 
-                    <td valign="top" class="value">${fieldValue(bean: skillInstance, field: "id")}</td>
+        <tr class="prop">
+            <td valign="top" class="name"><g:message code="skill.id" default="Id"/>:</td>
+            <td valign="top" class="value">${skillInstance.id}</td>
 
-                </tr>
+        </tr>
 
-                <tr class="prop">
-                    <td valign="top" class="name"><g:message code="skill.technology" default="Technology"/>:</td>
+        <tr class="prop">
+            <td valign="top" class="name"><g:message code="skill.technology" default="Technology"/>:</td>
+            <td valign="top" class="value">
+                <g:link controller="technology" action="show" id="${skillInstance?.technology?.id}">
+                    ${skillInstance?.technology?.encodeAsHTML()}
+                </g:link>
+            </td>
+        </tr>
 
-                    <td valign="top" class="value"><g:link controller="technology" action="show"
-                                                           id="${skillInstance?.technology?.id}">${skillInstance?.technology?.encodeAsHTML()}</g:link></td>
+        <tr class="prop">
+            <td valign="top" class="name"><g:message code="skill.level" default="Level"/>:</td>
+            <td valign="top" class="value">${skillInstance.level}</td>
+        </tr>
 
-                </tr>
+        </tbody>
+    </table>
 
-                <tr class="prop">
-                    <td valign="top" class="name"><g:message code="skill.level" default="Level"/>:</td>
-
-                    <td valign="top" class="value">${fieldValue(bean: skillInstance, field: "level")}</td>
-
-                </tr>
-
-                </tbody>
-            </table>
-        </div>
-
-        <div class="buttons">
-            <span class="menuButton"><g:link class="list" action="list"><g:message code="skill.list"
-                                                                                               default="Skill List"/></g:link></span>
-                        <span class="menuButton"><g:link class="create" action="create"><g:message code="skill.new"
-                                                                                                   default="New Skill"/></g:link></span>
-            <span class="button"><g:actionSubmit class="edit" action="edit"
-                                                 value="${message(code: 'edit', 'default': 'Edit')}"/></span>
-            <span class="button"><g:actionSubmit class="delete" action="delete"
-                                                 value="${message(code: 'delete', 'default': 'Delete')}"
-                                                 onclick="return confirm('${message(code: 'delete.confirm', 'default': 'Are you sure?')}');"/></span>
-        </div>
-    </g:form>
+    <div class="buttons">
+        <span class="menuButton">
+            <g:link class="list" action="list"><g:message code="default.list"/></g:link>
+        </span>
+        <span class="menuButton">
+            <g:link class="create" action="create"><g:message code="default.create"/></g:link>
+        </span>
+        <span class="button">
+            <g:link class="edit" action="edit" id="${skillInstance.id}"><g:message code="default.edit"/></g:link>
+        </span>
+        <span class="button">
+            <g:link class="delete" action="delete" id="${skillInstance.id}" onclick="return confirm('${message(code: 'default.confirm')}');">
+                <g:message code="default.delete"/>
+            </g:link>
+        </span>
+    </div>
 </div>
 </body>
 </html>
