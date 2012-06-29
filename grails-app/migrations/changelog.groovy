@@ -4,4 +4,6 @@ databaseChangeLog = {
 	include file: '20120621_remove_milestones.groovy'
 
 	include file: '20120629_remove_points_from_users.groovy'
+
+	include file: '20120629_remove_events.groovy'
 }
