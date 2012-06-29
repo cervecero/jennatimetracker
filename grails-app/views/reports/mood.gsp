@@ -61,7 +61,7 @@
     <form action="mood" method="POST" id="updateMoodReport">
 	    <fieldset>
 		    <label for="selectedMonth"><g:message code="reports.mood.select.month"/>:</label>
-		    <g:select name="selectedMonth" from="${1..12}"  style="width:100px" />
+		    <g:select name="selectedMonth" from="${1..12}" style="width:100px" />
 
 	        <label for="selectedYear"><g:message code="reports.mood.select.year"/>:</label>
 	        <g:select name="selectedYear" from="${yearList}" style="width:100px" />

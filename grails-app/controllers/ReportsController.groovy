@@ -450,7 +450,7 @@ class ReportsController extends BaseController {
 
     def now = new Date()
     def month = params.selectedMonth ? Integer.parseInt(params.selectedMonth) - 1 : now.month
-    def year = params.selectedYear ? Integer.parseInt(params.selectedYear) : now.year
+    def year = params.selectedYear ? Integer.parseInt(params.selectedYear) : now.year + 1900
 
     // 'selectedUser' should be selected only if requester is PROJECT LEADER or COMPANY OWNER
     if (params.selectedUser){
