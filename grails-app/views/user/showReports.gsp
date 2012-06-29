@@ -117,7 +117,7 @@
             <g:each in="${knowledgeReport}">
                 <tr class="prop even">
                     <td valign="top">${it.date.toString().split(" ")[0]}</td>
-                    <td valign="top">${it.knowledge}</td>
+                    <td valign="top">${it.knowledge.encodeAsSafeHTML()}</td>
                 </tr>
             </g:each>
             </tbody>
