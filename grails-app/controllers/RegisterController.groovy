@@ -450,7 +450,7 @@ class RegisterController extends BaseController {
                     text: getMessage(request, 'invitation.mail.body', [createLink(absoulte:true, controller:"register",action:"acceptInvitation",params:[code:invitation.code])] as Object[])
             ]
             emailerService.sendEmails([email])
-            jsonResponse = buildJsonOkResponse(request, buildMessageSourceResolvable('confirm'), buildMessageSourceResolvable('invitation.sent'))
+            jsonResponse = buildJsonOkResponse(request, buildMessageSourceResolvable('confirm'), buildMessageSourceResolvable('invitation.sent', [invitation.invitee]))
             render jsonResponse.toString()
         } else {
             jsonResponse = buildJsonErrorResponse(request, invitation.errors)
