@@ -146,7 +146,7 @@ class DatabaseService {
         String ed = sdf.format(endDate)
 
         def query = "select DAY(date) as date, avg(value) as value from user_mood " +
-                " where     date >= '${sd}' " +    //              " where   user_id <> ${user.id} " +
+                " where     date >= '${sd}' " +
                 " and     date <= '${ed}' " +
                 " and     company_id = '${user.company.id}' " +
                 " group by date order by date";
