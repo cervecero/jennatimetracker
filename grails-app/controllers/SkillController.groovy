@@ -32,7 +32,7 @@ class SkillController extends BaseController {
     def save = {
         def skillInstance = new Skill(params)
         if (!skillInstance.hasErrors() && skillInstance.save()) {
-            flash.message = getMessage(request, "skill.created", skillInstance.toString())
+            flash.message = g.message(code: "skill.created", args: [skillInstance])
             redirect(action: "show", id: skillInstance.id)
         }
         else {
@@ -43,7 +43,7 @@ class SkillController extends BaseController {
     def show = {
         def skillInstance = Skill.get(params.id)
         if (!skillInstance) {
-            flash.message = getMessage(request, "skill.not.found", params.id)
+            flash.message = g.message(code: "skill.not.found", args: [params.id])
             redirect(action: "list")
         }
         else {
@@ -54,7 +54,7 @@ class SkillController extends BaseController {
     def edit = {
         def skillInstance = Skill.get(params.id)
         if (!skillInstance) {
-            flash.message = getMessage(request, "skill.not.found", params.id)
+            flash.message = g.message(code: "skill.not.found", args: [params.id])
             redirect(action: "list")
         }
         else {
@@ -75,7 +75,7 @@ class SkillController extends BaseController {
             }
             skillInstance.properties = params
             if (!skillInstance.hasErrors() && skillInstance.save()) {
-                flash.message = getMessage(request, "skill.updated", params.id)
+                flash.message = g.message(code: "skill.updated", args: [params.id])
                 redirect(action: "show", id: skillInstance.id)
             }
             else {
@@ -83,7 +83,7 @@ class SkillController extends BaseController {
             }
         }
         else {
-            flash.message = getMessage(request, "skill.not.found", params.id)
+            flash.message = g.message(code: "skill.not.found", args: [params.id])
             redirect(action: "edit", id: params.id)
         }
     }
@@ -93,16 +93,16 @@ class SkillController extends BaseController {
         if (skillInstance) {
             try {
                 skillInstance.delete()
-                flash.message = getMessage(request, "skill.deleted", skillInstance.toString())
+                flash.message = g.message(code: "skill.deleted", args: [skillInstance])
                 redirect(action: "list")
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = getMessage(request, "skill.not.deleted", skillInstance.toString())
+                flash.message = g.message(code: "skill.not.deleted", args: [skillInstance])
                 redirect(action: "show", id: params.id)
             }
         }
         else {
-            flash.message = getMessage(request, "skill.not.found", params.id)
+            flash.message = g.message(code: "skill.not.found", args: [params.id])
             redirect(action: "list")
         }
     }
@@ -111,7 +111,7 @@ class SkillController extends BaseController {
         def theSkill = Skill.findById(params.id)
 
         if (!theSkill){
-            flash.message = getMessage(request, "skill.not.found", params.id)
+            flash.message = g.message(code: "skill.not.found", args: [params.id])
             render view: 'list', model: [skillInstanceList: Skill.list(params), skillInstanceTotal: Skill.count()]
             return
         }
@@ -124,7 +124,7 @@ class SkillController extends BaseController {
         }
         // EOFIXME
         user.addToSkills(theSkill)
-        flash.message = getMessage(request, "skill.added.to.you", theSkill.toString()) 
+        flash.message = g.message(code: "skill.added.to.you", args: [theSkill]) 
 		redirect(action: "list", params:[max: Math.min(params.max ? params.max.toInteger() : 10, 100), offset: params.offset])
     }
 }

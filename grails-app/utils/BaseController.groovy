@@ -54,6 +54,11 @@ class BaseController {
         }
     }
 
+    /**
+     * Safe way to get a i18n message (doesn't throw exception, but returns a value saying that the translation is missing
+     * We should consider take a look at: http://stackoverflow.com/questions/7770616/best-practice-for-keeping-track-of-i18n-labels-that-need-translating-in-grails instead
+     */
+    @Deprecated
     String getMessage(HttpServletRequest _request, String _msgKey, Object[] _args = null) {
         try {
             return messageSource.getMessage(_msgKey, _args, getLocale(_request))
@@ -62,6 +67,11 @@ class BaseController {
         }
     }
 
+    /**
+    * Safe way to get a i18n message (doesn't throw exception, but returns a value saying that the translation is missing
+    * We should consider take a look at: http://stackoverflow.com/questions/7770616/best-practice-for-keeping-track-of-i18n-labels-that-need-translating-in-grails instead
+    */
+    @Deprecated
     String getMessage(HttpServletRequest _request, MessageSourceResolvable _message) {
         try {
             return messageSource.getMessage(_message, getLocale(_request))

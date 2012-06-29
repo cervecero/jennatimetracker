@@ -66,7 +66,7 @@ class HomeController extends BaseController {
             def othersTime = 100.0 - top.inject(0.0) { acum, it ->
                 acum + it.timePct
             }
-            top << new Expando(projectName: getMessage(request, 'dashboard.projects.other'), timePct: othersTime)
+            top << new Expando(projectName: g.message(code: 'dashboard.projects.other'), timePct: othersTime)
         }
         return top
     }
@@ -81,10 +81,10 @@ class HomeController extends BaseController {
     }
 
     private getWeekDayNames(dates) {
+        def cal = Calendar.getInstance()
         dates.collect {
-            def cal = Calendar.getInstance()
             cal.time = it
-            getMessage(request, 'dashboard.weekDayName.' + cal.get(Calendar.DAY_OF_WEEK))
+            g.message(code: 'dashboard.weekDayName.' + cal.get(Calendar.DAY_OF_WEEK))
         }
     }
 }

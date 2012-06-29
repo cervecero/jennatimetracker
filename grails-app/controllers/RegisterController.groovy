@@ -197,11 +197,11 @@ class RegisterController extends BaseController {
 			if (config.security.useMail) {
 
                 // Send registration email based on current locale.
-              String templatePath = File.separator + "templates" + File.separator + getMessage(request, 'registration.mail.template')
+              String templatePath = File.separator + "templates" + File.separator + g.message(code: 'registration.mail.template')
               File tplFile = grailsAttributes.getApplicationContext().getResource(templatePath).getFile()
 
 			  String linkHash = createLink(controller:"register",action:"activate",params:[hash:person.activationHash],absolute:true)
-              def binding = ["name": person.name, "account": person.account, "accountToAdd": getMessage(request, 'application.email.account'), "linkHash": linkHash]
+              def binding = ["name": person.name, "account": person.account, "accountToAdd": get.message(code: 'application.email.account'), "linkHash": linkHash]
 
               String invitee = person.account
 
@@ -212,8 +212,8 @@ class RegisterController extends BaseController {
 
               def email = [
                       to: [invitee], // 'to' expects a List, NOT a single email address
-                      subject: getMessage(request, 'registration.mail.subject'),
-                      from: getMessage(request, 'application.email'),
+                      subject: get.message(code: 'registration.mail.subject'),
+                      from: get.message(code: 'application.email'),
                       text: body
               ]
               emailerService.sendEmails([email])
@@ -445,9 +445,9 @@ class RegisterController extends BaseController {
 
             def email = [
                     to: [invitation.invitee],
-                    subject: getMessage(request, 'invitation.mail.subject'),
-                    from: getMessage(request, 'application.email'),
-                    text: getMessage(request, 'invitation.mail.body', [createLink(absoulte:true, controller:"register",action:"acceptInvitation",params:[code:invitation.code])] as Object[])
+                    subject: g.message(code: 'invitation.mail.subject'),
+                    from: g.message(code: 'application.email'),
+                    text: g.message(code: 'invitation.mail.body', [createLink(absoulte:true, controller:"register",action:"acceptInvitation",params:[code:invitation.code])] as Object[])
             ]
             emailerService.sendEmails([email])
             jsonResponse = buildJsonOkResponse(request, buildMessageSourceResolvable('confirm'), buildMessageSourceResolvable('invitation.sent', [invitation.invitee]))
@@ -475,9 +475,9 @@ class RegisterController extends BaseController {
         ownersList.each{ User owner ->
            def email = [
                     to: [owner.account],
-                    subject: getMessage(request, 'invitation.requested.subject'),
-                    from: getMessage(request, 'application.email'),
-                    text: getMessage(request, 'invitation.requested.body')
+                    subject: g.message(code: 'invitation.requested.subject'),
+                    from: g.message(code: 'application.email'),
+                    text: g.message(code: 'invitation.requested.body')
             ]
             emailerService.sendEmails([email])
         }

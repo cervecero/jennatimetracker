@@ -220,9 +220,9 @@ class UserController extends BaseController {
         User currentUser = findLoggedUser()
         def email = [
                 to: [user.account],
-                subject: getMessage(request, 'email.account.created'),
-                from: getMessage(request, 'application.email'),
-                text: getMessage(request, 'email.account.created.body', [user.account, currentUser.name, currentUser.company] as Object[])
+                subject: g.message(code: 'email.account.created'),
+                from: g.message(code: 'application.email'),
+                text: g.message(code: 'email.account.created.body', args: [user.account, currentUser.name, currentUser.company])
         ]
         emailerService.sendEmails([email])
 
