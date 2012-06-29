@@ -458,17 +458,13 @@ class RegisterController extends BaseController {
         }
     }
 
-    List findCompanyOwners(Company company){
-      Permission permission = Permission.findByName(Permission.ROLE_COMPANY_ADMIN)
-
-      def usersList = User.findAllByCompany(company)
-      List owners = new ArrayList()
-
-      usersList.each { User user ->
-        if (user.permissions.contains(permission))
-          owners.add(user)
+    List findCompanyOwners(Company company) {
+      def owners = User.createCriteria().list {
+          eq('company', company)
+          permissions {
+              eq('name', Permission.ROLE_COMPANY_ADMIN)
+          }
       }
-
       return owners
     }
 
