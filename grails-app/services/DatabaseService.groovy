@@ -7,14 +7,6 @@ class DatabaseService {
 
     javax.sql.DataSource dataSource // here the dataSource will be injected by Spring
 
-    def saveRelationShip(Long projectId, Long tagId) {
-        def sql = new Sql(dataSource)
-
-        def query = "insert into project_tag (project_tags_id, tag_id) values ( ?, ? ) "
-        sql.execute(query, [projectId, tagId])
-
-    }
-
     def getReport = {String startDate, String endDate, String projectId, String roleId, String userId, Company company ->
         def sql = new Sql(dataSource)
         def query = "select  pro.name as project, " +
