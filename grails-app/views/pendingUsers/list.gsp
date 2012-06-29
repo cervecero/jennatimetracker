@@ -13,7 +13,6 @@
 	
 	function dismiss(id){
 	    $("#dismissId").val(id);
-	    alert($("#dismissId").val());
 	    $("#dismissRequest").submit();
 	};
 </script>
