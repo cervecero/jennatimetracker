@@ -94,50 +94,18 @@ class UserController extends BaseController {
     def showReports = {
 
         def user = User.get(params.id)
-        def moodReportResults = databaseService.getMoodReport(user.id)
-        def workReportResults = databaseService.getWeeWorkReport(user.id)
-        def knowledgeReportResults = databaseService.getKnowledge(user.id)
-        def votedKnowledgeReportResults = databaseService.getVotedKnowledge(user.id)
 
-
-        def List moodWeekReport = new ArrayList()
-        def List workWeekReport = new ArrayList()
-        def List knowledgeWeekReport = new ArrayList()
-        def List votedKnowledgeWeekReport = new ArrayList()
-
-        moodReportResults.each {
-
-            ReportItem ri = new ReportItem()
-            ri.date = it.getAt("date")
-            ri.moodValue = it.getAt("value")
-            moodWeekReport.add(ri)
+        def moodWeekReport = databaseService.getMoodReport(user.id).collect {
+            [date: it.getAt('date'), moodValue: it.getAt('value')]
         }
-
-
-        workReportResults.each {
-            ReportItem ri = new ReportItem()
-            ri.date = it.getAt("date")
-            ri.timeSpent = it.getAt("effort")
-            ri.project = it.getAt("project")
-            ri.comment = it.getAt("comment")
-            workWeekReport.add(ri)
+        def workWeekReport = databaseService.getWeeWorkReport(user.id).collect {
+            [date: it.getAt('date'), timeSpent: it.getAt('effort'), project: it.getAt('project'), comment: it.getAt('comment')]
         }
-
-
-        knowledgeReportResults.each {
-            ReportItem reportItem = new ReportItem()
-            reportItem.knowledge = it.getAt("knowledge")
-            reportItem.date = it.getAt("date");
-            knowledgeWeekReport.add(reportItem)
+        def knowledgeWeekReport = databaseService.getKnowledge(user.id).collect {
+            [date: it.getAt('date'), knowledge: it.getAt('knowledge')]
         }
-
-
-        votedKnowledgeReportResults.each {
-            ReportItem reportItem = new ReportItem()
-            reportItem.date = it.getAt("date");
-            reportItem.knowledge = it.getAt("gettedKnowledge")
-            reportItem.user = it.getAt("votedUserName")
-            votedKnowledgeWeekReport.add(reportItem)
+        def votedKnowledgeWeekReport = databaseService.getVotedKnowledge(user.id).collect {
+            [date: it.getAt('date'), knowledge: it.getAt('gettedKnowledge'), user: it.getAt("votedUserName")]
         }
 
         return [user: user, moodReport: moodWeekReport, workReport: workWeekReport, knowledgeReport: knowledgeWeekReport, votedKnowledge: votedKnowledgeWeekReport]
