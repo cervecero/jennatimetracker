@@ -18,29 +18,12 @@ import ar.com.fdvs.dj.domain.DJCalculation
 import ar.com.fdvs.dj.domain.constants.GroupLayout
 import java.text.SimpleDateFormat
 import org.json.JSONObject
-import org.jfree.data.xy.XYSeriesCollection
-import org.jfree.data.xy.XYSeries
-import org.jfree.chart.plot.XYPlot
-import org.jfree.chart.JFreeChart
-import org.jfree.chart.ChartFactory
-import org.jfree.chart.plot.PlotOrientation
-import org.jfree.chart.ChartFrame
-import org.jfree.chart.renderer.xy.XYSplineRenderer
-import org.jfree.chart.ChartUtilities
-import org.jfree.data.time.TimeSeriesCollection
-import org.jfree.data.time.TimeSeries
-import org.jfree.data.time.Day
-import java.awt.Color
 import org.jfree.ui.RectangleInsets
-import org.jfree.chart.renderer.xy.XYItemRenderer
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer
-import org.jfree.chart.axis.DateAxis
 import net.sf.jasperreports.engine.export.JRXlsExporter
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter
 import ar.com.fdvs.dj.core.layout.ListLayoutManager
 import grails.converters.JSON
 import java.text.Format
-import org.apache.commons.lang.time.FastDateFormat
 import org.compass.core.CompassQuery
 
 class ReportsController extends BaseController {
@@ -477,61 +460,20 @@ class ReportsController extends BaseController {
     GregorianCalendar beginningOfMonth = new GregorianCalendar(year, month, 1)
     GregorianCalendar endOfMonth = new GregorianCalendar(year, month, beginningOfMonth.getActualMaximum(GregorianCalendar.DAY_OF_MONTH))
 
-    def userMood = UserMood.withCriteria {
+    def mood = UserMood.withCriteria {
       eq("user", user)
       gte("date", beginningOfMonth.getTime())
       lte("date", endOfMonth.getTime())
       eq("company", user.company)
       order('date', 'asc')
     }
-    TimeSeries s1 = new TimeSeries("${user.name}", Day.class);
-    userMood.each { UserMood um ->
-      s1.addOrUpdate(new Day(um.date.date, um.date.month+1, um.date.year+1900), um.value)
+    def userMood = mood.collectEntries { UserMood um ->
+        [um.date.date, um.value]
     }
 
-    HashMap<Integer, Integer> allMoods = databaseService.getCompanyMood(user, beginningOfMonth.getTime(), endOfMonth.getTime())
-    TimeSeries s2 = new TimeSeries("${user.company.name}", Day.class);
-    for (avgMood in allMoods) {
-        s2.addOrUpdate(new Day(avgMood.key, month+1, year), avgMood.value )
-    }
+    def companyMood = databaseService.getCompanyMood(user, beginningOfMonth.getTime(), endOfMonth.getTime())
 
-    TimeSeriesCollection dataset = new TimeSeriesCollection();
-    dataset.addSeries(s1)
-    dataset.addSeries(s2)
-
-    // Creating the chart
-    JFreeChart chart = ChartFactory.createTimeSeriesChart(
-      "${user.name} - ${month+1}/${year}", // title
-      g.message(code:"reports.graphic.x"),        // x-axis label
-      g.message(code:"reports.graphic.y"),        // y-axis label
-      dataset,                // data
-      true,                    // create legend?
-      true,                    // generate tooltips?
-      false                    // generate URLs?
-    );// Setting the chart properties
-    chart.setBackgroundPaint(Color.white)
-    XYPlot plot = (XYPlot) chart.getPlot()
-    plot.setBackgroundPaint(Color.lightGray)
-    plot.setDomainGridlinePaint(Color.white)
-    plot.setRangeGridlinePaint(Color.white)
-    plot.axisOffset = new RectangleInsets(5.0, 5.0, 5.0, 5.0)
-    plot.setDomainCrosshairVisible(true)
-    plot.setRangeCrosshairVisible(true)
-
-    XYItemRenderer r = plot.getRenderer();
-    DateAxis axis = (DateAxis) plot.getDomainAxis();
-    axis.setDateFormatOverride(new SimpleDateFormat("dd/MM"));
-
-    File tempDir = (File) new File(servletContext.getRealPath("/"));
-
-    SimpleDateFormat sdf = new SimpleDateFormat("yy_MM_dd__hh_mm_ss")
-    String dateString = sdf.format(now)
-    File tempFile = File.createTempFile("${user.id}_${dateString}" , ".jpg", tempDir );
-    session.setAttribute(tempFile.getAbsolutePath(), tempFile);
-    tempFile.deleteOnExit()
-    ChartUtilities.saveChartAsJPEG(tempFile, chart, 500, 300);
-
-    render(view: 'mood', model: [imagePath: tempFile.name, yearList: databaseService.findAvailableYears(), usersList: userList])
+    render(view: 'mood', model: [user:user, companyMood: companyMood, userMood: userMood, yearList: databaseService.findAvailableYears(), usersList: userList])
   }
 
     def final COLORS = ['#A2EF00', '#00B945', '#FFEF00', '#88B32D', '#238B49', '#BFB630', '#699B00', '#00782D', '#A69C00', '#BBF73E', '#37DC74', '#FFF340', '#CBF76F', '#63DC90', '#FFF673']

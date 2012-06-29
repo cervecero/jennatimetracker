@@ -137,29 +137,24 @@ class DatabaseService {
         return years
     }
 
-    public Map<Integer, Integer> getCompanyMood(user, startDate, endDate) {
+    public Map<Integer, Double> getCompanyMood(user, startDate, endDate) {
 
         def sql = new Sql(dataSource)
-        HashMap<Integer, Integer> companyMood = new HashMap<Integer, Integer>();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd")
         String sd = sdf.format(startDate)
         String ed = sdf.format(endDate)
 
-
         def query = "select DAY(date) as date, avg(value) as value from user_mood " +
                 " where     date >= '${sd}' " +    //              " where   user_id <> ${user.id} " +
                 " and     date <= '${ed}' " +
                 " and     company_id = '${user.company.id}' " +
-                " group by date ";
+                " group by date order by date";
         def rows = sql.rows(query)
 
-        rows.each {
-            Integer date = it.getAt("date")
-            Double value = it.getAt("value")
-            companyMood.put(date, value)
+        return rows.collectEntries {
+            [it.getAt("date"), it.getAt("value")]
         }
-        return companyMood
     }
 
 

@@ -4,6 +4,57 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
         <title><g:message code="app.menu.administration.reports.mood"/></title>
+        <r:require modules="highcharts"/>
+        <r:script>
+        var chart;
+        $(document).ready(function() {
+            chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'moodChart',
+                },
+                 title: {
+                    text: ''
+                },
+                credits: {
+                      enabled: false,
+                },
+                yAxis: {
+		            title: {
+		                text: '<g:message code="app.menu.administration.reports.mood" />'
+		            },
+		            min: 0,
+	           },
+	           xAxis: {
+	               tickInterval: 1,
+	           },
+               series: [{
+                    type: 'line',
+                    name: '${user}',
+                    data: [
+                        <g:each in="${userMood}" var="mood">
+	                        {
+	                           x: ${mood.key },
+	                           y: ${mood.value},
+	                        },
+                        </g:each>
+                    ]
+                },
+                {
+                    type: 'line',
+                    name: '${ user.company }',
+                    data: [
+                          <g:each in="${companyMood}" var="mood">
+                          {
+                              x: ${mood.key },
+                              y: ${mood.value},
+                          },
+                          </g:each>
+                    ]
+                }]
+            });
+        });
+
+    </r:script>
     </head>
     <body>
 
@@ -23,8 +74,7 @@
 	    <input type="submit" class="ui-button ui-state-default ui-corner-all" value="${message(code:"reports.reload.graphic")}" />
     </form>
 
-    <div style="text-align:center">
-        <img src="/projectguide/${imagePath}">
+    <div id="moodChart">
     </div>
 
     </body>
