@@ -38,12 +38,12 @@
             <table>
                 <thead>
                     <tr>
-                        <th><g:message code="invitation.requested.name"         default="Name" /></th>
-                        <th><g:message code="invitation.requested.email"        default="Email" /></th>
-                        <th><g:message code="invitation.requested.requested.on" default="Requested on" /></th>
-                        <th><g:message code="invitation.requested.invited.on"   default="Invited on" /></th>
-                        <th><g:message code="invitation.requested.invite"       default="Invite" /></th>
-                        <th><g:message code="invitation.requested.dismiss"      default="Dismiss Request" /></th>
+                        <th><g:message code="invitation.requested.name" /></th>
+                        <th><g:message code="invitation.requested.email" /></th>
+                        <th><g:message code="invitation.requested.requested.on" /></th>
+                        <th><g:message code="invitation.requested.invited.on" /></th>
+                        <th><g:message code="invitation.requested.invite" /></th>
+                        <th><g:message code="invitation.requested.dismiss" /></th>
                     </tr>
                 </thead>
                 <tbody>
