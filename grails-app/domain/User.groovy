@@ -16,7 +16,6 @@ class User {
     String activationHash
     Integer dailyWorkingHours
     java.sql.Date birthday
-    Integer points = 0
     Date joined = new Date()
     Boolean remindToInviteCoworkers = true
 
@@ -39,13 +38,6 @@ class User {
                 [user: this, fromDate: _date.clearTime(), toDate: (_date + 1).clearTime()]
         )
         return result[0] > 0
-    }
-
-    int getPoints(){
-      //FIXME: Use default?
-      if (!points)
-        return 0;
-      return points
     }
 
     String toString() {
