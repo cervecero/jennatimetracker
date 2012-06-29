@@ -31,15 +31,16 @@ class PendingUsersController  extends BaseController {
 
       InviteMe inviteMe = InviteMe.get(params.inviteId)
 
-      if (inviteMe){
-        try {
-          sendInvitation(inviteMe)
-          inviteMe.invited=new Date()
-          inviteMe.save(flush:true)
-          flash.message = getMessage(request, "invitation.sent", [inviteMe.name] as Object[])
-        } catch (Exception e) {
-          flash.message = getMessage(request, "invitation.not.sent", [inviteMe.name] as Object[])
-        }
+      if (inviteMe) {
+          try {
+              sendInvitation(inviteMe)
+              inviteMe.invited = new Date()
+              inviteMe.save(flush:true)
+              flash.message = g.message(code: "invitation.sent", args: [inviteMe.name])
+          } catch (Exception e) {
+              log.error("Problem sending invitation", e)
+              flash.message = g.message(code: "invitation.not.sent", args: [inviteMe.name])
+          }
       }
 
       def requestedInvitationsList = InviteMe.findAllByCompany(currentUser.company)
@@ -52,9 +53,9 @@ class PendingUsersController  extends BaseController {
       InviteMe inviteMe = InviteMe.get(params.dismissId)
       if (inviteMe){
         inviteMe.delete(flush:true)
-        flash.message=getMessage(request, "invitation.request.dismissed", [inviteMe.name] as Object[])"User request dismissed: "+inviteMe.name
+        flash.message = g.message(code: "invitation.request.dismissed", args: [inviteMe.name])
       } else {
-        flash.message=getMessage(request, "invitation.request.not.dismissed", [inviteMe.name] as Object[])"There was a problem dismissing the selected request."
+        flash.message = g.message(code: "invitation.request.not.dismissed", args: [inviteMe.name])
       }
 
       def requestedInvitationsList = InviteMe.findAllByCompany(currentUser.company)
@@ -63,7 +64,6 @@ class PendingUsersController  extends BaseController {
     }
 
     void sendInvitation(InviteMe inviteMe){
-
       Invitation invitation = new Invitation()
       invitation.inviter = findLoggedUser()
       invitation.invitee = inviteMe.email
@@ -79,7 +79,7 @@ class PendingUsersController  extends BaseController {
                 from: getMessage(request, 'application.email'),
                 text: getMessage(request, 'invitation.mail.body', [createLink(absolute:true, controller:"register", action:"acceptInvitation", params:[code:invitation.code])] as Object[])
         ]
-        emailerService.sendEmails([email])
+        emailerService.sendEmails([email]) // FIXME: This should be in another thread
       }
 
     }
