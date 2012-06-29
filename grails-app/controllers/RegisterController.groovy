@@ -163,7 +163,7 @@ class RegisterController extends BaseController {
               inviteMe.save()
             }
 
-            rememberCompanyOwnerPendingInvitations(company)
+            rememberCompanyOwnerPendingInvitations(company) // FIXME: This should not be here, but in another thread!
 
             render view: 'index', model: [person: cmd, availablesChatTime: TimeZoneUtil.getAvailablePromptTimes(), timeZones: TimeZoneUtil.getAvailableTimeZones(), locales: LocaleUtil.getAvailableLocales()]
             return
