@@ -1,5 +1,13 @@
 <head>
     <meta name="layout" content="main"/>
+    <g:if test="${!person.timeZone}">
+	    <r:require modules="detecttimezone" />
+	    <r:script>
+	        $(document).ready(function() {
+	            $("#timeZone").val(jstz.determine().name());
+	        });
+	    </r:script>
+    </g:if>
 </head>
 
 <body>
@@ -77,9 +85,9 @@
 	                        <g:timeZoneSelect name="timeZone" value="${person.timeZone?.getID()}" />
 	                    However, http://jira.grails.org/browse/GRAILS-6590 prevents us from using it :(                    
 	                    --%>
-                        <g:select name="timeZone"
+                        <g:select id="timeZone" name="timeZone"
                                   from="${timeZones}"
-                                  value="${person.timeZone?.getID()}"/>
+                                  value="${person.timeZone?.getID()}" />
                     </td>
                 </tr>
 

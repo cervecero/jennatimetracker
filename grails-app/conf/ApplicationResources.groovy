@@ -38,4 +38,8 @@ modules = {
         resource id: 'js', url: 'http://code.highcharts.com/highcharts.js', disposition: 'head'
         resource id: 'js', url: 'http://code.highcharts.com/modules/exporting.js', disposition: 'head'
     }
+
+    'detecttimezone' {
+        resource id: 'js', url: [dir: 'js', file: 'detect_timezone.js'], disposition: 'head'
+    }
 }
