@@ -10,6 +10,8 @@ class EffortController extends BaseController {
     // the delete, save and update actions only accept POST requests
     static allowedMethods = [save: "POST", update: "POST", delete: "POST", ajaxGetAssignments: "GET"]
 
+    static FULLCALENDAR_DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd'T'00:00:00")
+
     def beforeInterceptor = [action:this.&auth]
 
 
@@ -60,7 +62,7 @@ class EffortController extends BaseController {
         }
         JSONArray jsonResponse = new JSONArray()
         effortInstanceList.each { Effort effort ->
-            jsonResponse.put([id: effort.id, title: getTitleForEffort(effort), comment: effort.comment  ?: '', currentDate: getDateCalendarFormat(effort.date), start: Math.round(effort.date.getTime()/1000), assignmentList: getAssignmentCalendarFormat(effort.assignment), timeSpent: effort.timeSpent])
+            jsonResponse.put([id: effort.id, title: getTitleForEffort(effort), comment: effort.comment  ?: '', currentDate: g.formatDate(date:effort.date, type: 'date', style:'short'), start: FULLCALENDAR_DATE_FORMATTER.format(effort.date), assignmentList: getAssignmentCalendarFormat(effort.assignment), timeSpent: effort.timeSpent])
         }
         render jsonResponse.toString()
     }
@@ -94,19 +96,9 @@ class EffortController extends BaseController {
         }
         JSONArray jsonResponse = new JSONArray()
         effortInstanceList.each { Effort effort ->
-          jsonResponse.put([id: effort.id, title: getTitleForEffort(effort), comment: effort.comment ?: '', currentDate: getDateCalendarFormat(effort.date), start: Math.round(effort.date.getTime()/1000), assignmentList: getAssignmentCalendarFormat(effort.assignment), timeSpent: effort.timeSpent])
+          jsonResponse.put([id: effort.id, title: getTitleForEffort(effort), comment: effort.comment ?: '', currentDate: g.formatDate(date:effort.date, type: 'date', style:'short'), start: FULLCALENDAR_DATE_FORMATTER.format(effort.date), assignmentList: getAssignmentCalendarFormat(effort.assignment), timeSpent: effort.timeSpent])
         }
         render jsonResponse.toString()
-    }
-
-    private String getDateCalendarFormat(Date date) {
-      SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy")
-      String dateString = ""
-      if (date != null){
-        dateString = sdf.format(date)
-      }
-      return dateString
-
     }
 
     private String getAssignmentCalendarFormat(Assignment ass){
