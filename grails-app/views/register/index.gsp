@@ -63,7 +63,7 @@
                     <td valign="top" class="value ${hasErrors(bean: person, field: 'chatTime', 'errors')}">
                         <g:select name="chatTime"
                                   from="${availablesChatTime}"
-                                  value="${person.chatTime}"/>
+                                  value="${person.chatTime ?: '17:00'}"/>
                     </td>
                 </tr>
 
