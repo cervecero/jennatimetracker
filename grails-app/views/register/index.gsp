@@ -98,7 +98,7 @@
                     <td valign="top" class="value ${hasErrors(bean: person, field: 'locale', 'errors')}">
                         <g:select name="locale"
                                   from="${locales}"
-                                  value="${person.locale}"
+                                  value="${person.locale ?: request.locale.language}"
                                   optionValue="displayName"/>
                     </td>
                 </tr>
