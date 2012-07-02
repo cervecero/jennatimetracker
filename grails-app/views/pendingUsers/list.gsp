@@ -55,7 +55,7 @@
 	                        <td><g:formatDate date="${inviteMeInstance.requested}" /></td>
 	                        <td><g:formatDate date="${inviteMeInstance.invited}" /></td>
 	                        <td>
-                                   <img src="${resource(dir:'images',file:'sendInvitation.png')}" onclick="javascript:sendInvitation(${inviteMeInstance.id})" alt="<g:message code="invitation.requested.dismiss" />" width="16" height="16" />
+                                   <img src="${resource(dir:'images',file:'sendInvitation.png')}" onclick="javascript:sendInvitation(${inviteMeInstance.id})" alt="<g:message code="invitation.requested.invite" />" width="16" height="16" />
 	                        </td>
 	                        <td>
                                    <img class="alignleft" src="${resource(dir:'images',file:'dismissInvitation.png')}" onclick="javascript:dismiss(${inviteMeInstance.id})" alt="<g:message code="invitation.requested.dismiss" />" width="16" height="16" />
