@@ -192,20 +192,6 @@ class EffortController extends BaseController {
     }
 
     // TODO: Not used anymore?
-    private parseTags(params) {
-        def tags = params.tags?.split(',')?.collect { tagName ->
-            tagName = tagName.trim()
-            def tag = Tag.findByName(tagName)
-            if (!tag) {
-                tag = new Tag(name: tagName, category: TagCategory.findByName(TagCategory.CATEGORY_TASK), company: findLoggedUser().company)
-                tag.save()
-            }
-            tag
-        }
-        params.tags = tags
-    }
-
-    // TODO: Not used anymore?
     def show = {
         def effortInstance = Effort.get(params.id)
         if (!effortInstance) {
