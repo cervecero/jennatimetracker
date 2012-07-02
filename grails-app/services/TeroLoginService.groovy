@@ -7,8 +7,10 @@ import org.grails.plugins.springsecurity.service.AuthenticateService
  * Time: 15:08:49
  */
 class TeroLoginService {
+    static expose=['xfire']
 
-   AuthenticateService authenticateService
+    boolean transactional = true
+    AuthenticateService authenticateService
 
    def String[] findUser(String account, String password) {
 
