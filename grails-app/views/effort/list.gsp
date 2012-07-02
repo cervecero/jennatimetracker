@@ -33,9 +33,6 @@
           nextYear: true
         },
         showTime: false,
-        dayClick: function(dayDate) {
-          alert(dayDate);
-        },
         eventRender: function(calEvent, element) {
           var tipContent = "<strong>" + calEvent.assignmentList + "</strong><br/>" + calEvent.currentDate + " - " + calEvent.timeSpent + "<br/>" + "<blockquote>" + calEvent.comment + "</blockquote>";
           $(element).qtip({
