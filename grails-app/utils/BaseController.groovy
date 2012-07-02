@@ -111,14 +111,5 @@ class BaseController {
         codes[0] = _code
         return new DefaultMessageSourceResolvable(codes, _args as Object[])
     }
-
-    DateFormat getDateFormat(HttpServletRequest _request) {
-        Locale locale = getLocale(_request)
-        def pattern = messageSource.getMessage('onlyDate.format', null, locale)
-        return new SimpleDateFormat(pattern, locale)
-    }
-
-    String formatDate(HttpServletRequest _request, Date _date) {
-        return getDateFormat(_request).format(_date)
-    }
+    
 }

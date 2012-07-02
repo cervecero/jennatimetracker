@@ -244,26 +244,6 @@ class AssignmentController extends BaseController {
         }
     }
 
-    def ajaxEdit = {
-        def assignment = Assignment.get(params.id)
-        if (!assignment || assignment.project.company != findLoggedUser().company) {
-            flash.message = "assignment.not.found"
-            //TODO
-            redirect(action: "list")
-        } else {
-            JSONObject jsonResponse = new JSONObject()
-            jsonResponse.put('ok', true)
-            jsonResponse.put('id', assignment.id)
-            jsonResponse.put('version', assignment.version)
-            jsonResponse.put('userId', assignment.user.id)
-            jsonResponse.put('roleId', assignment.role.id)
-            jsonResponse.put('description', assignment.description)
-            jsonResponse.put('startDate', formatDate(request, assignment.startDate))
-            jsonResponse.put('endDate', formatDate(request, assignment.endDate))
-            jsonResponse.put('active', assignment.active)
-            render jsonResponse.toString()
-        }
-    }
 }
 
 class AssignmentFilterCommand {
