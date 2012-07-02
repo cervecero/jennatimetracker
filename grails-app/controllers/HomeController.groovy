@@ -3,7 +3,6 @@ class HomeController extends BaseController {
     private static final int MAX_PROJECTS_TO_SHOW = 5
 
     def authenticateService
-    def emailerService
     def companyService
 
     def beforeInterceptor = [action:this.&auth]
