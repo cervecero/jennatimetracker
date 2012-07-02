@@ -16,8 +16,8 @@
           <a href="${createLink(action: 'show', id: projectInstance.id)}"><img src="${resource(dir: 'images', file: 'lens_16x16.png')}" border="0"/></a>
         </td>
         <td>${fieldValue(bean: projectInstance, field: "name")}</td>
-        <td><g:formatDate date="${projectInstance.startDate}" formatName='onlyDate.format'/></td>
-        <td><g:formatDate date="${projectInstance.endDate}" formatName='onlyDate.format'/></td>
+        <td><g:formatDate date="${projectInstance.startDate}" type="date" style="short"/></td>
+        <td><g:formatDate date="${projectInstance.endDate}" type="date" style="short"/></td>
       </tr>
     </g:each>
     </tbody>

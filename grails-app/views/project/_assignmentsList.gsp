@@ -13,8 +13,8 @@
       <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
         <td  style="color:black"><a href="javascript:editAssignment(${assignment.id});" style="color:black">${fieldValue(bean: assignment, field: "user.name")}</a></td>
         <td style="color:black">${fieldValue(bean: assignment, field: "role.name")}</td>
-        <td style="color:black"><g:formatDate date="${assignment.startDate}" formatName="onlyDate.format"/></td>
-        <td style="color:black"><g:formatDate date="${assignment.endDate}" formatName="onlyDate.format"/></td>
+        <td style="color:black"><g:formatDate date="${assignment.startDate}" type="date" style="short"/></td>
+        <td style="color:black"><g:formatDate date="${assignment.endDate}" type="date" style="short"/></td>
       </tr>
     </g:each>
     </tbody>

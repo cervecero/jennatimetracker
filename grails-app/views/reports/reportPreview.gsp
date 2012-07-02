@@ -30,7 +30,7 @@
             <td>${fieldValue(bean: reportRow, field: "project")}</td>
             <td>${fieldValue(bean: reportRow, field: "role")}</td>
             <td>${fieldValue(bean: reportRow, field: "user")}</td>
-            <td><g:formatDate date="${reportRow.date}" formatName='onlyDate.format'/></td>
+            <td><g:formatDate date="${reportRow.date}" type="date" style="short"/></td>
             <td>${fieldValue(bean: reportRow, field: "timeSpent")}</td>
             <td>${fieldValue(bean: reportRow, field: "comment")}</td>
           </tr>

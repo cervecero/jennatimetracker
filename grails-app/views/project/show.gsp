@@ -178,13 +178,11 @@
             </tr>
             <tr class="prop even">
                 <td valign="top" class="name"><g:message code="project.startDate"/>:</td>
-                <td valign="top" class="value"><g:formatDate date="${projectInstance?.startDate}"
-                                                             formatName='onlyDate.format'/></td>
+                <td valign="top" class="value"><g:formatDate date="${projectInstance?.startDate}" type="date" style="short"/></td>
             </tr>
             <tr class="prop even">
                 <td valign="top" class="name"><g:message code="project.endDate"/>:</td>
-                <td valign="top" class="value"><g:formatDate date="${projectInstance?.endDate}"
-                                                             formatName='onlyDate.format'/></td>
+                <td valign="top" class="value"><g:formatDate date="${projectInstance?.endDate}" type="date" style="short"/></td>
             </tr>
 
             <tr class="prop odd">
