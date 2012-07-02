@@ -164,11 +164,11 @@
 
 		<div class="div-new-dashboard">
 
-			<div class="div-new-dashboard-title">Dashboard</div>
+			<div class="div-new-dashboard-title"><g:message code="dashboard.title"/></div>
 
 			<div class="div-new-dashboard-row">
 				<div class="div-new-dashboard-column">
-					<div class="div-new-dashboard-column-title">New Projects</div>
+					<div class="div-new-dashboard-column-title"><g:message code="dashboard.section.new.projects"/></div>
 					<div class="div-new-dashboard-column-content">
 						<ul>
                             <g:each in="${newProjects}" var="project">
@@ -176,7 +176,7 @@
                             </g:each>
                         </ul>
 					</div>
-					<div class="div-new-dashboard-column-title">New Birthdays</div>
+					<div class="div-new-dashboard-column-title"><g:message code="dashboard.section.birthdays"/></div>
 					<div class="div-new-dashboard-column-content">
 						<ul>
                             <g:each in="${birthdays}" var="user">
@@ -186,18 +186,18 @@
 					</div>
 				</div>
 				<div class="div-new-dashboard-column div-margin">
-					<div class="div-new-dashboard-column-title">Hours by Projects</div>
+					<div class="div-new-dashboard-column-title"><g:message code="dashboard.section.hours.by.project"/></div>
 					<div id="container"></div>
 				</div>
 				<div class="div-new-dashboard-column">
-					<div class="div-new-dashboard-column-title">My Efforts</div>
+					<div class="div-new-dashboard-column-title"><g:message code="dashboard.section.my.efforts"/></div>
 					<div id="container3"></div>
 				</div>
 			</div>
 
 			<div class="div-new-dashboard-row">
 				<div class="div-new-dashboard-column">
-					<div class="div-new-dashboard-column-title">My Projects</div>
+					<div class="div-new-dashboard-column-title"><g:message code="dashboard.section.my.projects"/></div>
 					<div class="div-new-dashboard-column-content2">
 					   <ul>
                             <g:each in="${myProjects}" var="project">
@@ -211,11 +211,11 @@
 					</div>
 				</div>
 				<div class="div-new-dashboard-column div-margin">
-					<div class="div-new-dashboard-column-title">Knowledge Ranking</div>
+					<div class="div-new-dashboard-column-title"><g:message code="dashboard.section.knowledge.ranking"/></div>
 					<div id="container2"></div>
 				</div>
 				<div class="div-new-dashboard-column">
-					<div class="div-new-dashboard-column-title">My Team Partners</div>
+					<div class="div-new-dashboard-column-title"><g:message code="dashboard.section.my.team.partners"/></div>
 					<div class="div-new-dashboard-column-content2">
 						<ul>
                             <g:each in="${myPartners}" var="partner">
