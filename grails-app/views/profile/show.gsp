@@ -156,12 +156,6 @@
                     <table>
                         <tr class="prop odd">
                             <td valign="top" class="name">
-                                <g:message code="user.points" default="Points"/>:
-                            </td>
-                            <td valign="top" class="name">
-                                <h2 style="color:black;">${userInstance.points}</h2>
-                            </td>
-                            <td valign="top" class="name">
                                 <g:message code="user.historic.ranking" default="Historic Ranking"/>:
                             </td>
                             <td valign="top" class="name">
