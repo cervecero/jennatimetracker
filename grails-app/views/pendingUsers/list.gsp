@@ -42,8 +42,7 @@
                         <th><g:message code="invitation.requested.email" /></th>
                         <th><g:message code="invitation.requested.requested.on" /></th>
                         <th><g:message code="invitation.requested.invited.on" /></th>
-                        <th><g:message code="invitation.requested.invite" /></th>
-                        <th><g:message code="invitation.requested.dismiss" /></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,10 +54,10 @@
 	                        <td><g:formatDate date="${inviteMeInstance.requested}" /></td>
 	                        <td><g:formatDate date="${inviteMeInstance.invited}" /></td>
 	                        <td>
+	                           <g:if test="${! inviteMeInstance.invited }">
                                    <img src="${resource(dir:'images',file:'sendInvitation.png')}" onclick="javascript:sendInvitation(${inviteMeInstance.id})" alt="<g:message code="invitation.requested.invite" />" width="16" height="16" />
-	                        </td>
-	                        <td>
-                                   <img class="alignleft" src="${resource(dir:'images',file:'dismissInvitation.png')}" onclick="javascript:dismiss(${inviteMeInstance.id})" alt="<g:message code="invitation.requested.dismiss" />" width="16" height="16" />
+                                   <img src="${resource(dir:'images',file:'dismissInvitation.png')}" onclick="javascript:dismiss(${inviteMeInstance.id})" alt="<g:message code="invitation.requested.dismiss" />" width="16" height="16" />
+	                           </g:if>
 	                        </td>
 	                    </tr>
                     </g:each>
