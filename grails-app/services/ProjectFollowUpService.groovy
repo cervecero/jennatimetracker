@@ -105,7 +105,7 @@ and m.date >= :minDate and m.date < :maxDate and m.deleted = false
 
     def sendEmailsToTeamLeaders(company) {
         Project.withTransaction {
-            def maxDate = new Date().onlyDate
+            def maxDate = new Date().clearTime()
             def minDate = maxDate - 7
             def projects = Project.executeQuery(
                     '''select p
