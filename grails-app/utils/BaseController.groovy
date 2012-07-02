@@ -21,11 +21,6 @@ class BaseController {
 
     MessageSource messageSource
 
-    boolean checkCompany(def _account) {
-        User user = User.findByAccount(_account)
-        return findLoggedUser().company == user?.company
-    }
-
     boolean isAuthenticated() {
         def authPrincipal = SecurityContextHolder?.context?.authentication?.principal
         return authPrincipal != null && authPrincipal != 'anonymousUser'
