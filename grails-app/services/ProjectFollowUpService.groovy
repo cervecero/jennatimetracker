@@ -12,7 +12,7 @@ class ProjectFollowUpService {
 
     MessageSource messageSource
     ExportService exportService
-    EmailerService emailerService
+    EmailNotificationService emailNotificationService
 
     def listEffortsGrouped(project, minDate, maxDate) {
         def effortsGrouped = User.executeQuery(
@@ -121,14 +121,16 @@ and p.startDate <= :maxDate and p.endDate >= :minDate''',
                         reportFile = File.createTempFile(p.name, '.pdf')
                         def outputStream = new FileOutputStream(reportFile)
                         exportProjectFollowUp('pdf', p.teamLeader.locale, outputStream, p.name, efforts)
-                        def email = [
-                                to: [p.teamLeader.account],
-                                subject: getMessage(p.teamLeader.locale, 'email.projectFollowUp.subject', [p.name] as Object[]),
-                                from: getMessage(p.teamLeader.locale, 'application.email'),
-                                text: getMessage(p.teamLeader.locale, 'email.projectFollowUp.body', [p.name, minDate, maxDate] as Object[]),
-                                attachments: [reportFile]
+                        def model = [
+                            recipient: p.teamLeader, project: p,
+                            from: messageSource.getMessage("default.date.formatted.short", [minDate] as Object[], p.teamLeader.locale),
+                            to: messageSource.getMessage("default.date.formatted.short", [maxDate] as Object[], p.teamLeader.locale)
                         ]
-                        emailerService.sendEmails([email])
+                        emailNotificationService.sendNotification(p.teamLeader,
+                            messageSource.getMessage('email.projectFollowUp.subject', [p.name] as Object[], p.teamLeader.locale),
+                            'projectFollowUp',
+                            model,
+                            [reportFile])
                     } finally {
                         FileUtils.deleteQuietly(reportFile)
                     }
