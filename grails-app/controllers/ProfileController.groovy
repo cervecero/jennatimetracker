@@ -1,7 +1,6 @@
 class ProfileController extends BaseController {
 
     def authenticateService
-    def emailerService
     DatabaseService databaseService
 
     def index = { redirect(action: "show", params: params) }
