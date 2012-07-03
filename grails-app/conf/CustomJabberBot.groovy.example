@@ -8,6 +8,7 @@ environments {
         reminder.cronExpression = '0 0 * ? * *'
         projectFollowUp.cronExpression = '0 0 9 ? * FRI'
         knowledgeHeadsUp.cronExpression = '0 0 9 ? * MON'
+        moodWarningHeadsUp.cronExpression = '0 0 9 ? * MON-FRI'
 
         jabber.host = 'gmail.com'
         jabber.username = 'your_jabber_user'

@@ -1,0 +1,11 @@
+<p>Hello ${recipient}<p>
+
+<p>Seems like this people's mood got worse from ${from} to ${to}:</p>
+
+<ul>
+    <% moodWarnings.each { m -> %>
+            <li>${m.key}</li>
+    <% } %>
+</ul>
+
+<p>Maybe you should talk to them ;)</p>

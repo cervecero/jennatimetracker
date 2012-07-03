@@ -120,10 +120,10 @@
 </head>
 <body>
 <div id="main">
-    <div id="header">
+    <header id="header">
       <h1><a href="${resource(dir:'/',file:'')}" class="style8">Jenna Timetracker</a></h1>
       <p id="subHeading"><g:message code="app.tagline"/></p>
-    </div>
+    </header>
 
 
 
