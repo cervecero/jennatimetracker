@@ -446,7 +446,7 @@ class ReportsController extends BaseController {
   def mood = {
 
     def user = findLoggedUser()
-    def userList = User.findAllByCompany(user.company)
+    def userList = User.findAllByCompany(user.company, [sort: 'name'])
 
     def now = new Date()
     def month = params.selectedMonth ? Integer.parseInt(params.selectedMonth) - 1 : now.month
