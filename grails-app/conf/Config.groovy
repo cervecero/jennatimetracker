@@ -68,6 +68,11 @@ jenna.authorizations = [
         'ActiveAssignmentsRequestHandler': [Permission.ROLE_USER]
 ]
 
+// Avatars: gravatar.com
+avatarPlugin {
+  gravatarRating="G"
+}
+
 // log4j configuration
 log4j = { root ->
 

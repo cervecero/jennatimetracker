@@ -145,7 +145,7 @@
                 </td>
                 <td valign="top">
                     <span>
-                        <avatar:gravatar email="${userInstance.account}" size="75"/>
+                        <avatar:gravatar email="${userInstance.account}" size="75" defaultGravatarUrl="${ resource(dir:'images', file:'noavatar.png', absolute: true) }"/>
                     </span>
                 </td>
             </tr>
