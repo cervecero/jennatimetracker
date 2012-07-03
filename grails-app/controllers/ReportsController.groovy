@@ -449,16 +449,16 @@ class ReportsController extends BaseController {
     def userList = User.findAllByCompany(user.company, [sort: 'name'])
 
     def now = new Date()
-    def month = params.selectedMonth ? Integer.parseInt(params.selectedMonth) - 1 : now.month
-    def year = params.selectedYear ? Integer.parseInt(params.selectedYear) : now.year + 1900
+    def chosenMonth = params.selectedMonth ? Integer.parseInt(params.selectedMonth) - 1 : now.month
+    def chosenYear = params.selectedYear ? Integer.parseInt(params.selectedYear) : now.year + 1900
 
     // 'selectedUser' should be selected only if requester is PROJECT LEADER or COMPANY OWNER
     if (params.selectedUser){
       user = User.get(Integer.parseInt(params.selectedUser))
     }
 
-    GregorianCalendar beginningOfMonth = new GregorianCalendar(year, month, 1)
-    GregorianCalendar endOfMonth = new GregorianCalendar(year, month, beginningOfMonth.getActualMaximum(GregorianCalendar.DAY_OF_MONTH))
+    GregorianCalendar beginningOfMonth = new GregorianCalendar(chosenYear, chosenMonth, 1)
+    GregorianCalendar endOfMonth = new GregorianCalendar(chosenYear, chosenMonth, beginningOfMonth.getActualMaximum(GregorianCalendar.DAY_OF_MONTH))
 
     def mood = UserMood.withCriteria {
       eq("user", user)
@@ -473,7 +473,7 @@ class ReportsController extends BaseController {
 
     def companyMood = databaseService.getCompanyMood(user, beginningOfMonth.getTime(), endOfMonth.getTime())
 
-    render(view: 'mood', model: [user:user, companyMood: companyMood, userMood: userMood, yearList: databaseService.findAvailableYears(), usersList: userList])
+    render(view: 'mood', model: [user:user, companyMood: companyMood, userMood: userMood, month: chosenMonth+1, year: chosenYear, yearList: databaseService.findAvailableYears(), usersList: userList])
   }
 
     def final COLORS = ['#A2EF00', '#00B945', '#FFEF00', '#88B32D', '#238B49', '#BFB630', '#699B00', '#00782D', '#A69C00', '#BBF73E', '#37DC74', '#FFF340', '#CBF76F', '#63DC90', '#FFF673']
