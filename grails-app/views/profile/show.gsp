@@ -121,8 +121,14 @@
                     <label for="timeZone"><g:message code="user.timeZone" default="Time Zone"/>:</label>
                 </td>
                 <td valign="top" class="value ${hasErrors(bean: userInstance, field: 'timeZone', 'errors')}">
-                    <g:timeZoneSelect name="timeZone" from="${timeZones}"
-                                      value="${userInstance?.timeZone}"/>
+                    <%--
+                        Would be nice to use:
+                            <g:timeZoneSelect name="timeZone" value="${person.timeZone?.getID()}" />
+                        However, http://jira.grails.org/browse/GRAILS-6590 prevents us from using it :(                    
+                        --%>
+                        <g:select id="timeZone" name="timeZone"
+                                  from="${timeZones}"
+                                  value="${userInstance.timeZone?.getID()}" />
                 </td>
             </tr>
 
