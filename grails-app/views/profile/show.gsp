@@ -139,7 +139,7 @@
             <tr class="prop odd">
                 <td valign="top" class="name">
                     <a href="http://www.gravatar.com" title="<g:message code='user.gravatar'/>">
-                        <img src="${resource(dir: 'images', file: 'gravatar_icon.jpg')}" width="25" height="25">
+                        <img style="vertical-align:middle" src="${resource(dir: 'images', file: 'gravatar.png')}" width="30" height="30">
                         Gravatar:
                     </a>
                 </td>
