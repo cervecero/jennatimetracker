@@ -138,13 +138,13 @@
 
             <tr class="prop odd">
                 <td valign="top" class="name">
-                    <a href="http://www.gravatar.com">
+                    <a href="http://www.gravatar.com" title="<g:message code='user.gravatar'/>">
                         <img src="${resource(dir: 'images', file: 'gravatar_icon.jpg')}" width="25" height="25">
-                        <g:message code="user.avatar" default="Gravatar"/>:
+                        Gravatar:
                     </a>
                 </td>
                 <td valign="top">
-                    <span alt="lala">
+                    <span>
                         <avatar:gravatar email="${userInstance.account}" size="75"/>
                     </span>
                 </td>
