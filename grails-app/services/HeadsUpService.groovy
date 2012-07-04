@@ -50,13 +50,15 @@ order by um.date desc''',
                 moodPerUser[m.user].add(m.value)
             }
             def moodWarnings = moodPerUser.findAll { it.value.size() >= 2 && (it.value[-1] <= 2 || it.value[-1] < it.value[-2]-2) }
-            def model = [
-                    recipient: project.teamLeader, moodWarnings: moodWarnings,
-                    from: messageSource.getMessage("default.date.formatted.short", [from] as Object[], project.teamLeader.locale),
-                    to: messageSource.getMessage("default.date.formatted.short", [to] as Object[], project.teamLeader.locale)
-                ]
-            emailNotificationService.sendNotification(project.teamLeader, messageSource.getMessage('mood.heads.up.subject', [project] as Object[], project.teamLeader.locale), 'moodHeadsUp', model)
-            log.info("Report for ${project.teamLeader} sent")
+            if (moodWarnings) {
+                def model = [
+                        recipient: project.teamLeader, moodWarnings: moodWarnings,
+                        from: messageSource.getMessage("default.date.formatted.short", [from] as Object[], project.teamLeader.locale),
+                        to: messageSource.getMessage("default.date.formatted.short", [to] as Object[], project.teamLeader.locale)
+                    ]
+                emailNotificationService.sendNotification(project.teamLeader, messageSource.getMessage('mood.heads.up.subject', [project] as Object[], project.teamLeader.locale), 'moodHeadsUp', model)
+                log.info("Report for ${project.teamLeader} sent")
+            }
         }
     }
 }
