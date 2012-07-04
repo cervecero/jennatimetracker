@@ -195,8 +195,8 @@
                 $("#versionEdit").val(response.versionEdit);
                 $("#nameEdit").val(response.nameEdit);
                 $("#descriptionEdit").val(response.descriptionEdit);
-                $("#startDateEdit_datePicker").val(response.startDateEdit);
-                $("#endDateEdit_datePicker").val(response.endDateEdit);
+                $("#startDateEdit_datePicker").datepicker('setDate', response.startDateEdit);
+                $("#endDateEdit_datePicker").datepicker('setDate', response.endDateEdit);
 
                 var activeEdit = response.activeEdit;
 
@@ -288,11 +288,11 @@
             <g:textArea name="descriptionEdit" rows="3" cols="40"/>
 
             <label for="startDateEdit"><g:message code="project.startDate" default="Start Date"/>:</label>
-            <jquery:datePicker name="startDateEdit" onclick="disableCalendarInput()" format="MM/dd/yyyy"
+            <jquery:datePicker id="startDateEdit" name="startDateEdit" onclick="disableCalendarInput()" format="MM/dd/yyyy"
                                jsformat="mm/dd/yy"/>
 
             <label for="endDateEdit"><g:message code="project.endDate" default="End Date"/>:</label>
-            <jquery:datePicker name="endDateEdit" onclick="disableCalendarInput()" format="MM/dd/yyyy"
+            <jquery:datePicker id="endDateEdit" name="endDateEdit" onclick="disableCalendarInput()" format="MM/dd/yyyy"
                                jsformat="mm/dd/yy"/>
 
             <label for="activeEdit"><g:message code="projectActive" default="Project is active"/>:</label>

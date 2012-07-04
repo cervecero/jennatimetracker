@@ -10,6 +10,8 @@ import grails.converters.JSON
 class ProjectController extends BaseController {
 
     static allowedMethods = [ajaxSave: "POST"]
+    static DATEPICKER_DATEFORMAT = new SimpleDateFormat("MM/dd/yyyy")
+
     DatabaseService databaseService
 
     def beforeInterceptor = [action: this.&auth]
@@ -167,10 +169,8 @@ class ProjectController extends BaseController {
                 projectInstance.errors.rejectValue("version", "project.optimistic.locking.failure", "Another user has updated this Project while you were editing")
                 jsonResponse = buildJsonErrorResponse(request, projectInstance.errors)
             } else {
-                String startDateString = "${params.startDateEdit_year}/${params.startDateEdit_month}/${params.startDateEdit_day}"
-                String endDateString = "${params.endDateEdit_year}/${params.endDateEdit_month}/${params.endDateEdit_day}"
-                Date startDate = new SimpleDateFormat("yyyy/MM/dd").parse(startDateString)
-                Date endDate = new SimpleDateFormat("yyyy/MM/dd").parse(endDateString)
+                Date startDate = DATEPICKER_DATEFORMAT.parse(params.startDateEdit_datePicker)
+                Date endDate = DATEPICKER_DATEFORMAT.parse(params.endDateEdit_datePicker)
 
                 projectInstance.name = params.nameEdit
                 projectInstance.description = params.descriptionEdit
@@ -223,10 +223,8 @@ class ProjectController extends BaseController {
             jsonResponse.put('activeEdit', projectInstance.active)
             jsonResponse.put('billableEdit', projectInstance.billable)
 
-            def f = new SimpleDateFormat('MM/dd/yyyy')
-
-            jsonResponse.put('startDateEdit', f.format(projectInstance.startDate))
-            jsonResponse.put('endDateEdit', f.format(projectInstance.endDate))
+            jsonResponse.put('startDateEdit', DATEPICKER_DATEFORMAT.format(projectInstance.startDate))
+            jsonResponse.put('endDateEdit', DATEPICKER_DATEFORMAT.format(projectInstance.endDate))
 
             render jsonResponse.toString()
         }
