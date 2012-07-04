@@ -138,7 +138,7 @@
                 </td>
                 <td valign="top" class="value ${hasErrors(bean: userInstance, field: 'birthday', 'errors')}">
                     <jquery:datePicker name="birthday" format="MM/dd/yyyy"
-                                       value="${userInstance?.birthday}"/> (MM/dd/yyyy)
+                                        value="${userInstance?.birthday ?: 'none'}"/> (MM/dd/yyyy)
                 </td>
             </tr>
 
