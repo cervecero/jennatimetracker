@@ -25,6 +25,4 @@ class Learning {
     static mapping = {
         description type: 'text'
     }
-
-    static transients = ['descripcionConLinks']
 }
