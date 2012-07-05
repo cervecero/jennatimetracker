@@ -31,13 +31,15 @@ class SafeHTMLCodecTest extends GrailsUnitTestCase {
 	void testLinksAreConverted() {
 		def message = "I really like http://9gag.com"
 		def safeMessage = SafeHTMLCodec.encode(message)
-		assert safeMessage.contains('<a href=')
+		assert safeMessage.contains("<a href='http://9gag.com'")
 		assert safeMessage.contains('</a>')
 	}
 
 	void testLinkWithJavascriptOnClickGetsSanitized() {
-		def message = "I really like <a href='http://9gag.com' onclick='javascript:alert(\'Hello World!\')'/>"
+		def message = "I really like <a href='http://9gag.com' onclick='javascript:alert(\'Hello World!\')'>9gag</a"
 		def safeMessage = SafeHTMLCodec.encode(message)
-		assert !safeMessage.contains('<script')
+		assert safeMessage.contains("I really like &lt;a href=")
+        assert safeMessage.contains("<a href='http://9gag.com'")
+        assert safeMessage.contains('</a>')
 	}
 }

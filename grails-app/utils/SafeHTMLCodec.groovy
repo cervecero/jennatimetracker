@@ -13,7 +13,8 @@ public class SafeHTMLCodec {
 		"&lt;b&gt;": "<b>",
 		"&lt;/b&gt;": "</b>",
 		"\n": "<br>",
-		/(?:http|https|ftp)\:\S+/: { "<a href=\'${it}\' target='_blank'>${it}</a>" }
+        "&#39;": "'",
+		/(?:http|https|ftp)\:[a-zA-Z0-9\+&@#\/%=~_.]*/: { "<a href='${it}' target='_blank'>${it}</a>" },
 		]
 
 	static encode = { obj ->
