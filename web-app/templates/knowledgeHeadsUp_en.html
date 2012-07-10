@@ -5,7 +5,7 @@
 	
 	<ul>
 	    <% newKnowledge.each { learning -> %>
-	            <li>${learning.description} - ${learning.user}</li>
+	            <li>${learning.description.encodeAsSafeHTML()} - ${learning.user}</li>
 	    <% } %>
     </ul>
 <% } else { %>
