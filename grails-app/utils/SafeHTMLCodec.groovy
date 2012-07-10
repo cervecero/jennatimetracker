@@ -6,6 +6,8 @@ import org.codehaus.groovy.grails.plugins.codecs.HTMLCodec
  * 
  * Specially useful if you want to show some user input's HTML, but disallow js injection or DOM manipulation
  * @author Mariano Simone
+ * 
+ * FIXME: What about http://snimavat.github.com/html-cleaner/
  *
  */
 public class SafeHTMLCodec {
